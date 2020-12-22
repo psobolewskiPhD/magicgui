@@ -1,0 +1,49 @@
+﻿ComboBox
+========
+
+.. currentmodule:: magicgui.widgets
+
+.. autoclass:: ComboBox
+
+   
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+   
+      
+      
+      ~ComboBox.hide
+      
+      
+      ~ComboBox.render
+      
+      
+      ~ComboBox.reset_choices
+      
+      
+      ~ComboBox.show
+      
+      
+      ~ComboBox.shown
+      
+   
+   
+
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+   
+      ~ComboBox.choices
+      ~ComboBox.enabled
+      ~ComboBox.label
+      ~ComboBox.native
+      ~ComboBox.options
+      ~ComboBox.parent
+      ~ComboBox.value
+      ~ComboBox.widget_type
+   
+   
