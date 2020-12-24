@@ -38,7 +38,9 @@
       ~Widget.label
       ~Widget.native
       ~Widget.options
+      ~Widget.param_kind
       ~Widget.parent
       ~Widget.widget_type
+      ~Widget.width
    
    

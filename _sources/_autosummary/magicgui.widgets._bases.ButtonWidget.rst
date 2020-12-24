@@ -38,9 +38,11 @@
       ~ButtonWidget.label
       ~ButtonWidget.native
       ~ButtonWidget.options
+      ~ButtonWidget.param_kind
       ~ButtonWidget.parent
       ~ButtonWidget.text
       ~ButtonWidget.value
       ~ButtonWidget.widget_type
+      ~ButtonWidget.width
    
    

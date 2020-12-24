@@ -38,8 +38,10 @@
       ~TextEdit.label
       ~TextEdit.native
       ~TextEdit.options
+      ~TextEdit.param_kind
       ~TextEdit.parent
       ~TextEdit.value
       ~TextEdit.widget_type
+      ~TextEdit.width
    
    

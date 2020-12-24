@@ -38,8 +38,10 @@
       ~ValueWidget.label
       ~ValueWidget.native
       ~ValueWidget.options
+      ~ValueWidget.param_kind
       ~ValueWidget.parent
       ~ValueWidget.value
       ~ValueWidget.widget_type
+      ~ValueWidget.width
    
    

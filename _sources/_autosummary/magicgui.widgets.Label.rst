@@ -38,8 +38,10 @@
       ~Label.label
       ~Label.native
       ~Label.options
+      ~Label.param_kind
       ~Label.parent
       ~Label.value
       ~Label.widget_type
+      ~Label.width
    
    

@@ -36,14 +36,16 @@
    
       ~FloatSpinBox.enabled
       ~FloatSpinBox.label
-      ~FloatSpinBox.maximum
-      ~FloatSpinBox.minimum
+      ~FloatSpinBox.max
+      ~FloatSpinBox.min
       ~FloatSpinBox.native
       ~FloatSpinBox.options
+      ~FloatSpinBox.param_kind
       ~FloatSpinBox.parent
       ~FloatSpinBox.range
       ~FloatSpinBox.step
       ~FloatSpinBox.value
       ~FloatSpinBox.widget_type
+      ~FloatSpinBox.width
    
    

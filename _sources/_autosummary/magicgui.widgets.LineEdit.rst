@@ -38,8 +38,10 @@
       ~LineEdit.label
       ~LineEdit.native
       ~LineEdit.options
+      ~LineEdit.param_kind
       ~LineEdit.parent
       ~LineEdit.value
       ~LineEdit.widget_type
+      ~LineEdit.width
    
    

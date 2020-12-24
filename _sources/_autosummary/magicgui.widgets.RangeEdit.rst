@@ -78,13 +78,16 @@
    
       ~RangeEdit.enabled
       ~RangeEdit.label
+      ~RangeEdit.labels
       ~RangeEdit.margins
       ~RangeEdit.native
       ~RangeEdit.native_layout
       ~RangeEdit.options
       ~RangeEdit.orientation
+      ~RangeEdit.param_kind
       ~RangeEdit.parent
       ~RangeEdit.value
       ~RangeEdit.widget_type
+      ~RangeEdit.width
    
    

@@ -78,14 +78,17 @@
    
       ~FileEdit.enabled
       ~FileEdit.label
+      ~FileEdit.labels
       ~FileEdit.margins
       ~FileEdit.mode
       ~FileEdit.native
       ~FileEdit.native_layout
       ~FileEdit.options
       ~FileEdit.orientation
+      ~FileEdit.param_kind
       ~FileEdit.parent
       ~FileEdit.value
       ~FileEdit.widget_type
+      ~FileEdit.width
    
    

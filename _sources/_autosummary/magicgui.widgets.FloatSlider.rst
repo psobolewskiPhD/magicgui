@@ -36,14 +36,16 @@
    
       ~FloatSlider.enabled
       ~FloatSlider.label
-      ~FloatSlider.maximum
-      ~FloatSlider.minimum
+      ~FloatSlider.max
+      ~FloatSlider.min
       ~FloatSlider.native
       ~FloatSlider.options
+      ~FloatSlider.param_kind
       ~FloatSlider.parent
       ~FloatSlider.range
       ~FloatSlider.step
       ~FloatSlider.value
       ~FloatSlider.widget_type
+      ~FloatSlider.width
    
    

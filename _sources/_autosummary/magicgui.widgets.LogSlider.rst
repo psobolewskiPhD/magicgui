@@ -37,14 +37,16 @@
       ~LogSlider.base
       ~LogSlider.enabled
       ~LogSlider.label
-      ~LogSlider.maximum
-      ~LogSlider.minimum
+      ~LogSlider.max
+      ~LogSlider.min
       ~LogSlider.native
       ~LogSlider.options
+      ~LogSlider.param_kind
       ~LogSlider.parent
       ~LogSlider.range
       ~LogSlider.step
       ~LogSlider.value
       ~LogSlider.widget_type
+      ~LogSlider.width
    
    

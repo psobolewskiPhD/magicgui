@@ -36,14 +36,16 @@
    
       ~SpinBox.enabled
       ~SpinBox.label
-      ~SpinBox.maximum
-      ~SpinBox.minimum
+      ~SpinBox.max
+      ~SpinBox.min
       ~SpinBox.native
       ~SpinBox.options
+      ~SpinBox.param_kind
       ~SpinBox.parent
       ~SpinBox.range
       ~SpinBox.step
       ~SpinBox.value
       ~SpinBox.widget_type
+      ~SpinBox.width
    
    

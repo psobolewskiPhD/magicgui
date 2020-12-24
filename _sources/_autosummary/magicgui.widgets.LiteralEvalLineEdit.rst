@@ -38,8 +38,10 @@
       ~LiteralEvalLineEdit.label
       ~LiteralEvalLineEdit.native
       ~LiteralEvalLineEdit.options
+      ~LiteralEvalLineEdit.param_kind
       ~LiteralEvalLineEdit.parent
       ~LiteralEvalLineEdit.value
       ~LiteralEvalLineEdit.widget_type
+      ~LiteralEvalLineEdit.width
    
    

@@ -38,9 +38,11 @@
       ~PushButton.label
       ~PushButton.native
       ~PushButton.options
+      ~PushButton.param_kind
       ~PushButton.parent
       ~PushButton.text
       ~PushButton.value
       ~PushButton.widget_type
+      ~PushButton.width
    
    

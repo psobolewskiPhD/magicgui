@@ -38,9 +38,11 @@
       ~RadioButton.label
       ~RadioButton.native
       ~RadioButton.options
+      ~RadioButton.param_kind
       ~RadioButton.parent
       ~RadioButton.text
       ~RadioButton.value
       ~RadioButton.widget_type
+      ~RadioButton.width
    
    

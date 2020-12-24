@@ -36,14 +36,16 @@
    
       ~RangedWidget.enabled
       ~RangedWidget.label
-      ~RangedWidget.maximum
-      ~RangedWidget.minimum
+      ~RangedWidget.max
+      ~RangedWidget.min
       ~RangedWidget.native
       ~RangedWidget.options
+      ~RangedWidget.param_kind
       ~RangedWidget.parent
       ~RangedWidget.range
       ~RangedWidget.step
       ~RangedWidget.value
       ~RangedWidget.widget_type
+      ~RangedWidget.width
    
    

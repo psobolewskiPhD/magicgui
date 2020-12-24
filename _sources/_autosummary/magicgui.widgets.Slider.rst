@@ -36,14 +36,16 @@
    
       ~Slider.enabled
       ~Slider.label
-      ~Slider.maximum
-      ~Slider.minimum
+      ~Slider.max
+      ~Slider.min
       ~Slider.native
       ~Slider.options
+      ~Slider.param_kind
       ~Slider.parent
       ~Slider.range
       ~Slider.step
       ~Slider.value
       ~Slider.widget_type
+      ~Slider.width
    
    
