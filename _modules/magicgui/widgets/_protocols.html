@@ -210,21 +210,8 @@
 <span class=k >class</span> <span class=nc >SupportsOrientation</span><span class=p >(</span><span class=n >Protocol</span><span class=p >):</span>
     <span class=sd >"""Widget that can be reoriented."""</span>
 
-    <span class=nd >@property</span>
-    <span class=k >def</span> <span class=nf >orientation</span><span class=p >(</span><span class=bp >self</span><span class=p >)</span> <span class=o >-&gt;</span> <span class=nb >str</span><span class=p >:</span>
-        <span class=sd >"""Orientation of the widget."""</span>
-        <span class=k >return</span> <span class=bp >self</span><span class=o >.</span><span class=n >_mgui_get_orientation</span><span class=p >()</span>
-
-    <span class=nd >@orientation</span><span class=o >.</span><span class=n >setter</span>
-    <span class=k >def</span> <span class=nf >orientation</span><span class=p >(</span><span class=bp >self</span><span class=p >,</span> <span class=n >value</span><span class=p >:</span> <span class=nb >str</span><span class=p >)</span> <span class=o >-&gt;</span> <span class=kc >None</span><span class=p >:</span>
-        <span class=k >if</span> <span class=n >value</span> <span class=ow >not</span> <span class=ow >in</span> <span class=p >{</span><span class=s2 >"horizontal"</span><span class=p >,</span> <span class=s2 >"vertical"</span><span class=p >}:</span>
-            <span class=k >raise</span> <span class=ne >ValueError</span><span class=p >(</span>
-                <span class=s2 >"Only horizontal and vertical orientation are currently supported"</span>
-            <span class=p >)</span>
-        <span class=bp >self</span><span class=o >.</span><span class=n >_mgui_set_orientation</span><span class=p >(</span><span class=n >value</span><span class=p >)</span>
-
 <div class=viewcode-block  id=SupportsOrientation._mgui_set_orientation ><a class=viewcode-back  href="../../../_autosummary/magicgui.widgets._protocols.SupportsOrientation.html#magicgui.widgets._protocols.SupportsOrientation._mgui_set_orientation">[docs]</a>    <span class=nd >@abstractmethod</span>
-    <span class=k >def</span> <span class=nf >_mgui_set_orientation</span><span class=p >(</span><span class=bp >self</span><span class=p >,</span> <span class=n >value</span><span class=p >)</span> <span class=o >-&gt;</span> <span class=kc >None</span><span class=p >:</span>
+    <span class=k >def</span> <span class=nf >_mgui_set_orientation</span><span class=p >(</span><span class=bp >self</span><span class=p >,</span> <span class=n >value</span><span class=p >:</span> <span class=nb >str</span><span class=p >)</span> <span class=o >-&gt;</span> <span class=kc >None</span><span class=p >:</span>
         <span class=sd >"""Set orientation, value will be 'horizontal' or 'vertical'."""</span>
         <span class=k >raise</span> <span class=ne >NotImplementedError</span><span class=p >()</span></div>
 
