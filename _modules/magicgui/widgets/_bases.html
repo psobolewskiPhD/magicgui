@@ -72,9 +72,11 @@
 <span class=kn >from</span> <span class=nn >magicgui.widgets</span> <span class=kn >import</span> <span class=n >_protocols</span>
 
 <span class=k >if</span> <span class=n >TYPE_CHECKING</span><span class=p >:</span>
+    <span class=kn >from</span> <span class=nn >weakref</span> <span class=kn >import</span> <span class=n >ReferenceType</span>
+
     <span class=kn >import</span> <span class=nn >numpy</span> <span class=k >as</span> <span class=nn >np</span>
 
-    <span class=kn >from</span> <span class=nn >._concrete</span> <span class=kn >import</span> <span class=n >Container</span>
+    <span class=kn >from</span> <span class=nn >._concrete</span> <span class=kn >import</span> <span class=n >Container</span><span class=p >,</span> <span class=n >_LabeledWidget</span>
 
 
 <div class=viewcode-block  id=create_widget ><a class=viewcode-back  href="../../../_autosummary/magicgui.widgets.create_widget.html#magicgui.widgets._bases.create_widget">[docs]</a><span class=k >def</span> <span class=nf >create_widget</span><span class=p >(</span>
@@ -198,6 +200,8 @@
 <span class=sd >    """</span>
 
     <span class=n >_widget</span><span class=p >:</span> <span class=n >_protocols</span><span class=o >.</span><span class=n >WidgetProtocol</span>
+    <span class=c1 ># if this widget becomes owned by a labeled widget</span>
+    <span class=n >_labeled_widget</span><span class=p >:</span> <span class=n >Optional</span><span class=p >[</span><span class=s2 >"ReferenceType[_LabeledWidget]"</span><span class=p >]</span> <span class=o >=</span> <span class=kc >None</span>
 
     <span class=k >def</span> <span class=fm >__init__</span><span class=p >(</span>
         <span class=bp >self</span><span class=p >,</span>
@@ -207,6 +211,7 @@
         <span class=n >label</span><span class=p >:</span> <span class=nb >str</span> <span class=o >=</span> <span class=kc >None</span><span class=p >,</span>
         <span class=n >tooltip</span><span class=p >:</span> <span class=n >Optional</span><span class=p >[</span><span class=nb >str</span><span class=p >]</span> <span class=o >=</span> <span class=kc >None</span><span class=p >,</span>
         <span class=n >visible</span><span class=p >:</span> <span class=nb >bool</span> <span class=o >=</span> <span class=kc >True</span><span class=p >,</span>
+        <span class=n >enabled</span><span class=p >:</span> <span class=nb >bool</span> <span class=o >=</span> <span class=kc >True</span><span class=p >,</span>
         <span class=n >gui_only</span><span class=o >=</span><span class=kc >False</span><span class=p >,</span>
         <span class=n >backend_kwargs</span><span class=o >=</span><span class=nb >dict</span><span class=p >(),</span>
         <span class=o >**</span><span class=n >extra</span><span class=p >,</span>
@@ -233,6 +238,7 @@
         <span class=bp >self</span><span class=o >.</span><span class=n >param_kind</span> <span class=o >=</span> <span class=n >inspect</span><span class=o >.</span><span class=n >Parameter</span><span class=o >.</span><span class=n >POSITIONAL_OR_KEYWORD</span>
         <span class=bp >self</span><span class=o >.</span><span class=n >_label</span> <span class=o >=</span> <span class=n >label</span>
         <span class=bp >self</span><span class=o >.</span><span class=n >tooltip</span> <span class=o >=</span> <span class=n >tooltip</span>
+        <span class=bp >self</span><span class=o >.</span><span class=n >enabled</span> <span class=o >=</span> <span class=n >enabled</span>
         <span class=bp >self</span><span class=o >.</span><span class=n >annotation</span><span class=p >:</span> <span class=n >Any</span> <span class=o >=</span> <span class=n >annotation</span>
         <span class=bp >self</span><span class=o >.</span><span class=n >gui_only</span> <span class=o >=</span> <span class=n >gui_only</span>
         <span class=bp >self</span><span class=o >.</span><span class=n >visible</span><span class=p >:</span> <span class=nb >bool</span> <span class=o >=</span> <span class=kc >True</span>
@@ -287,8 +293,7 @@
     <span class=nd >@property</span>
     <span class=k >def</span> <span class=nf >options</span><span class=p >(</span><span class=bp >self</span><span class=p >)</span> <span class=o >-&gt;</span> <span class=nb >dict</span><span class=p >:</span>
         <span class=sd >"""Return options currently being used in this widget."""</span>
-        <span class=c1 ># return {"enabled": self.enabled, "visible": self.visible}</span>
-        <span class=k >return</span> <span class=p >{</span><span class=s2 >"visible"</span><span class=p >:</span> <span class=bp >self</span><span class=o >.</span><span class=n >visible</span><span class=p >}</span>
+        <span class=k >return</span> <span class=p >{</span><span class=s2 >"enabled"</span><span class=p >:</span> <span class=bp >self</span><span class=o >.</span><span class=n >enabled</span><span class=p >,</span> <span class=s2 >"visible"</span><span class=p >:</span> <span class=bp >self</span><span class=o >.</span><span class=n >visible</span><span class=p >}</span>
 
     <span class=nd >@property</span>
     <span class=k >def</span> <span class=nf >native</span><span class=p >(</span><span class=bp >self</span><span class=p >):</span>
@@ -361,6 +366,10 @@
         <span class=sd >"""Show the widget."""</span>
         <span class=bp >self</span><span class=o >.</span><span class=n >_widget</span><span class=o >.</span><span class=n >_mgui_show_widget</span><span class=p >()</span>
         <span class=bp >self</span><span class=o >.</span><span class=n >visible</span> <span class=o >=</span> <span class=kc >True</span>
+        <span class=k >if</span> <span class=bp >self</span><span class=o >.</span><span class=n >_labeled_widget</span> <span class=ow >is</span> <span class=ow >not</span> <span class=kc >None</span><span class=p >:</span>
+            <span class=n >w</span> <span class=o >=</span> <span class=bp >self</span><span class=o >.</span><span class=n >_labeled_widget</span><span class=p >()</span>
+            <span class=k >if</span> <span class=n >w</span><span class=p >:</span>
+                <span class=n >w</span><span class=o >.</span><span class=n >show</span><span class=p >()</span>
         <span class=k >if</span> <span class=n >run</span><span class=p >:</span>
             <span class=bp >self</span><span class=o >.</span><span class=n >__magicgui_app__</span><span class=o >.</span><span class=n >run</span><span class=p >()</span>
         <span class=k >return</span> <span class=bp >self</span>  <span class=c1 ># useful for generating repr in sphinx</span>
@@ -378,6 +387,10 @@
         <span class=sd >"""Hide widget."""</span>
         <span class=bp >self</span><span class=o >.</span><span class=n >_widget</span><span class=o >.</span><span class=n >_mgui_hide_widget</span><span class=p >()</span>
         <span class=bp >self</span><span class=o >.</span><span class=n >visible</span> <span class=o >=</span> <span class=kc >False</span>
+        <span class=k >if</span> <span class=bp >self</span><span class=o >.</span><span class=n >_labeled_widget</span> <span class=ow >is</span> <span class=ow >not</span> <span class=kc >None</span><span class=p >:</span>
+            <span class=n >w</span> <span class=o >=</span> <span class=bp >self</span><span class=o >.</span><span class=n >_labeled_widget</span><span class=p >()</span>
+            <span class=k >if</span> <span class=n >w</span><span class=p >:</span>
+                <span class=n >w</span><span class=o >.</span><span class=n >hide</span><span class=p >()</span>
 
     <span class=k >def</span> <span class=nf >render</span><span class=p >(</span><span class=bp >self</span><span class=p >)</span> <span class=o >-&gt;</span> <span class=s2 >"np.ndarray"</span><span class=p >:</span>
         <span class=sd >"""Return an RGBA (MxNx4) numpy array bitmap of the rendered widget."""</span>
