@@ -6,7 +6,6 @@
 <span class=kn >from</span> <span class=nn >__future__</span> <span class=kn >import</span> <span class=n >annotations</span>
 
 <span class=kn >import</span> <span class=nn >inspect</span>
-<span class=kn >import</span> <span class=nn >re</span>
 <span class=kn >import</span> <span class=nn >warnings</span>
 <span class=kn >from</span> <span class=nn >typing</span> <span class=kn >import</span> <span class=n >Any</span><span class=p >,</span> <span class=n >Callable</span><span class=p >,</span> <span class=n >Dict</span><span class=p >,</span> <span class=n >Optional</span><span class=p >,</span> <span class=n >TypeVar</span><span class=p >,</span> <span class=n >Union</span><span class=p >,</span> <span class=n >overload</span>
 
@@ -27,16 +26,13 @@
     <span class=k >if</span> <span class=ow >not</span> <span class=n >docstring</span><span class=p >:</span>
         <span class=k >return</span>
     <span class=k >for</span> <span class=n >param</span> <span class=ow >in</span> <span class=n >parse</span><span class=p >(</span><span class=n >docstring</span><span class=p >)</span><span class=o >.</span><span class=n >params</span><span class=p >:</span>
-        <span class=c1 ># make the tooltip from the first sentence in the param doc description</span>
-        <span class=n >tooltip</span> <span class=o >=</span> <span class=n >param</span><span class=o >.</span><span class=n >description</span><span class=o >.</span><span class=n >split</span><span class=p >(</span><span class=s2 >"."</span><span class=p >,</span> <span class=n >maxsplit</span><span class=o >=</span><span class=mi >1</span><span class=p >)[</span><span class=mi >0</span><span class=p >]</span>
-        <span class=n >tooltip</span> <span class=o >=</span> <span class=n >re</span><span class=o >.</span><span class=n >split</span><span class=p >(</span><span class=sa >r</span><span class=s2 >",?\s?([bB]y )?[dD]efault"</span><span class=p >,</span> <span class=n >tooltip</span><span class=p >)[</span><span class=mi >0</span><span class=p >]</span>
         <span class=c1 ># this is to catch potentially bad arg_name parsing in docstring_parser</span>
         <span class=c1 ># if using napoleon style google docstringss</span>
         <span class=n >argname</span> <span class=o >=</span> <span class=n >param</span><span class=o >.</span><span class=n >arg_name</span><span class=o >.</span><span class=n >split</span><span class=p >(</span><span class=s2 >" "</span><span class=p >,</span> <span class=n >maxsplit</span><span class=o >=</span><span class=mi >1</span><span class=p >)[</span><span class=mi >0</span><span class=p >]</span>
         <span class=k >if</span> <span class=n >argname</span> <span class=ow >not</span> <span class=ow >in</span> <span class=n >param_options</span><span class=p >:</span>
             <span class=n >param_options</span><span class=p >[</span><span class=n >argname</span><span class=p >]</span> <span class=o >=</span> <span class=p >{}</span>
         <span class=c1 ># use setdefault so as not to override an explicitly provided tooltip</span>
-        <span class=n >param_options</span><span class=p >[</span><span class=n >argname</span><span class=p >]</span><span class=o >.</span><span class=n >setdefault</span><span class=p >(</span><span class=s2 >"tooltip"</span><span class=p >,</span> <span class=n >tooltip</span><span class=p >)</span>
+        <span class=n >param_options</span><span class=p >[</span><span class=n >argname</span><span class=p >]</span><span class=o >.</span><span class=n >setdefault</span><span class=p >(</span><span class=s2 >"tooltip"</span><span class=p >,</span> <span class=n >param</span><span class=o >.</span><span class=n >description</span><span class=p >)</span>
 
 
 <div class=viewcode-block  id=FunctionGui ><a class=viewcode-back  href="../../_autosummary/magicgui.function_gui.FunctionGui.html#magicgui.function_gui.FunctionGui">[docs]</a><span class=k >class</span> <span class=nc >FunctionGui</span><span class=p >(</span><span class=n >Container</span><span class=p >):</span>
