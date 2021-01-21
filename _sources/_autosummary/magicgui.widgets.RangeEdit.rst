@@ -85,7 +85,6 @@
       ~RangeEdit.min_height
       ~RangeEdit.min_width
       ~RangeEdit.native
-      ~RangeEdit.native_layout
       ~RangeEdit.options
       ~RangeEdit.orientation
       ~RangeEdit.param_kind

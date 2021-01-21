@@ -85,7 +85,6 @@
       ~Container.min_height
       ~Container.min_width
       ~Container.native
-      ~Container.native_layout
       ~Container.options
       ~Container.orientation
       ~Container.param_kind

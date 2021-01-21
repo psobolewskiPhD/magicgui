@@ -95,7 +95,6 @@
       ~FunctionGui.min_height
       ~FunctionGui.min_width
       ~FunctionGui.native
-      ~FunctionGui.native_layout
       ~FunctionGui.options
       ~FunctionGui.orientation
       ~FunctionGui.param_kind

@@ -86,7 +86,6 @@
       ~FileEdit.min_width
       ~FileEdit.mode
       ~FileEdit.native
-      ~FileEdit.native_layout
       ~FileEdit.options
       ~FileEdit.orientation
       ~FileEdit.param_kind

@@ -85,7 +85,6 @@
       ~SliceEdit.min_height
       ~SliceEdit.min_width
       ~SliceEdit.native
-      ~SliceEdit.native_layout
       ~SliceEdit.options
       ~SliceEdit.orientation
       ~SliceEdit.param_kind
