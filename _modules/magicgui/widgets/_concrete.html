@@ -9,18 +9,21 @@
 <span class=kn >import</span> <span class=nn >os</span>
 <span class=kn >import</span> <span class=nn >sys</span>
 <span class=kn >from</span> <span class=nn >pathlib</span> <span class=kn >import</span> <span class=n >Path</span>
-<span class=kn >from</span> <span class=nn >typing</span> <span class=kn >import</span> <span class=n >Callable</span><span class=p >,</span> <span class=n >List</span><span class=p >,</span> <span class=n >Sequence</span><span class=p >,</span> <span class=n >Tuple</span><span class=p >,</span> <span class=n >Type</span><span class=p >,</span> <span class=n >Union</span>
+<span class=kn >from</span> <span class=nn >typing</span> <span class=kn >import</span> <span class=n >Callable</span><span class=p >,</span> <span class=n >List</span><span class=p >,</span> <span class=n >Sequence</span><span class=p >,</span> <span class=n >Tuple</span><span class=p >,</span> <span class=n >Type</span><span class=p >,</span> <span class=n >TypeVar</span><span class=p >,</span> <span class=n >Union</span><span class=p >,</span> <span class=n >overload</span>
 <span class=kn >from</span> <span class=nn >weakref</span> <span class=kn >import</span> <span class=n >ref</span>
 
 <span class=kn >from</span> <span class=nn >docstring_parser</span> <span class=kn >import</span> <span class=n >DocstringParam</span><span class=p >,</span> <span class=n >parse</span>
+<span class=kn >from</span> <span class=nn >typing_extensions</span> <span class=kn >import</span> <span class=n >Literal</span>
 
 <span class=kn >from</span> <span class=nn >magicgui.application</span> <span class=kn >import</span> <span class=n >use_app</span>
 <span class=kn >from</span> <span class=nn >magicgui.types</span> <span class=kn >import</span> <span class=n >FileDialogMode</span><span class=p >,</span> <span class=n >PathLike</span>
+<span class=kn >from</span> <span class=nn >magicgui.widgets._bases.mixins</span> <span class=kn >import</span> <span class=n >_ReadOnlyMixin</span>
 
 <span class=kn >from</span> <span class=nn >._bases</span> <span class=kn >import</span> <span class=p >(</span>
     <span class=n >ButtonWidget</span><span class=p >,</span>
     <span class=n >CategoricalWidget</span><span class=p >,</span>
     <span class=n >ContainerWidget</span><span class=p >,</span>
+    <span class=n >MainWindowWidget</span><span class=p >,</span>
     <span class=n >RangedWidget</span><span class=p >,</span>
     <span class=n >SliderWidget</span><span class=p >,</span>
     <span class=n >TransformedRangedWidget</span><span class=p >,</span>
@@ -100,9 +103,32 @@
     <span class=k >return</span> <span class=bp >cls</span>
 
 
+<span class=n >C</span> <span class=o >=</span> <span class=n >TypeVar</span><span class=p >(</span><span class=s2 >"C"</span><span class=p >)</span>
+
+
+<span class=nd >@overload</span>
+<span class=k >def</span> <span class=nf >backend_widget</span><span class=p >(</span>  <span class=c1 ># noqa</span>
+    <span class=bp >cls</span><span class=p >:</span> <span class=n >Type</span><span class=p >[</span><span class=n >C</span><span class=p >],</span>
+    <span class=n >widget_name</span><span class=p >:</span> <span class=nb >str</span> <span class=o >=</span> <span class=kc >None</span><span class=p >,</span>
+    <span class=n >transform</span><span class=p >:</span> <span class=n >Callable</span><span class=p >[[</span><span class=n >Type</span><span class=p >],</span> <span class=n >Type</span><span class=p >]</span> <span class=o >=</span> <span class=kc >None</span><span class=p >,</span>
+<span class=p >)</span> <span class=o >-&gt;</span> <span class=n >Type</span><span class=p >[</span><span class=n >C</span><span class=p >]:</span>
+    <span class=o >...</span>
+
+
+<span class=nd >@overload</span>
+<span class=k >def</span> <span class=nf >backend_widget</span><span class=p >(</span>  <span class=c1 ># noqa</span>
+    <span class=bp >cls</span><span class=p >:</span> <span class=n >Literal</span><span class=p >[</span><span class=kc >None</span><span class=p >]</span> <span class=o >=</span> <span class=kc >None</span><span class=p >,</span>
+    <span class=n >widget_name</span><span class=p >:</span> <span class=nb >str</span> <span class=o >=</span> <span class=kc >None</span><span class=p >,</span>
+    <span class=n >transform</span><span class=p >:</span> <span class=n >Callable</span><span class=p >[[</span><span class=n >Type</span><span class=p >],</span> <span class=n >Type</span><span class=p >]</span> <span class=o >=</span> <span class=kc >None</span><span class=p >,</span>
+<span class=p >)</span> <span class=o >-&gt;</span> <span class=n >Callable</span><span class=p >[</span><span class=o >...</span><span class=p >,</span> <span class=n >Type</span><span class=p >[</span><span class=n >C</span><span class=p >]]:</span>
+    <span class=o >...</span>
+
+
 <span class=k >def</span> <span class=nf >backend_widget</span><span class=p >(</span>
-    <span class=bp >cls</span><span class=p >:</span> <span class=n >Type</span> <span class=o >=</span> <span class=kc >None</span><span class=p >,</span> <span class=n >widget_name</span><span class=p >:</span> <span class=nb >str</span> <span class=o >=</span> <span class=kc >None</span><span class=p >,</span> <span class=n >transform</span><span class=p >:</span> <span class=n >Callable</span><span class=p >[[</span><span class=n >Type</span><span class=p >],</span> <span class=n >Type</span><span class=p >]</span> <span class=o >=</span> <span class=kc >None</span>
-<span class=p >):</span>
+    <span class=bp >cls</span><span class=p >:</span> <span class=n >Type</span><span class=p >[</span><span class=n >C</span><span class=p >]</span> <span class=o >=</span> <span class=kc >None</span><span class=p >,</span>
+    <span class=n >widget_name</span><span class=p >:</span> <span class=nb >str</span> <span class=o >=</span> <span class=kc >None</span><span class=p >,</span>
+    <span class=n >transform</span><span class=p >:</span> <span class=n >Callable</span><span class=p >[[</span><span class=n >Type</span><span class=p >],</span> <span class=n >Type</span><span class=p >]</span> <span class=o >=</span> <span class=kc >None</span><span class=p >,</span>
+<span class=p >)</span> <span class=o >-&gt;</span> <span class=n >Union</span><span class=p >[</span><span class=n >Callable</span><span class=p >,</span> <span class=n >Type</span><span class=p >[</span><span class=n >C</span><span class=p >]]:</span>
     <span class=sd >"""Decorate cls to inject the backend widget of the same name.</span>
 
 <span class=sd >    The purpose of this decorator is to "inject" the appropriate backend</span>
@@ -143,7 +169,7 @@
     <span class=k >return</span> <span class=n >wrapper</span><span class=p >(</span><span class=bp >cls</span><span class=p >)</span> <span class=k >if</span> <span class=bp >cls</span> <span class=k >else</span> <span class=n >wrapper</span>
 
 
-<span class=nd >@backend_widget</span><span class=p >()</span>
+<span class=nd >@backend_widget</span>
 <span class=k >class</span> <span class=nc >EmptyWidget</span><span class=p >(</span><span class=n >ValueWidget</span><span class=p >):</span>
     <span class=sd >"""A base widget with no value.</span>
 
@@ -187,7 +213,7 @@
 
 
 <span class=nd >@backend_widget</span>
-<span class=k >class</span> <span class=nc >TextEdit</span><span class=p >(</span><span class=n >ValueWidget</span><span class=p >):</span>
+<span class=k >class</span> <span class=nc >TextEdit</span><span class=p >(</span><span class=n >ValueWidget</span><span class=p >,</span> <span class=n >_ReadOnlyMixin</span><span class=p >):</span>  <span class=c1 ># type: ignore</span>
     <span class=sd >"""A widget to edit and display both plain and rich text."""</span>
 
 
@@ -316,6 +342,11 @@
 
 <span class=nd >@backend_widget</span>
 <span class=k >class</span> <span class=nc >Container</span><span class=p >(</span><span class=n >ContainerWidget</span><span class=p >):</span>
+    <span class=sd >"""A Widget to contain other widgets."""</span>
+
+
+<span class=nd >@backend_widget</span>
+<span class=k >class</span> <span class=nc >MainWindow</span><span class=p >(</span><span class=n >MainWindowWidget</span><span class=p >):</span>
     <span class=sd >"""A Widget to contain other widgets."""</span>
 
 

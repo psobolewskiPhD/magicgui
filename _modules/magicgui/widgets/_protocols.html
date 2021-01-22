@@ -386,6 +386,21 @@
         <span class=k >raise</span> <span class=ne >NotImplementedError</span><span class=p >()</span></div></div>
 
 
+<span class=nd >@runtime_checkable</span>
+<span class=k >class</span> <span class=nc >SupportsReadOnly</span><span class=p >(</span><span class=n >Protocol</span><span class=p >):</span>
+    <span class=sd >"""Widget that can be read_only."""</span>
+
+    <span class=nd >@abstractmethod</span>
+    <span class=k >def</span> <span class=nf >_mgui_set_read_only</span><span class=p >(</span><span class=bp >self</span><span class=p >,</span> <span class=n >value</span><span class=p >:</span> <span class=nb >bool</span><span class=p >)</span> <span class=o >-&gt;</span> <span class=kc >None</span><span class=p >:</span>
+        <span class=sd >"""Set read_only."""</span>
+        <span class=k >raise</span> <span class=ne >NotImplementedError</span><span class=p >()</span>
+
+    <span class=nd >@abstractmethod</span>
+    <span class=k >def</span> <span class=nf >_mgui_get_read_only</span><span class=p >(</span><span class=bp >self</span><span class=p >)</span> <span class=o >-&gt;</span> <span class=nb >bool</span><span class=p >:</span>
+        <span class=sd >"""Get read_only status."""</span>
+        <span class=k >raise</span> <span class=ne >NotImplementedError</span><span class=p >()</span>
+
+
 <div class=viewcode-block  id=ButtonWidgetProtocol ><a class=viewcode-back  href="../../../_autosummary/magicgui.widgets._protocols.ButtonWidgetProtocol.html#magicgui.widgets._protocols.ButtonWidgetProtocol">[docs]</a><span class=nd >@runtime_checkable</span>
 <span class=k >class</span> <span class=nc >ButtonWidgetProtocol</span><span class=p >(</span><span class=n >ValueWidgetProtocol</span><span class=p >,</span> <span class=n >SupportsText</span><span class=p >,</span> <span class=n >Protocol</span><span class=p >):</span>
     <span class=sd >"""The "value" in a ButtonWidget is the current (checked) state."""</span></div>
@@ -432,6 +447,16 @@
 <div class=viewcode-block  id=ContainerProtocol._mgui_set_margins ><a class=viewcode-back  href="../../../_autosummary/magicgui.widgets._protocols.ContainerProtocol.html#magicgui.widgets._protocols.ContainerProtocol._mgui_set_margins">[docs]</a>    <span class=nd >@abstractmethod</span>
     <span class=k >def</span> <span class=nf >_mgui_set_margins</span><span class=p >(</span><span class=bp >self</span><span class=p >,</span> <span class=n >margins</span><span class=p >:</span> <span class=n >Tuple</span><span class=p >[</span><span class=nb >int</span><span class=p >,</span> <span class=nb >int</span><span class=p >,</span> <span class=nb >int</span><span class=p >,</span> <span class=nb >int</span><span class=p >])</span> <span class=o >-&gt;</span> <span class=kc >None</span><span class=p >:</span>
         <span class=k >raise</span> <span class=ne >NotImplementedError</span><span class=p >()</span></div></div>
+
+
+<span class=k >class</span> <span class=nc >MainWindowProtocol</span><span class=p >(</span><span class=n >ContainerProtocol</span><span class=p >,</span> <span class=n >Protocol</span><span class=p >):</span>
+    <span class=sd >"""Application main widget."""</span>
+
+    <span class=nd >@abstractmethod</span>
+    <span class=k >def</span> <span class=nf >_mgui_create_menu_item</span><span class=p >(</span>
+        <span class=bp >self</span><span class=p >,</span> <span class=n >menu_name</span><span class=p >:</span> <span class=nb >str</span><span class=p >,</span> <span class=n >action_name</span><span class=p >:</span> <span class=nb >str</span><span class=p >,</span> <span class=n >callback</span><span class=o >=</span><span class=kc >None</span><span class=p >,</span> <span class=n >shortcut</span><span class=o >=</span><span class=kc >None</span>
+    <span class=p >):</span>
+        <span class=k >raise</span> <span class=ne >NotImplementedError</span><span class=p >()</span>
 
 
 <span class=c1 ># APPLICATION --------------------------------------------------------------------</span>

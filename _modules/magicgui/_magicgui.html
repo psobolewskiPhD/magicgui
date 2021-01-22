@@ -4,9 +4,11 @@
 <span class=kn >from</span> <span class=nn >typing</span> <span class=kn >import</span> <span class=n >TYPE_CHECKING</span><span class=p >,</span> <span class=n >Callable</span><span class=p >,</span> <span class=n >Optional</span><span class=p >,</span> <span class=n >Union</span><span class=p >,</span> <span class=n >overload</span>
 <span class=kn >from</span> <span class=nn >warnings</span> <span class=kn >import</span> <span class=n >warn</span>
 
+<span class=kn >from</span> <span class=nn >typing_extensions</span> <span class=kn >import</span> <span class=n >Literal</span>
+
 <span class=k >if</span> <span class=n >TYPE_CHECKING</span><span class=p >:</span>
     <span class=kn >from</span> <span class=nn >magicgui.application</span> <span class=kn >import</span> <span class=n >AppRef</span>
-    <span class=kn >from</span> <span class=nn >magicgui.widgets</span> <span class=kn >import</span> <span class=n >FunctionGui</span>
+    <span class=kn >from</span> <span class=nn >magicgui.widgets</span> <span class=kn >import</span> <span class=n >FunctionGui</span><span class=p >,</span> <span class=n >MainFunctionGui</span>
 
 
 <span class=nd >@overload</span>
@@ -19,6 +21,7 @@
     <span class=n >call_button</span><span class=p >:</span> <span class=n >Union</span><span class=p >[</span><span class=nb >bool</span><span class=p >,</span> <span class=nb >str</span><span class=p >]</span> <span class=o >=</span> <span class=kc >False</span><span class=p >,</span>
     <span class=n >auto_call</span><span class=p >:</span> <span class=nb >bool</span> <span class=o >=</span> <span class=kc >False</span><span class=p >,</span>
     <span class=n >result_widget</span><span class=p >:</span> <span class=nb >bool</span> <span class=o >=</span> <span class=kc >False</span><span class=p >,</span>
+    <span class=n >main_window</span><span class=p >:</span> <span class=n >Literal</span><span class=p >[</span><span class=kc >False</span><span class=p >]</span> <span class=o >=</span> <span class=kc >False</span><span class=p >,</span>
     <span class=n >app</span><span class=p >:</span> <span class=n >AppRef</span> <span class=o >=</span> <span class=kc >None</span><span class=p >,</span>
     <span class=o >**</span><span class=n >param_options</span><span class=p >:</span> <span class=nb >dict</span><span class=p >,</span>
 <span class=p >)</span> <span class=o >-&gt;</span> <span class=n >FunctionGui</span><span class=p >:</span>
@@ -35,9 +38,44 @@
     <span class=n >call_button</span><span class=p >:</span> <span class=n >Union</span><span class=p >[</span><span class=nb >bool</span><span class=p >,</span> <span class=nb >str</span><span class=p >]</span> <span class=o >=</span> <span class=kc >False</span><span class=p >,</span>
     <span class=n >auto_call</span><span class=p >:</span> <span class=nb >bool</span> <span class=o >=</span> <span class=kc >False</span><span class=p >,</span>
     <span class=n >result_widget</span><span class=p >:</span> <span class=nb >bool</span> <span class=o >=</span> <span class=kc >False</span><span class=p >,</span>
+    <span class=n >main_window</span><span class=p >:</span> <span class=n >Literal</span><span class=p >[</span><span class=kc >False</span><span class=p >]</span> <span class=o >=</span> <span class=kc >False</span><span class=p >,</span>
     <span class=n >app</span><span class=p >:</span> <span class=n >AppRef</span> <span class=o >=</span> <span class=kc >None</span><span class=p >,</span>
     <span class=o >**</span><span class=n >param_options</span><span class=p >:</span> <span class=nb >dict</span><span class=p >,</span>
 <span class=p >)</span> <span class=o >-&gt;</span> <span class=n >Callable</span><span class=p >[[</span><span class=n >Callable</span><span class=p >],</span> <span class=n >FunctionGui</span><span class=p >]:</span>
+    <span class=o >...</span>
+
+
+<span class=nd >@overload</span>
+<span class=k >def</span> <span class=nf >magicgui</span><span class=p >(</span>  <span class=c1 ># noqa</span>
+    <span class=n >function</span><span class=p >:</span> <span class=n >Callable</span><span class=p >,</span>
+    <span class=o >*</span><span class=p >,</span>
+    <span class=n >layout</span><span class=p >:</span> <span class=nb >str</span> <span class=o >=</span> <span class=s2 >"horizontal"</span><span class=p >,</span>
+    <span class=n >labels</span><span class=p >:</span> <span class=nb >bool</span> <span class=o >=</span> <span class=kc >True</span><span class=p >,</span>
+    <span class=n >tooltips</span><span class=p >:</span> <span class=nb >bool</span> <span class=o >=</span> <span class=kc >True</span><span class=p >,</span>
+    <span class=n >call_button</span><span class=p >:</span> <span class=n >Union</span><span class=p >[</span><span class=nb >bool</span><span class=p >,</span> <span class=nb >str</span><span class=p >]</span> <span class=o >=</span> <span class=kc >False</span><span class=p >,</span>
+    <span class=n >auto_call</span><span class=p >:</span> <span class=nb >bool</span> <span class=o >=</span> <span class=kc >False</span><span class=p >,</span>
+    <span class=n >result_widget</span><span class=p >:</span> <span class=nb >bool</span> <span class=o >=</span> <span class=kc >False</span><span class=p >,</span>
+    <span class=n >main_window</span><span class=p >:</span> <span class=n >Literal</span><span class=p >[</span><span class=kc >True</span><span class=p >],</span>
+    <span class=n >app</span><span class=p >:</span> <span class=n >AppRef</span> <span class=o >=</span> <span class=kc >None</span><span class=p >,</span>
+    <span class=o >**</span><span class=n >param_options</span><span class=p >:</span> <span class=nb >dict</span><span class=p >,</span>
+<span class=p >)</span> <span class=o >-&gt;</span> <span class=n >MainFunctionGui</span><span class=p >:</span>
+    <span class=o >...</span>
+
+
+<span class=nd >@overload</span>
+<span class=k >def</span> <span class=nf >magicgui</span><span class=p >(</span>  <span class=c1 ># noqa</span>
+    <span class=n >function</span><span class=o >=</span><span class=kc >None</span><span class=p >,</span>
+    <span class=o >*</span><span class=p >,</span>
+    <span class=n >layout</span><span class=p >:</span> <span class=nb >str</span> <span class=o >=</span> <span class=s2 >"horizontal"</span><span class=p >,</span>
+    <span class=n >labels</span><span class=p >:</span> <span class=nb >bool</span> <span class=o >=</span> <span class=kc >True</span><span class=p >,</span>
+    <span class=n >tooltips</span><span class=p >:</span> <span class=nb >bool</span> <span class=o >=</span> <span class=kc >True</span><span class=p >,</span>
+    <span class=n >call_button</span><span class=p >:</span> <span class=n >Union</span><span class=p >[</span><span class=nb >bool</span><span class=p >,</span> <span class=nb >str</span><span class=p >]</span> <span class=o >=</span> <span class=kc >False</span><span class=p >,</span>
+    <span class=n >auto_call</span><span class=p >:</span> <span class=nb >bool</span> <span class=o >=</span> <span class=kc >False</span><span class=p >,</span>
+    <span class=n >result_widget</span><span class=p >:</span> <span class=nb >bool</span> <span class=o >=</span> <span class=kc >False</span><span class=p >,</span>
+    <span class=n >main_window</span><span class=p >:</span> <span class=n >Literal</span><span class=p >[</span><span class=kc >True</span><span class=p >],</span>
+    <span class=n >app</span><span class=p >:</span> <span class=n >AppRef</span> <span class=o >=</span> <span class=kc >None</span><span class=p >,</span>
+    <span class=o >**</span><span class=n >param_options</span><span class=p >:</span> <span class=nb >dict</span><span class=p >,</span>
+<span class=p >)</span> <span class=o >-&gt;</span> <span class=n >Callable</span><span class=p >[[</span><span class=n >Callable</span><span class=p >],</span> <span class=n >MainFunctionGui</span><span class=p >]:</span>
     <span class=o >...</span>
 
 
@@ -50,6 +88,7 @@
     <span class=n >call_button</span><span class=p >:</span> <span class=n >Union</span><span class=p >[</span><span class=nb >bool</span><span class=p >,</span> <span class=nb >str</span><span class=p >]</span> <span class=o >=</span> <span class=kc >False</span><span class=p >,</span>
     <span class=n >auto_call</span><span class=p >:</span> <span class=nb >bool</span> <span class=o >=</span> <span class=kc >False</span><span class=p >,</span>
     <span class=n >result_widget</span><span class=p >:</span> <span class=nb >bool</span> <span class=o >=</span> <span class=kc >False</span><span class=p >,</span>
+    <span class=n >main_window</span><span class=p >:</span> <span class=nb >bool</span> <span class=o >=</span> <span class=kc >False</span><span class=p >,</span>
     <span class=n >app</span><span class=p >:</span> <span class=n >AppRef</span> <span class=o >=</span> <span class=kc >None</span><span class=p >,</span>
     <span class=o >**</span><span class=n >param_options</span><span class=p >:</span> <span class=nb >dict</span><span class=p >,</span>
 <span class=p >):</span>
@@ -76,6 +115,8 @@
 <span class=sd >    result_widget : bool, optional</span>
 <span class=sd >        Whether to display a LineEdit widget the output of the function when called,</span>
 <span class=sd >        by default False</span>
+<span class=sd >    main_window : bool</span>
+<span class=sd >        Whether this widget should be treated as the main app window, with menu bar.</span>
 <span class=sd >    app : magicgui.Application or str, optional</span>
 <span class=sd >        A backend to use, by default ``None`` (use the default backend.)</span>
 
@@ -115,9 +156,11 @@
         <span class=n >result_widget</span> <span class=o >=</span> <span class=kc >True</span>
 
     <span class=k >def</span> <span class=nf >inner_func</span><span class=p >(</span><span class=n >func</span><span class=p >:</span> <span class=n >Callable</span><span class=p >)</span> <span class=o >-&gt;</span> <span class=n >FunctionGui</span><span class=p >:</span>
-        <span class=kn >from</span> <span class=nn >magicgui.widgets</span> <span class=kn >import</span> <span class=n >FunctionGui</span>
+        <span class=kn >from</span> <span class=nn >magicgui.widgets</span> <span class=kn >import</span> <span class=n >FunctionGui</span><span class=p >,</span> <span class=n >MainFunctionGui</span>
 
-        <span class=n >func_gui</span> <span class=o >=</span> <span class=n >FunctionGui</span><span class=p >(</span>
+        <span class=bp >cls</span> <span class=o >=</span> <span class=n >MainFunctionGui</span> <span class=k >if</span> <span class=n >main_window</span> <span class=k >else</span> <span class=n >FunctionGui</span>
+
+        <span class=n >func_gui</span> <span class=o >=</span> <span class=bp >cls</span><span class=p >(</span>
             <span class=n >function</span><span class=o >=</span><span class=n >func</span><span class=p >,</span>
             <span class=n >call_button</span><span class=o >=</span><span class=n >call_button</span><span class=p >,</span>
             <span class=n >layout</span><span class=o >=</span><span class=n >layout</span><span class=p >,</span>
