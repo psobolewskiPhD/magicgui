@@ -28,13 +28,24 @@
 
     <span class=k >if</span> <span class=ow >not</span> <span class=n >docstring</span><span class=p >:</span>
         <span class=k >return</span>
-    <span class=k >for</span> <span class=n >param</span> <span class=ow >in</span> <span class=n >parse</span><span class=p >(</span><span class=n >docstring</span><span class=p >)</span><span class=o >.</span><span class=n >params</span><span class=p >:</span>
+
+    <span class=n >doc_params</span> <span class=o >=</span> <span class=p >{</span><span class=n >p</span><span class=o >.</span><span class=n >arg_name</span><span class=p >:</span> <span class=n >p</span><span class=o >.</span><span class=n >description</span> <span class=k >for</span> <span class=n >p</span> <span class=ow >in</span> <span class=n >parse</span><span class=p >(</span><span class=n >docstring</span><span class=p >)</span><span class=o >.</span><span class=n >params</span><span class=p >}</span>
+
+    <span class=c1 ># deal with the (numpydocs) case when there are multiple parameters separated</span>
+    <span class=c1 ># by a comma</span>
+    <span class=k >for</span> <span class=n >k</span><span class=p >,</span> <span class=n >v</span> <span class=ow >in</span> <span class=nb >list</span><span class=p >(</span><span class=n >doc_params</span><span class=o >.</span><span class=n >items</span><span class=p >()):</span>
+        <span class=k >if</span> <span class=s2 >","</span> <span class=ow >in</span> <span class=n >k</span><span class=p >:</span>
+            <span class=k >for</span> <span class=n >split_key</span> <span class=ow >in</span> <span class=n >k</span><span class=o >.</span><span class=n >split</span><span class=p >(</span><span class=s2 >","</span><span class=p >):</span>
+                <span class=n >doc_params</span><span class=p >[</span><span class=n >split_key</span><span class=o >.</span><span class=n >strip</span><span class=p >()]</span> <span class=o >=</span> <span class=n >v</span>
+            <span class=k >del</span> <span class=n >doc_params</span><span class=p >[</span><span class=n >k</span><span class=p >]</span>
+
+    <span class=k >for</span> <span class=n >name</span><span class=p >,</span> <span class=n >description</span> <span class=ow >in</span> <span class=n >doc_params</span><span class=o >.</span><span class=n >items</span><span class=p >():</span>
         <span class=c1 ># this is to catch potentially bad arg_name parsing in docstring_parser</span>
         <span class=c1 ># if using napoleon style google docstringss</span>
-        <span class=n >argname</span> <span class=o >=</span> <span class=n >param</span><span class=o >.</span><span class=n >arg_name</span><span class=o >.</span><span class=n >split</span><span class=p >(</span><span class=s2 >" "</span><span class=p >,</span> <span class=n >maxsplit</span><span class=o >=</span><span class=mi >1</span><span class=p >)[</span><span class=mi >0</span><span class=p >]</span>
+        <span class=n >argname</span> <span class=o >=</span> <span class=n >name</span><span class=o >.</span><span class=n >split</span><span class=p >(</span><span class=s2 >" "</span><span class=p >,</span> <span class=n >maxsplit</span><span class=o >=</span><span class=mi >1</span><span class=p >)[</span><span class=mi >0</span><span class=p >]</span>
         <span class=k >if</span> <span class=n >argname</span> <span class=ow >not</span> <span class=ow >in</span> <span class=n >param_options</span><span class=p >:</span>
             <span class=n >param_options</span><span class=p >[</span><span class=n >argname</span><span class=p >]</span> <span class=o >=</span> <span class=p >{}</span>
-        <span class=n >desc</span> <span class=o >=</span> <span class=n >param</span><span class=o >.</span><span class=n >description</span><span class=o >.</span><span class=n >replace</span><span class=p >(</span><span class=s2 >"`"</span><span class=p >,</span> <span class=s2 >""</span><span class=p >)</span> <span class=k >if</span> <span class=n >param</span><span class=o >.</span><span class=n >description</span> <span class=k >else</span> <span class=s2 >""</span>
+        <span class=n >desc</span> <span class=o >=</span> <span class=n >description</span><span class=o >.</span><span class=n >replace</span><span class=p >(</span><span class=s2 >"`"</span><span class=p >,</span> <span class=s2 >""</span><span class=p >)</span> <span class=k >if</span> <span class=n >description</span> <span class=k >else</span> <span class=s2 >""</span>
         <span class=c1 ># use setdefault so as not to override an explicitly provided tooltip</span>
         <span class=n >param_options</span><span class=p >[</span><span class=n >argname</span><span class=p >]</span><span class=o >.</span><span class=n >setdefault</span><span class=p >(</span><span class=s2 >"tooltip"</span><span class=p >,</span> <span class=n >desc</span><span class=p >)</span>
 
