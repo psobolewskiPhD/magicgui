@@ -3,7 +3,6 @@
 
 <span class=kn >import</span> <span class=nn >inspect</span>
 <span class=kn >from</span> <span class=nn >functools</span> <span class=kn >import</span> <span class=n >partial</span>
-<span class=kn >from</span> <span class=nn >types</span> <span class=kn >import</span> <span class=n >FunctionType</span>
 <span class=kn >from</span> <span class=nn >typing</span> <span class=kn >import</span> <span class=p >(</span>
     <span class=n >TYPE_CHECKING</span><span class=p >,</span>
     <span class=n >Any</span><span class=p >,</span>
@@ -14,7 +13,6 @@
     <span class=n >Union</span><span class=p >,</span>
     <span class=n >overload</span><span class=p >,</span>
 <span class=p >)</span>
-<span class=kn >from</span> <span class=nn >warnings</span> <span class=kn >import</span> <span class=n >warn</span>
 
 <span class=kn >from</span> <span class=nn >typing_extensions</span> <span class=kn >import</span> <span class=n >Literal</span>
 
@@ -209,23 +207,6 @@
             <span class=k >raise</span> <span class=ne >TypeError</span><span class=p >(</span>
                 <span class=s2 >"MagicFactory missing required positional argument 'function'"</span>
             <span class=p >)</span>
-
-        <span class=c1 ># if someone uses `@magic_factory` *inside* of another function (i.e., not in</span>
-        <span class=c1 ># the module-level scope), *and* they try to use the "self-reference trick",</span>
-        <span class=c1 ># (wherein they use the function name in the body of the function in order to</span>
-        <span class=c1 ># access the resulting FunctionGui instance)... it will not work.</span>
-        <span class=c1 ># here we detect that type of usage and give a warning.</span>
-        <span class=k >if</span> <span class=nb >isinstance</span><span class=p >(</span><span class=n >function</span><span class=p >,</span> <span class=n >FunctionType</span><span class=p >):</span>
-            <span class=c1 ># this tells us the function has not been defined at the module level</span>
-            <span class=k >if</span> <span class=s2 >"&lt;locals&gt;"</span> <span class=ow >in</span> <span class=n >function</span><span class=o >.</span><span class=vm >__qualname__</span><span class=p >:</span>
-                <span class=c1 ># this tells us they are accessing an undefined variable *inside* of the</span>
-                <span class=c1 ># function that has the same name as the function.</span>
-                <span class=c1 ># https://docs.python.org/3/library/inspect.html?highlight=co_freevars</span>
-                <span class=k >if</span> <span class=n >function</span><span class=o >.</span><span class=vm >__name__</span> <span class=ow >in</span> <span class=n >function</span><span class=o >.</span><span class=vm >__code__</span><span class=o >.</span><span class=n >co_freevars</span><span class=p >:</span>
-                    <span class=n >warn</span><span class=p >(</span>
-                        <span class=s2 >"Self-reference detected in MagicFactory function created "</span>
-                        <span class=s2 >"in a local scope. FunctionGui references will not work."</span>
-                    <span class=p >)</span>
 
         <span class=c1 ># we want function first for the repr</span>
         <span class=n >keywords</span> <span class=o >=</span> <span class=p >{</span><span class=s2 >"function"</span><span class=p >:</span> <span class=n >function</span><span class=p >,</span> <span class=o >**</span><span class=n >keywords</span><span class=p >}</span>
