@@ -123,7 +123,6 @@
         <span class=n >name</span><span class=p >:</span> <span class=nb >str</span> <span class=o >=</span> <span class=kc >None</span><span class=p >,</span>
         <span class=o >**</span><span class=n >kwargs</span><span class=p >,</span>
     <span class=p >):</span>
-        <span class=nb >print</span><span class=p >(</span><span class=s2 >"FG, visible"</span><span class=p >,</span> <span class=n >visible</span><span class=p >)</span>
         <span class=k >if</span> <span class=ow >not</span> <span class=n >callable</span><span class=p >(</span><span class=n >function</span><span class=p >):</span>
             <span class=k >raise</span> <span class=ne >TypeError</span><span class=p >(</span><span class=s2 >"'function' argument to FunctionGui must be callable."</span><span class=p >)</span>
 
@@ -363,7 +362,6 @@
     <span class=n >_widget</span><span class=p >:</span> <span class=n >MainWindowProtocol</span>
 
     <span class=k >def</span> <span class=fm >__init__</span><span class=p >(</span><span class=bp >self</span><span class=p >,</span> <span class=n >function</span><span class=p >:</span> <span class=n >Callable</span><span class=p >,</span> <span class=o >*</span><span class=n >args</span><span class=p >,</span> <span class=o >**</span><span class=n >kwargs</span><span class=p >):</span>
-        <span class=nb >print</span><span class=p >(</span><span class=n >kwargs</span><span class=p >)</span>
         <span class=nb >super</span><span class=p >()</span><span class=o >.</span><span class=fm >__init__</span><span class=p >(</span><span class=n >function</span><span class=p >,</span> <span class=o >*</span><span class=n >args</span><span class=p >,</span> <span class=o >**</span><span class=n >kwargs</span><span class=p >)</span>
         <span class=bp >self</span><span class=o >.</span><span class=n >create_menu_item</span><span class=p >(</span><span class=s2 >"Help"</span><span class=p >,</span> <span class=s2 >"Documentation"</span><span class=p >,</span> <span class=n >callback</span><span class=o >=</span><span class=bp >self</span><span class=o >.</span><span class=n >_show_docs</span><span class=p >)</span>
         <span class=bp >self</span><span class=o >.</span><span class=n >_help_text_edit</span><span class=p >:</span> <span class=n >Optional</span><span class=p >[</span><span class=n >TextEdit</span><span class=p >]</span> <span class=o >=</span> <span class=kc >None</span>
