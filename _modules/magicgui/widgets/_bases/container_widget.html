@@ -7,12 +7,8 @@
     <span class=n >Any</span><span class=p >,</span>
     <span class=n >Callable</span><span class=p >,</span>
     <span class=n >ForwardRef</span><span class=p >,</span>
-    <span class=n >List</span><span class=p >,</span>
     <span class=n >MutableSequence</span><span class=p >,</span>
-    <span class=n >Optional</span><span class=p >,</span>
     <span class=n >Sequence</span><span class=p >,</span>
-    <span class=n >Tuple</span><span class=p >,</span>
-    <span class=n >Union</span><span class=p >,</span>
     <span class=n >overload</span><span class=p >,</span>
 <span class=p >)</span>
 
@@ -81,7 +77,7 @@
         <span class=n >return_annotation</span><span class=p >:</span> <span class=n >Any</span> <span class=o >=</span> <span class=kc >None</span><span class=p >,</span>
         <span class=o >**</span><span class=n >kwargs</span><span class=p >,</span>
     <span class=p >):</span>
-        <span class=bp >self</span><span class=o >.</span><span class=n >_list</span><span class=p >:</span> <span class=n >List</span><span class=p >[</span><span class=n >Widget</span><span class=p >]</span> <span class=o >=</span> <span class=p >[]</span>
+        <span class=bp >self</span><span class=o >.</span><span class=n >_list</span><span class=p >:</span> <span class=nb >list</span><span class=p >[</span><span class=n >Widget</span><span class=p >]</span> <span class=o >=</span> <span class=p >[]</span>
         <span class=bp >self</span><span class=o >.</span><span class=n >_return_annotation</span> <span class=o >=</span> <span class=kc >None</span>
         <span class=bp >self</span><span class=o >.</span><span class=n >_labels</span> <span class=o >=</span> <span class=n >labels</span>
         <span class=bp >self</span><span class=o >.</span><span class=n >_layout</span> <span class=o >=</span> <span class=n >layout</span>
@@ -130,7 +126,7 @@
         <span class=nb >object</span><span class=o >.</span><span class=fm >__setattr__</span><span class=p >(</span><span class=bp >self</span><span class=p >,</span> <span class=n >name</span><span class=p >,</span> <span class=n >value</span><span class=p >)</span>
 
     <span class=nd >@overload</span>
-    <span class=k >def</span> <span class=fm >__getitem__</span><span class=p >(</span><span class=bp >self</span><span class=p >,</span> <span class=n >key</span><span class=p >:</span> <span class=n >Union</span><span class=p >[</span><span class=nb >int</span><span class=p >,</span> <span class=nb >str</span><span class=p >])</span> <span class=o >-&gt;</span> <span class=n >Widget</span><span class=p >:</span>  <span class=c1 ># noqa: D105</span>
+    <span class=k >def</span> <span class=fm >__getitem__</span><span class=p >(</span><span class=bp >self</span><span class=p >,</span> <span class=n >key</span><span class=p >:</span> <span class=nb >int</span> <span class=o >|</span> <span class=nb >str</span><span class=p >)</span> <span class=o >-&gt;</span> <span class=n >Widget</span><span class=p >:</span>  <span class=c1 ># noqa: D105</span>
         <span class=o >...</span>
 
     <span class=nd >@overload</span>
@@ -154,7 +150,7 @@
             <span class=n >value</span> <span class=o >=</span> <span class=nb >getattr</span><span class=p >(</span><span class=bp >self</span><span class=p >,</span> <span class=n >value</span><span class=p >)</span>
         <span class=k >return</span> <span class=nb >super</span><span class=p >()</span><span class=o >.</span><span class=n >index</span><span class=p >(</span><span class=n >value</span><span class=p >,</span> <span class=n >start</span><span class=p >,</span> <span class=n >stop</span><span class=p >)</span>
 
-    <span class=k >def</span> <span class=nf >remove</span><span class=p >(</span><span class=bp >self</span><span class=p >,</span> <span class=n >value</span><span class=p >:</span> <span class=n >Union</span><span class=p >[</span><span class=n >Widget</span><span class=p >,</span> <span class=nb >str</span><span class=p >]):</span>
+    <span class=k >def</span> <span class=nf >remove</span><span class=p >(</span><span class=bp >self</span><span class=p >,</span> <span class=n >value</span><span class=p >:</span> <span class=n >Widget</span> <span class=o >|</span> <span class=nb >str</span><span class=p >):</span>
         <span class=sd >"""Remove a widget instance (may also be string name of widget)."""</span>
         <span class=nb >super</span><span class=p >()</span><span class=o >.</span><span class=n >remove</span><span class=p >(</span><span class=n >value</span><span class=p >)</span>  <span class=c1 ># type: ignore</span>
 
@@ -162,7 +158,7 @@
         <span class=sd >"""Delete a widget by name."""</span>
         <span class=bp >self</span><span class=o >.</span><span class=n >remove</span><span class=p >(</span><span class=n >name</span><span class=p >)</span>
 
-    <span class=k >def</span> <span class=fm >__delitem__</span><span class=p >(</span><span class=bp >self</span><span class=p >,</span> <span class=n >key</span><span class=p >:</span> <span class=n >Union</span><span class=p >[</span><span class=nb >int</span><span class=p >,</span> <span class=nb >slice</span><span class=p >]):</span>
+    <span class=k >def</span> <span class=fm >__delitem__</span><span class=p >(</span><span class=bp >self</span><span class=p >,</span> <span class=n >key</span><span class=p >:</span> <span class=nb >int</span> <span class=o >|</span> <span class=nb >slice</span><span class=p >):</span>
         <span class=sd >"""Delete a widget by integer or slice index."""</span>
         <span class=k >if</span> <span class=nb >isinstance</span><span class=p >(</span><span class=n >key</span><span class=p >,</span> <span class=nb >slice</span><span class=p >):</span>
             <span class=k >for</span> <span class=n >item</span> <span class=ow >in</span> <span class=bp >self</span><span class=o >.</span><span class=n >_list</span><span class=p >[</span><span class=n >key</span><span class=p >]:</span>
@@ -181,7 +177,7 @@
         <span class=sd >"""Prevent assignment by index."""</span>
         <span class=k >raise</span> <span class=ne >NotImplementedError</span><span class=p >(</span><span class=s2 >"magicgui.Container does not support item setting."</span><span class=p >)</span>
 
-    <span class=k >def</span> <span class=fm >__dir__</span><span class=p >(</span><span class=bp >self</span><span class=p >)</span> <span class=o >-&gt;</span> <span class=n >List</span><span class=p >[</span><span class=nb >str</span><span class=p >]:</span>
+    <span class=k >def</span> <span class=fm >__dir__</span><span class=p >(</span><span class=bp >self</span><span class=p >)</span> <span class=o >-&gt;</span> <span class=nb >list</span><span class=p >[</span><span class=nb >str</span><span class=p >]:</span>
         <span class=sd >"""Add subwidget names to the dir() call for this widget."""</span>
         <span class=n >d</span> <span class=o >=</span> <span class=nb >list</span><span class=p >(</span><span class=nb >super</span><span class=p >()</span><span class=o >.</span><span class=fm >__dir__</span><span class=p >())</span>
         <span class=n >d</span><span class=o >.</span><span class=n >extend</span><span class=p >([</span><span class=n >w</span><span class=o >.</span><span class=n >name</span> <span class=k >for</span> <span class=n >w</span> <span class=ow >in</span> <span class=bp >self</span> <span class=k >if</span> <span class=ow >not</span> <span class=n >w</span><span class=o >.</span><span class=n >gui_only</span><span class=p >])</span>
@@ -223,12 +219,12 @@
                     <span class=n >labeled_widget</span><span class=o >.</span><span class=n >label_width</span> <span class=o >=</span> <span class=n >widest_label</span>
 
     <span class=nd >@property</span>
-    <span class=k >def</span> <span class=nf >margins</span><span class=p >(</span><span class=bp >self</span><span class=p >)</span> <span class=o >-&gt;</span> <span class=n >Tuple</span><span class=p >[</span><span class=nb >int</span><span class=p >,</span> <span class=nb >int</span><span class=p >,</span> <span class=nb >int</span><span class=p >,</span> <span class=nb >int</span><span class=p >]:</span>
+    <span class=k >def</span> <span class=nf >margins</span><span class=p >(</span><span class=bp >self</span><span class=p >)</span> <span class=o >-&gt;</span> <span class=nb >tuple</span><span class=p >[</span><span class=nb >int</span><span class=p >,</span> <span class=nb >int</span><span class=p >,</span> <span class=nb >int</span><span class=p >,</span> <span class=nb >int</span><span class=p >]:</span>
         <span class=sd >"""Return margin between the content and edges of the container."""</span>
         <span class=k >return</span> <span class=bp >self</span><span class=o >.</span><span class=n >_widget</span><span class=o >.</span><span class=n >_mgui_get_margins</span><span class=p >()</span>
 
     <span class=nd >@margins</span><span class=o >.</span><span class=n >setter</span>
-    <span class=k >def</span> <span class=nf >margins</span><span class=p >(</span><span class=bp >self</span><span class=p >,</span> <span class=n >margins</span><span class=p >:</span> <span class=n >Tuple</span><span class=p >[</span><span class=nb >int</span><span class=p >,</span> <span class=nb >int</span><span class=p >,</span> <span class=nb >int</span><span class=p >,</span> <span class=nb >int</span><span class=p >])</span> <span class=o >-&gt;</span> <span class=kc >None</span><span class=p >:</span>
+    <span class=k >def</span> <span class=nf >margins</span><span class=p >(</span><span class=bp >self</span><span class=p >,</span> <span class=n >margins</span><span class=p >:</span> <span class=nb >tuple</span><span class=p >[</span><span class=nb >int</span><span class=p >,</span> <span class=nb >int</span><span class=p >,</span> <span class=nb >int</span><span class=p >,</span> <span class=nb >int</span><span class=p >])</span> <span class=o >-&gt;</span> <span class=kc >None</span><span class=p >:</span>
         <span class=c1 ># left, top, right, bottom</span>
         <span class=bp >self</span><span class=o >.</span><span class=n >_widget</span><span class=o >.</span><span class=n >_mgui_set_margins</span><span class=p >(</span><span class=n >margins</span><span class=p >)</span>
 
@@ -279,7 +275,7 @@
 
     <span class=nd >@classmethod</span>
     <span class=k >def</span> <span class=nf >from_callable</span><span class=p >(</span>
-        <span class=bp >cls</span><span class=p >,</span> <span class=n >obj</span><span class=p >:</span> <span class=n >Callable</span><span class=p >,</span> <span class=n >gui_options</span><span class=p >:</span> <span class=n >Optional</span><span class=p >[</span><span class=nb >dict</span><span class=p >]</span> <span class=o >=</span> <span class=kc >None</span><span class=p >,</span> <span class=o >**</span><span class=n >kwargs</span>
+        <span class=bp >cls</span><span class=p >,</span> <span class=n >obj</span><span class=p >:</span> <span class=n >Callable</span><span class=p >,</span> <span class=n >gui_options</span><span class=p >:</span> <span class=nb >dict</span> <span class=o >|</span> <span class=kc >None</span> <span class=o >=</span> <span class=kc >None</span><span class=p >,</span> <span class=o >**</span><span class=n >kwargs</span>
     <span class=p >)</span> <span class=o >-&gt;</span> <span class=n >Container</span><span class=p >:</span>
         <span class=sd >"""Create a Container widget from a callable object.</span>
 
