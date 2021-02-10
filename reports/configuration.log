@@ -37,32 +37,32 @@ def whoops(a_string: str = 'Hi there'):
 [1;32m    207[0m     [0;32mif[0m [0mfunction[0m [0;32mis[0m [0;32mNone[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
 
 [0;32m/opt/hostedtoolcache/Python/3.8.7/x64/lib/python3.8/site-packages/magicgui/widgets/_function_gui.py[0m in [0;36m__init__[0;34m(self, function, call_button, layout, labels, tooltips, app, visible, auto_call, result_widget, param_options, name, **kwargs)[0m
-[1;32m    146[0m             [0mlabels[0m[0;34m=[0m[0mlabels[0m[0;34m,[0m[0;34m[0m[0;34m[0m[0m
-[1;32m    147[0m             [0mvisible[0m[0;34m=[0m[0mvisible[0m[0;34m,[0m[0;34m[0m[0;34m[0m[0m
-[0;32m--> 148[0;31m             [0mwidgets[0m[0;34m=[0m[0mlist[0m[0;34m([0m[0msig[0m[0;34m.[0m[0mwidgets[0m[0;34m([0m[0mapp[0m[0;34m)[0m[0;34m.[0m[0mvalues[0m[0;34m([0m[0;34m)[0m[0;34m)[0m[0;34m,[0m[0;34m[0m[0;34m[0m[0m
-[0m[1;32m    149[0m             [0mreturn_annotation[0m[0;34m=[0m[0msig[0m[0;34m.[0m[0mreturn_annotation[0m[0;34m,[0m[0;34m[0m[0;34m[0m[0m
-[1;32m    150[0m             [0mname[0m[0;34m=[0m[0mname[0m [0;32mor[0m [0mself[0m[0;34m.[0m[0m_callable_name[0m[0;34m,[0m[0;34m[0m[0;34m[0m[0m
+[1;32m    155[0m             [0mlabels[0m[0;34m=[0m[0mlabels[0m[0;34m,[0m[0;34m[0m[0;34m[0m[0m
+[1;32m    156[0m             [0mvisible[0m[0;34m=[0m[0mvisible[0m[0;34m,[0m[0;34m[0m[0;34m[0m[0m
+[0;32m--> 157[0;31m             [0mwidgets[0m[0;34m=[0m[0mlist[0m[0;34m([0m[0msig[0m[0;34m.[0m[0mwidgets[0m[0;34m([0m[0mapp[0m[0;34m)[0m[0;34m.[0m[0mvalues[0m[0;34m([0m[0;34m)[0m[0;34m)[0m[0;34m,[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m    158[0m             [0mname[0m[0;34m=[0m[0mname[0m [0;32mor[0m [0mself[0m[0;34m.[0m[0m_callable_name[0m[0;34m,[0m[0;34m[0m[0;34m[0m[0m
+[1;32m    159[0m         )
 
 [0;32m/opt/hostedtoolcache/Python/3.8.7/x64/lib/python3.8/site-packages/magicgui/signature.py[0m in [0;36mwidgets[0;34m(self, app)[0m
-[1;32m    215[0m         [0;34m"""Return mapping from parameters to widgets for all params in Signature."""[0m[0;34m[0m[0;34m[0m[0m
-[1;32m    216[0m         return MappingProxyType(
-[0;32m--> 217[0;31m             [0;34m{[0m[0mn[0m[0;34m:[0m [0mp[0m[0;34m.[0m[0mto_widget[0m[0;34m([0m[0mapp[0m[0;34m)[0m [0;32mfor[0m [0mn[0m[0;34m,[0m [0mp[0m [0;32min[0m [0mself[0m[0;34m.[0m[0mparameters[0m[0;34m.[0m[0mitems[0m[0;34m([0m[0;34m)[0m[0;34m}[0m[0;34m[0m[0;34m[0m[0m
-[0m[1;32m    218[0m         )
-[1;32m    219[0m [0;34m[0m[0m
+[1;32m    219[0m         [0;34m"""Return mapping from parameters to widgets for all params in Signature."""[0m[0;34m[0m[0;34m[0m[0m
+[1;32m    220[0m         return MappingProxyType(
+[0;32m--> 221[0;31m             [0;34m{[0m[0mn[0m[0;34m:[0m [0mp[0m[0;34m.[0m[0mto_widget[0m[0;34m([0m[0mapp[0m[0;34m)[0m [0;32mfor[0m [0mn[0m[0;34m,[0m [0mp[0m [0;32min[0m [0mself[0m[0;34m.[0m[0mparameters[0m[0;34m.[0m[0mitems[0m[0;34m([0m[0;34m)[0m[0;34m}[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m    222[0m         )
+[1;32m    223[0m [0;34m[0m[0m
 
 [0;32m/opt/hostedtoolcache/Python/3.8.7/x64/lib/python3.8/site-packages/magicgui/signature.py[0m in [0;36m<dictcomp>[0;34m(.0)[0m
-[1;32m    215[0m         [0;34m"""Return mapping from parameters to widgets for all params in Signature."""[0m[0;34m[0m[0;34m[0m[0m
-[1;32m    216[0m         return MappingProxyType(
-[0;32m--> 217[0;31m             [0;34m{[0m[0mn[0m[0;34m:[0m [0mp[0m[0;34m.[0m[0mto_widget[0m[0;34m([0m[0mapp[0m[0;34m)[0m [0;32mfor[0m [0mn[0m[0;34m,[0m [0mp[0m [0;32min[0m [0mself[0m[0;34m.[0m[0mparameters[0m[0;34m.[0m[0mitems[0m[0;34m([0m[0;34m)[0m[0;34m}[0m[0;34m[0m[0;34m[0m[0m
-[0m[1;32m    218[0m         )
-[1;32m    219[0m [0;34m[0m[0m
+[1;32m    219[0m         [0;34m"""Return mapping from parameters to widgets for all params in Signature."""[0m[0;34m[0m[0;34m[0m[0m
+[1;32m    220[0m         return MappingProxyType(
+[0;32m--> 221[0;31m             [0;34m{[0m[0mn[0m[0;34m:[0m [0mp[0m[0;34m.[0m[0mto_widget[0m[0;34m([0m[0mapp[0m[0;34m)[0m [0;32mfor[0m [0mn[0m[0;34m,[0m [0mp[0m [0;32min[0m [0mself[0m[0;34m.[0m[0mparameters[0m[0;34m.[0m[0mitems[0m[0;34m([0m[0;34m)[0m[0;34m}[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m    222[0m         )
+[1;32m    223[0m [0;34m[0m[0m
 
 [0;32m/opt/hostedtoolcache/Python/3.8.7/x64/lib/python3.8/site-packages/magicgui/signature.py[0m in [0;36mto_widget[0;34m(self, app)[0m
-[1;32m    132[0m         [0mvalue[0m [0;34m=[0m [0;32mNone[0m [0;32mif[0m [0mself[0m[0;34m.[0m[0mdefault[0m [0;32mis[0m [0mself[0m[0;34m.[0m[0mempty[0m [0;32melse[0m [0mself[0m[0;34m.[0m[0mdefault[0m[0;34m[0m[0;34m[0m[0m
-[1;32m    133[0m         [0mannotation[0m[0;34m,[0m [0moptions[0m [0;34m=[0m [0msplit_annotated_type[0m[0;34m([0m[0mself[0m[0;34m.[0m[0mannotation[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
-[0;32m--> 134[0;31m         widget = create_widget(
-[0m[1;32m    135[0m             [0mname[0m[0;34m=[0m[0mself[0m[0;34m.[0m[0mname[0m[0;34m,[0m[0;34m[0m[0;34m[0m[0m
-[1;32m    136[0m             [0mvalue[0m[0;34m=[0m[0mvalue[0m[0;34m,[0m[0;34m[0m[0;34m[0m[0m
+[1;32m    136[0m         [0mvalue[0m [0;34m=[0m [0;32mNone[0m [0;32mif[0m [0mself[0m[0;34m.[0m[0mdefault[0m [0;32mis[0m [0mself[0m[0;34m.[0m[0mempty[0m [0;32melse[0m [0mself[0m[0;34m.[0m[0mdefault[0m[0;34m[0m[0;34m[0m[0m
+[1;32m    137[0m         [0mannotation[0m[0;34m,[0m [0moptions[0m [0;34m=[0m [0msplit_annotated_type[0m[0;34m([0m[0mself[0m[0;34m.[0m[0mannotation[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0;32m--> 138[0;31m         widget = create_widget(
+[0m[1;32m    139[0m             [0mname[0m[0;34m=[0m[0mself[0m[0;34m.[0m[0mname[0m[0;34m,[0m[0;34m[0m[0;34m[0m[0m
+[1;32m    140[0m             [0mvalue[0m[0;34m=[0m[0mvalue[0m[0;34m,[0m[0;34m[0m[0;34m[0m[0m
 
 [0;32m/opt/hostedtoolcache/Python/3.8.7/x64/lib/python3.8/site-packages/magicgui/widgets/_bases/create_widget.py[0m in [0;36mcreate_widget[0;34m(value, annotation, name, param_kind, label, gui_only, app, widget_type, options)[0m
 [1;32m     88[0m             [0mkwargs[0m[0;34m.[0m[0mupdate[0m[0;34m([0m[0mopts[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m

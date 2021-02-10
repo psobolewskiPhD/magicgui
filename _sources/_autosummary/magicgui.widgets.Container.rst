@@ -86,7 +86,6 @@
       ~Container.orientation
       ~Container.param_kind
       ~Container.parent
-      ~Container.return_annotation
       ~Container.tooltip
       ~Container.visible
       ~Container.widget_type

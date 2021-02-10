@@ -86,7 +86,6 @@
       ~RangeEdit.orientation
       ~RangeEdit.param_kind
       ~RangeEdit.parent
-      ~RangeEdit.return_annotation
       ~RangeEdit.tooltip
       ~RangeEdit.value
       ~RangeEdit.visible
