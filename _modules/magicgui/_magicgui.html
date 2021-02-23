@@ -94,6 +94,7 @@
     <span class=n >result_widget</span><span class=p >:</span> <span class=nb >bool</span> <span class=o >=</span> <span class=kc >False</span><span class=p >,</span>
     <span class=n >main_window</span><span class=p >:</span> <span class=nb >bool</span> <span class=o >=</span> <span class=kc >False</span><span class=p >,</span>
     <span class=n >app</span><span class=p >:</span> <span class=n >AppRef</span> <span class=o >=</span> <span class=kc >None</span><span class=p >,</span>
+    <span class=n >widget_init</span><span class=p >:</span> <span class=n >Callable</span><span class=p >[[</span><span class=n >FunctionGui</span><span class=p >],</span> <span class=kc >None</span><span class=p >]</span> <span class=o >|</span> <span class=kc >None</span> <span class=o >=</span> <span class=kc >None</span><span class=p >,</span>
     <span class=o >**</span><span class=n >param_options</span><span class=p >:</span> <span class=nb >dict</span><span class=p >,</span>
 <span class=p >):</span>
     <span class=sd >"""Return a :class:`MagicFactory` for ``function``."""</span>
@@ -145,7 +146,14 @@
 <span class=sd >    &gt;&gt;&gt; widget2 = factory(auto_call=True, labels=True)</span>
 <span class=sd >    """</span>
 
-    <span class=k >def</span> <span class=fm >__new__</span><span class=p >(</span><span class=bp >cls</span><span class=p >,</span> <span class=n >function</span><span class=p >,</span> <span class=o >*</span><span class=n >args</span><span class=p >,</span> <span class=n >magic_class</span><span class=o >=</span><span class=n >FunctionGui</span><span class=p >,</span> <span class=o >**</span><span class=n >keywords</span><span class=p >):</span>
+    <span class=k >def</span> <span class=fm >__new__</span><span class=p >(</span>
+        <span class=bp >cls</span><span class=p >,</span>
+        <span class=n >function</span><span class=p >,</span>
+        <span class=o >*</span><span class=n >args</span><span class=p >,</span>
+        <span class=n >magic_class</span><span class=o >=</span><span class=n >FunctionGui</span><span class=p >,</span>
+        <span class=n >widget_init</span><span class=p >:</span> <span class=n >Callable</span><span class=p >[[</span><span class=n >FunctionGui</span><span class=p >],</span> <span class=kc >None</span><span class=p >]</span> <span class=o >|</span> <span class=kc >None</span> <span class=o >=</span> <span class=kc >None</span><span class=p >,</span>
+        <span class=o >**</span><span class=n >keywords</span><span class=p >,</span>
+    <span class=p >):</span>
         <span class=sd >"""Create new MagicFactory."""</span>
         <span class=k >if</span> <span class=ow >not</span> <span class=n >function</span><span class=p >:</span>
             <span class=k >raise</span> <span class=ne >TypeError</span><span class=p >(</span>
@@ -154,7 +162,18 @@
 
         <span class=c1 ># we want function first for the repr</span>
         <span class=n >keywords</span> <span class=o >=</span> <span class=p >{</span><span class=s2 >"function"</span><span class=p >:</span> <span class=n >function</span><span class=p >,</span> <span class=o >**</span><span class=n >keywords</span><span class=p >}</span>
-        <span class=k >return</span> <span class=nb >super</span><span class=p >()</span><span class=o >.</span><span class=fm >__new__</span><span class=p >(</span><span class=bp >cls</span><span class=p >,</span> <span class=n >magic_class</span><span class=p >,</span> <span class=o >*</span><span class=n >args</span><span class=p >,</span> <span class=o >**</span><span class=n >keywords</span><span class=p >)</span>  <span class=c1 ># type: ignore</span>
+        <span class=k >if</span> <span class=n >widget_init</span> <span class=ow >is</span> <span class=ow >not</span> <span class=kc >None</span><span class=p >:</span>
+            <span class=k >if</span> <span class=ow >not</span> <span class=n >callable</span><span class=p >(</span><span class=n >widget_init</span><span class=p >):</span>
+                <span class=k >raise</span> <span class=ne >TypeError</span><span class=p >(</span>
+                    <span class=sa >f</span><span class=s2 >"'widget_init' must be a callable, not </span><span class=si >{</span><span class=nb >type</span><span class=p >(</span><span class=n >widget_init</span><span class=p >)</span><span class=si >}</span><span class=s2 >"</span>
+                <span class=p >)</span>
+            <span class=k >if</span> <span class=ow >not</span> <span class=nb >len</span><span class=p >(</span><span class=n >inspect</span><span class=o >.</span><span class=n >signature</span><span class=p >(</span><span class=n >widget_init</span><span class=p >)</span><span class=o >.</span><span class=n >parameters</span><span class=p >)</span> <span class=o >==</span> <span class=mi >1</span><span class=p >:</span>
+                <span class=k >raise</span> <span class=ne >TypeError</span><span class=p >(</span>
+                    <span class=s2 >"'widget_init' must be a callable that accepts a single argument"</span>
+                <span class=p >)</span>
+        <span class=n >obj</span> <span class=o >=</span> <span class=nb >super</span><span class=p >()</span><span class=o >.</span><span class=fm >__new__</span><span class=p >(</span><span class=bp >cls</span><span class=p >,</span> <span class=n >magic_class</span><span class=p >,</span> <span class=o >*</span><span class=n >args</span><span class=p >,</span> <span class=o >**</span><span class=n >keywords</span><span class=p >)</span>  <span class=c1 ># type: ignore</span>
+        <span class=n >obj</span><span class=o >.</span><span class=n >_widget_init</span> <span class=o >=</span> <span class=n >widget_init</span>
+        <span class=k >return</span> <span class=n >obj</span>
 
     <span class=k >def</span> <span class=fm >__repr__</span><span class=p >(</span><span class=bp >self</span><span class=p >)</span> <span class=o >-&gt;</span> <span class=nb >str</span><span class=p >:</span>
         <span class=sd >"""Return string repr."""</span>
@@ -173,7 +192,10 @@
         <span class=n >params</span> <span class=o >=</span> <span class=n >inspect</span><span class=o >.</span><span class=n >signature</span><span class=p >(</span><span class=n >magicgui</span><span class=p >)</span><span class=o >.</span><span class=n >parameters</span>
         <span class=n >prm_options</span> <span class=o >=</span> <span class=bp >self</span><span class=o >.</span><span class=n >keywords</span><span class=o >.</span><span class=n >pop</span><span class=p >(</span><span class=s2 >"param_options"</span><span class=p >,</span> <span class=p >{})</span>
         <span class=n >prm_options</span><span class=o >.</span><span class=n >update</span><span class=p >({</span><span class=n >k</span><span class=p >:</span> <span class=n >kwargs</span><span class=o >.</span><span class=n >pop</span><span class=p >(</span><span class=n >k</span><span class=p >)</span> <span class=k >for</span> <span class=n >k</span> <span class=ow >in</span> <span class=nb >list</span><span class=p >(</span><span class=n >kwargs</span><span class=p >)</span> <span class=k >if</span> <span class=n >k</span> <span class=ow >not</span> <span class=ow >in</span> <span class=n >params</span><span class=p >})</span>
-        <span class=k >return</span> <span class=bp >self</span><span class=o >.</span><span class=n >func</span><span class=p >(</span><span class=n >param_options</span><span class=o >=</span><span class=n >prm_options</span><span class=p >,</span> <span class=o >**</span><span class=p >{</span><span class=o >**</span><span class=bp >self</span><span class=o >.</span><span class=n >keywords</span><span class=p >,</span> <span class=o >**</span><span class=n >kwargs</span><span class=p >})</span>
+        <span class=n >widget</span> <span class=o >=</span> <span class=bp >self</span><span class=o >.</span><span class=n >func</span><span class=p >(</span><span class=n >param_options</span><span class=o >=</span><span class=n >prm_options</span><span class=p >,</span> <span class=o >**</span><span class=p >{</span><span class=o >**</span><span class=bp >self</span><span class=o >.</span><span class=n >keywords</span><span class=p >,</span> <span class=o >**</span><span class=n >kwargs</span><span class=p >})</span>
+        <span class=k >if</span> <span class=bp >self</span><span class=o >.</span><span class=n >_widget_init</span> <span class=ow >is</span> <span class=ow >not</span> <span class=kc >None</span><span class=p >:</span>
+            <span class=bp >self</span><span class=o >.</span><span class=n >_widget_init</span><span class=p >(</span><span class=n >widget</span><span class=p >)</span>
+        <span class=k >return</span> <span class=n >widget</span>
 
     <span class=k >def</span> <span class=fm >__getattr__</span><span class=p >(</span><span class=bp >self</span><span class=p >,</span> <span class=n >name</span><span class=p >)</span> <span class=o >-&gt;</span> <span class=n >Any</span><span class=p >:</span>
         <span class=sd >"""Allow accessing FunctionGui attributes without mypy error."""</span>
@@ -185,7 +207,9 @@
         <span class=k >return</span> <span class=nb >getattr</span><span class=p >(</span><span class=bp >self</span><span class=o >.</span><span class=n >keywords</span><span class=o >.</span><span class=n >get</span><span class=p >(</span><span class=s2 >"function"</span><span class=p >),</span> <span class=s2 >"__name__"</span><span class=p >,</span> <span class=s2 >"FunctionGui"</span><span class=p >)</span>
 
 
-<span class=k >def</span> <span class=nf >_magicgui</span><span class=p >(</span><span class=n >function</span><span class=o >=</span><span class=kc >None</span><span class=p >,</span> <span class=n >factory</span><span class=o >=</span><span class=kc >False</span><span class=p >,</span> <span class=n >main_window</span><span class=o >=</span><span class=kc >False</span><span class=p >,</span> <span class=o >**</span><span class=n >kwargs</span><span class=p >):</span>
+<span class=k >def</span> <span class=nf >_magicgui</span><span class=p >(</span>
+    <span class=n >function</span><span class=o >=</span><span class=kc >None</span><span class=p >,</span> <span class=n >factory</span><span class=o >=</span><span class=kc >False</span><span class=p >,</span> <span class=n >widget_init</span><span class=o >=</span><span class=kc >None</span><span class=p >,</span> <span class=n >main_window</span><span class=o >=</span><span class=kc >False</span><span class=p >,</span> <span class=o >**</span><span class=n >kwargs</span>
+<span class=p >):</span>
     <span class=sd >"""Actual private magicui decorator.</span>
 
 <span class=sd >    if factory is `True` will return a MagicFactory instance, that can be called</span>
@@ -200,7 +224,9 @@
         <span class=n >magic_class</span> <span class=o >=</span> <span class=n >MainFunctionGui</span> <span class=k >if</span> <span class=n >main_window</span> <span class=k >else</span> <span class=n >FunctionGui</span>
 
         <span class=k >if</span> <span class=n >factory</span><span class=p >:</span>
-            <span class=k >return</span> <span class=n >MagicFactory</span><span class=p >(</span><span class=n >func</span><span class=p >,</span> <span class=n >magic_class</span><span class=o >=</span><span class=n >magic_class</span><span class=p >,</span> <span class=o >**</span><span class=n >kwargs</span><span class=p >)</span>
+            <span class=k >return</span> <span class=n >MagicFactory</span><span class=p >(</span>
+                <span class=n >func</span><span class=p >,</span> <span class=n >magic_class</span><span class=o >=</span><span class=n >magic_class</span><span class=p >,</span> <span class=n >widget_init</span><span class=o >=</span><span class=n >widget_init</span><span class=p >,</span> <span class=o >**</span><span class=n >kwargs</span>
+            <span class=p >)</span>
         <span class=c1 ># MagicFactory is unnecessary if we are immediately instantiating the widget,</span>
         <span class=c1 ># so we shortcut that and just return the FunctionGui here.</span>
         <span class=k >return</span> <span class=n >magic_class</span><span class=p >(</span><span class=n >func</span><span class=p >,</span> <span class=o >**</span><span class=n >kwargs</span><span class=p >)</span>
