@@ -23,6 +23,9 @@
       ~ContainerWidget.count
       
       
+      ~ContainerWidget.dict
+      
+      
       ~ContainerWidget.extend
       
       
@@ -70,6 +73,7 @@
 
    .. autosummary::
    
+      ~ContainerWidget.NO_VALUE
       ~ContainerWidget.annotation
       ~ContainerWidget.enabled
       ~ContainerWidget.height

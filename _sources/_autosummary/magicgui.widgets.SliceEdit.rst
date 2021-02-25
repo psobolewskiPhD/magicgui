@@ -23,6 +23,9 @@
       ~SliceEdit.count
       
       
+      ~SliceEdit.dict
+      
+      
       ~SliceEdit.extend
       
       
@@ -70,6 +73,7 @@
 
    .. autosummary::
    
+      ~SliceEdit.NO_VALUE
       ~SliceEdit.annotation
       ~SliceEdit.enabled
       ~SliceEdit.height

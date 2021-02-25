@@ -26,6 +26,9 @@
       ~FunctionGui.count
       
       
+      ~FunctionGui.dict
+      
+      
       ~FunctionGui.extend
       
       
@@ -76,6 +79,7 @@
 
    .. autosummary::
    
+      ~FunctionGui.NO_VALUE
       ~FunctionGui.annotation
       ~FunctionGui.call_count
       ~FunctionGui.enabled

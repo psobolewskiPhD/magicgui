@@ -23,6 +23,9 @@
       ~RangeEdit.count
       
       
+      ~RangeEdit.dict
+      
+      
       ~RangeEdit.extend
       
       
@@ -70,6 +73,7 @@
 
    .. autosummary::
    
+      ~RangeEdit.NO_VALUE
       ~RangeEdit.annotation
       ~RangeEdit.enabled
       ~RangeEdit.height

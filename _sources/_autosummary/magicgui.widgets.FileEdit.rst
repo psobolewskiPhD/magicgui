@@ -23,6 +23,9 @@
       ~FileEdit.count
       
       
+      ~FileEdit.dict
+      
+      
       ~FileEdit.extend
       
       
@@ -70,6 +73,7 @@
 
    .. autosummary::
    
+      ~FileEdit.NO_VALUE
       ~FileEdit.annotation
       ~FileEdit.enabled
       ~FileEdit.height

@@ -23,6 +23,9 @@
       ~Container.count
       
       
+      ~Container.dict
+      
+      
       ~Container.extend
       
       
@@ -70,6 +73,7 @@
 
    .. autosummary::
    
+      ~Container.NO_VALUE
       ~Container.annotation
       ~Container.enabled
       ~Container.height
