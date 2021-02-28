@@ -33,10 +33,8 @@
     <span class=kn >from</span> <span class=nn >magicgui.widgets</span> <span class=kn >import</span> <span class=n >TextEdit</span>
 
 
-<span class=k >def</span> <span class=nf >_inject_tooltips_from_docstrings</span><span class=p >(</span>
-    <span class=n >docstring</span><span class=p >:</span> <span class=nb >str</span> <span class=o >|</span> <span class=kc >None</span><span class=p >,</span> <span class=n >param_options</span><span class=p >:</span> <span class=nb >dict</span><span class=p >[</span><span class=nb >str</span><span class=p >,</span> <span class=nb >dict</span><span class=p >]</span>
-<span class=p >):</span>
-    <span class=sd >"""Update ``param_options`` dict with tooltips extracted from ``docstring``."""</span>
+<span class=k >def</span> <span class=nf >_inject_tooltips_from_docstrings</span><span class=p >(</span><span class=n >docstring</span><span class=p >:</span> <span class=nb >str</span> <span class=o >|</span> <span class=kc >None</span><span class=p >,</span> <span class=n >sig</span><span class=p >:</span> <span class=n >MagicSignature</span><span class=p >):</span>
+    <span class=sd >"""Update ``sig`` gui options with tooltips extracted from ``docstring``."""</span>
     <span class=kn >from</span> <span class=nn >docstring_parser</span> <span class=kn >import</span> <span class=n >parse</span>
 
     <span class=k >if</span> <span class=ow >not</span> <span class=n >docstring</span><span class=p >:</span>
@@ -56,11 +54,9 @@
         <span class=c1 ># this is to catch potentially bad arg_name parsing in docstring_parser</span>
         <span class=c1 ># if using napoleon style google docstringss</span>
         <span class=n >argname</span> <span class=o >=</span> <span class=n >name</span><span class=o >.</span><span class=n >split</span><span class=p >(</span><span class=s2 >" "</span><span class=p >,</span> <span class=n >maxsplit</span><span class=o >=</span><span class=mi >1</span><span class=p >)[</span><span class=mi >0</span><span class=p >]</span>
-        <span class=k >if</span> <span class=n >argname</span> <span class=ow >not</span> <span class=ow >in</span> <span class=n >param_options</span><span class=p >:</span>
-            <span class=n >param_options</span><span class=p >[</span><span class=n >argname</span><span class=p >]</span> <span class=o >=</span> <span class=p >{}</span>
         <span class=n >desc</span> <span class=o >=</span> <span class=n >description</span><span class=o >.</span><span class=n >replace</span><span class=p >(</span><span class=s2 >"`"</span><span class=p >,</span> <span class=s2 >""</span><span class=p >)</span> <span class=k >if</span> <span class=n >description</span> <span class=k >else</span> <span class=s2 >""</span>
         <span class=c1 ># use setdefault so as not to override an explicitly provided tooltip</span>
-        <span class=n >param_options</span><span class=p >[</span><span class=n >argname</span><span class=p >]</span><span class=o >.</span><span class=n >setdefault</span><span class=p >(</span><span class=s2 >"tooltip"</span><span class=p >,</span> <span class=n >desc</span><span class=p >)</span>
+        <span class=n >sig</span><span class=o >.</span><span class=n >parameters</span><span class=p >[</span><span class=n >argname</span><span class=p >]</span><span class=o >.</span><span class=n >options</span><span class=o >.</span><span class=n >setdefault</span><span class=p >(</span><span class=s2 >"tooltip"</span><span class=p >,</span> <span class=n >desc</span><span class=p >)</span>
 
 
 <span class=n >_R</span> <span class=o >=</span> <span class=n >TypeVar</span><span class=p >(</span><span class=s2 >"_R"</span><span class=p >)</span>
@@ -137,12 +133,13 @@
             <span class=k >raise</span> <span class=ne >TypeError</span><span class=p >(</span><span class=sa >f</span><span class=s2 >"FunctionGui got unexpected keyword argument</span><span class=si >{</span><span class=n >s</span><span class=si >}</span><span class=s2 >: </span><span class=si >{</span><span class=n >extra</span><span class=si >}</span><span class=s2 >"</span><span class=p >)</span>
         <span class=k >if</span> <span class=n >param_options</span> <span class=ow >is</span> <span class=kc >None</span><span class=p >:</span>
             <span class=n >param_options</span> <span class=o >=</span> <span class=p >{}</span>
-        <span class=k >elif</span> <span class=ow >not</span> <span class=nb >isinstance</span><span class=p >(</span><span class=n >param_options</span><span class=p >,</span> <span class=nb >dict</span><span class=p >)</span> <span class=ow >or</span> <span class=ow >not</span> <span class=nb >all</span><span class=p >(</span>
-            <span class=nb >isinstance</span><span class=p >(</span><span class=n >x</span><span class=p >,</span> <span class=nb >dict</span><span class=p >)</span> <span class=k >for</span> <span class=n >x</span> <span class=ow >in</span> <span class=n >param_options</span><span class=o >.</span><span class=n >values</span><span class=p >()</span>
-        <span class=p >):</span>
+        <span class=k >elif</span> <span class=ow >not</span> <span class=nb >isinstance</span><span class=p >(</span><span class=n >param_options</span><span class=p >,</span> <span class=nb >dict</span><span class=p >):</span>
             <span class=k >raise</span> <span class=ne >TypeError</span><span class=p >(</span><span class=s2 >"'param_options' must be a dict of dicts"</span><span class=p >)</span>
+
+        <span class=n >sig</span> <span class=o >=</span> <span class=n >magic_signature</span><span class=p >(</span><span class=n >function</span><span class=p >,</span> <span class=n >gui_options</span><span class=o >=</span><span class=n >param_options</span><span class=p >)</span>
+        <span class=bp >self</span><span class=o >.</span><span class=n >return_annotation</span> <span class=o >=</span> <span class=n >sig</span><span class=o >.</span><span class=n >return_annotation</span>
         <span class=k >if</span> <span class=n >tooltips</span><span class=p >:</span>
-            <span class=n >_inject_tooltips_from_docstrings</span><span class=p >(</span><span class=n >function</span><span class=o >.</span><span class=vm >__doc__</span><span class=p >,</span> <span class=n >param_options</span><span class=p >)</span>
+            <span class=n >_inject_tooltips_from_docstrings</span><span class=p >(</span><span class=n >function</span><span class=o >.</span><span class=vm >__doc__</span><span class=p >,</span> <span class=n >sig</span><span class=p >)</span>
 
         <span class=bp >self</span><span class=o >.</span><span class=n >persist</span> <span class=o >=</span> <span class=n >persist</span>
         <span class=bp >self</span><span class=o >.</span><span class=n >_function</span> <span class=o >=</span> <span class=n >function</span>
@@ -156,9 +153,6 @@
             <span class=nb >getattr</span><span class=p >(</span><span class=n >function</span><span class=p >,</span> <span class=s2 >"__name__"</span><span class=p >,</span> <span class=kc >None</span><span class=p >)</span>
             <span class=ow >or</span> <span class=sa >f</span><span class=s2 >"</span><span class=si >{</span><span class=n >function</span><span class=o >.</span><span class=vm >__module__</span><span class=si >}</span><span class=s2 >.</span><span class=si >{</span><span class=n >function</span><span class=o >.</span><span class=vm >__class__</span><span class=si >}</span><span class=s2 >"</span>
         <span class=p >)</span>
-
-        <span class=n >sig</span> <span class=o >=</span> <span class=n >magic_signature</span><span class=p >(</span><span class=n >function</span><span class=p >,</span> <span class=n >gui_options</span><span class=o >=</span><span class=n >param_options</span><span class=p >)</span>
-        <span class=bp >self</span><span class=o >.</span><span class=n >return_annotation</span> <span class=o >=</span> <span class=n >sig</span><span class=o >.</span><span class=n >return_annotation</span>
         <span class=nb >super</span><span class=p >()</span><span class=o >.</span><span class=fm >__init__</span><span class=p >(</span>
             <span class=n >layout</span><span class=o >=</span><span class=n >layout</span><span class=p >,</span>
             <span class=n >labels</span><span class=o >=</span><span class=n >labels</span><span class=p >,</span>
