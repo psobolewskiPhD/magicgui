@@ -23,9 +23,6 @@
       ~RangeEdit.count
       
       
-      ~RangeEdit.dict
-      
-      
       ~RangeEdit.extend
       
       
@@ -45,6 +42,9 @@
       
       
       ~RangeEdit.pop
+      
+      
+      ~RangeEdit.refresh_choices
       
       
       ~RangeEdit.remove
@@ -73,7 +73,6 @@
 
    .. autosummary::
    
-      ~RangeEdit.NO_VALUE
       ~RangeEdit.annotation
       ~RangeEdit.enabled
       ~RangeEdit.height
@@ -90,6 +89,7 @@
       ~RangeEdit.orientation
       ~RangeEdit.param_kind
       ~RangeEdit.parent
+      ~RangeEdit.return_annotation
       ~RangeEdit.tooltip
       ~RangeEdit.value
       ~RangeEdit.visible

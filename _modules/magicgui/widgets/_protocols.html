@@ -10,7 +10,16 @@
 <span class=kn >from</span> <span class=nn >__future__</span> <span class=kn >import</span> <span class=n >annotations</span>
 
 <span class=kn >from</span> <span class=nn >abc</span> <span class=kn >import</span> <span class=n >ABC</span><span class=p >,</span> <span class=n >abstractmethod</span>
-<span class=kn >from</span> <span class=nn >typing</span> <span class=kn >import</span> <span class=n >TYPE_CHECKING</span><span class=p >,</span> <span class=n >Any</span><span class=p >,</span> <span class=n >Callable</span><span class=p >,</span> <span class=n >Iterable</span><span class=p >,</span> <span class=n >Sequence</span>
+<span class=kn >from</span> <span class=nn >typing</span> <span class=kn >import</span> <span class=p >(</span>
+    <span class=n >TYPE_CHECKING</span><span class=p >,</span>
+    <span class=n >Any</span><span class=p >,</span>
+    <span class=n >Callable</span><span class=p >,</span>
+    <span class=n >Iterable</span><span class=p >,</span>
+    <span class=n >Optional</span><span class=p >,</span>
+    <span class=n >Sequence</span><span class=p >,</span>
+    <span class=n >Tuple</span><span class=p >,</span>
+    <span class=n >Type</span><span class=p >,</span>
+<span class=p >)</span>
 
 <span class=kn >from</span> <span class=nn >typing_extensions</span> <span class=kn >import</span> <span class=n >Protocol</span><span class=p >,</span> <span class=n >runtime_checkable</span>
 
@@ -20,13 +29,13 @@
     <span class=kn >from</span> <span class=nn >magicgui.widgets._bases</span> <span class=kn >import</span> <span class=n >Widget</span>
 
 
-<span class=k >def</span> <span class=nf >assert_protocol</span><span class=p >(</span><span class=n >widget_class</span><span class=p >:</span> <span class=nb >type</span><span class=p >,</span> <span class=n >protocol</span><span class=p >:</span> <span class=nb >type</span><span class=p >):</span>
+<span class=k >def</span> <span class=nf >assert_protocol</span><span class=p >(</span><span class=n >widget_class</span><span class=p >:</span> <span class=n >Type</span><span class=p >,</span> <span class=n >protocol</span><span class=p >:</span> <span class=n >Type</span><span class=p >):</span>
     <span class=sd >"""Ensure that widget_class implements protocol, or raise helpful error."""</span>
     <span class=k >if</span> <span class=ow >not</span> <span class=nb >isinstance</span><span class=p >(</span><span class=n >widget_class</span><span class=p >,</span> <span class=n >protocol</span><span class=p >):</span>
         <span class=n >_raise_protocol_error</span><span class=p >(</span><span class=n >widget_class</span><span class=p >,</span> <span class=n >protocol</span><span class=p >)</span>
 
 
-<span class=k >def</span> <span class=nf >_raise_protocol_error</span><span class=p >(</span><span class=n >widget_class</span><span class=p >:</span> <span class=nb >type</span><span class=p >,</span> <span class=n >protocol</span><span class=p >:</span> <span class=nb >type</span><span class=p >):</span>
+<span class=k >def</span> <span class=nf >_raise_protocol_error</span><span class=p >(</span><span class=n >widget_class</span><span class=p >:</span> <span class=n >Type</span><span class=p >,</span> <span class=n >protocol</span><span class=p >:</span> <span class=n >Type</span><span class=p >):</span>
     <span class=sd >"""Raise a more helpful error when required protocol members are missing."""</span>
     <span class=n >missing</span> <span class=o >=</span> <span class=p >{</span>
         <span class=n >i</span>
@@ -169,7 +178,7 @@
         <span class=k >raise</span> <span class=ne >NotImplementedError</span><span class=p >()</span></div>
 
 <div class=viewcode-block  id=WidgetProtocol._mgui_set_tooltip ><a class=viewcode-back  href="../../../_autosummary/magicgui.widgets._protocols.WidgetProtocol.html#magicgui.widgets._protocols.WidgetProtocol._mgui_set_tooltip">[docs]</a>    <span class=nd >@abstractmethod</span>
-    <span class=k >def</span> <span class=nf >_mgui_set_tooltip</span><span class=p >(</span><span class=bp >self</span><span class=p >,</span> <span class=n >value</span><span class=p >:</span> <span class=nb >str</span> <span class=o >|</span> <span class=kc >None</span><span class=p >)</span> <span class=o >-&gt;</span> <span class=kc >None</span><span class=p >:</span>
+    <span class=k >def</span> <span class=nf >_mgui_set_tooltip</span><span class=p >(</span><span class=bp >self</span><span class=p >,</span> <span class=n >value</span><span class=p >:</span> <span class=n >Optional</span><span class=p >[</span><span class=nb >str</span><span class=p >])</span> <span class=o >-&gt;</span> <span class=kc >None</span><span class=p >:</span>
         <span class=sd >"""Set a tooltip for this widget."""</span>
         <span class=k >raise</span> <span class=ne >NotImplementedError</span><span class=p >()</span></div></div>
 
@@ -320,12 +329,12 @@
     <span class=sd >"""Widget that has a set of valid choices."""</span>
 
 <div class=viewcode-block  id=SupportsChoices._mgui_get_choices ><a class=viewcode-back  href="../../../_autosummary/magicgui.widgets._protocols.SupportsChoices.html#magicgui.widgets._protocols.SupportsChoices._mgui_get_choices">[docs]</a>    <span class=nd >@abstractmethod</span>
-    <span class=k >def</span> <span class=nf >_mgui_get_choices</span><span class=p >(</span><span class=bp >self</span><span class=p >)</span> <span class=o >-&gt;</span> <span class=nb >tuple</span><span class=p >[</span><span class=nb >tuple</span><span class=p >[</span><span class=nb >str</span><span class=p >,</span> <span class=n >Any</span><span class=p >]]:</span>
+    <span class=k >def</span> <span class=nf >_mgui_get_choices</span><span class=p >(</span><span class=bp >self</span><span class=p >)</span> <span class=o >-&gt;</span> <span class=n >Tuple</span><span class=p >[</span><span class=n >Tuple</span><span class=p >[</span><span class=nb >str</span><span class=p >,</span> <span class=n >Any</span><span class=p >]]:</span>
         <span class=sd >"""Get available choices."""</span>
         <span class=k >raise</span> <span class=ne >NotImplementedError</span><span class=p >()</span></div>
 
 <div class=viewcode-block  id=SupportsChoices._mgui_set_choices ><a class=viewcode-back  href="../../../_autosummary/magicgui.widgets._protocols.SupportsChoices.html#magicgui.widgets._protocols.SupportsChoices._mgui_set_choices">[docs]</a>    <span class=nd >@abstractmethod</span>
-    <span class=k >def</span> <span class=nf >_mgui_set_choices</span><span class=p >(</span><span class=bp >self</span><span class=p >,</span> <span class=n >choices</span><span class=p >:</span> <span class=n >Iterable</span><span class=p >[</span><span class=nb >tuple</span><span class=p >[</span><span class=nb >str</span><span class=p >,</span> <span class=n >Any</span><span class=p >]])</span> <span class=o >-&gt;</span> <span class=kc >None</span><span class=p >:</span>
+    <span class=k >def</span> <span class=nf >_mgui_set_choices</span><span class=p >(</span><span class=bp >self</span><span class=p >,</span> <span class=n >choices</span><span class=p >:</span> <span class=n >Iterable</span><span class=p >[</span><span class=n >Tuple</span><span class=p >[</span><span class=nb >str</span><span class=p >,</span> <span class=n >Any</span><span class=p >]])</span> <span class=o >-&gt;</span> <span class=kc >None</span><span class=p >:</span>
         <span class=sd >"""Set available choices."""</span>
         <span class=k >raise</span> <span class=ne >NotImplementedError</span><span class=p >()</span></div>
 
@@ -357,7 +366,9 @@
 
 <div class=viewcode-block  id=CategoricalWidgetProtocol ><a class=viewcode-back  href="../../../_autosummary/magicgui.widgets._protocols.CategoricalWidgetProtocol.html#magicgui.widgets._protocols.CategoricalWidgetProtocol">[docs]</a><span class=nd >@runtime_checkable</span>
 <span class=k >class</span> <span class=nc >CategoricalWidgetProtocol</span><span class=p >(</span><span class=n >ValueWidgetProtocol</span><span class=p >,</span> <span class=n >SupportsChoices</span><span class=p >,</span> <span class=n >Protocol</span><span class=p >):</span>
-    <span class=sd >"""Categorical widget, that has a set of valid choices, and a current value."""</span></div>
+    <span class=sd >"""Categorical widget, that has a set of valid choices, and a current value."""</span>
+
+    <span class=k >pass</span></div>
 
 
 <div class=viewcode-block  id=SupportsText ><a class=viewcode-back  href="../../../_autosummary/magicgui.widgets._protocols.SupportsText.html#magicgui.widgets._protocols.SupportsText">[docs]</a><span class=nd >@runtime_checkable</span>
@@ -430,11 +441,11 @@
         <span class=k >raise</span> <span class=ne >NotImplementedError</span><span class=p >()</span></div>
 
 <div class=viewcode-block  id=ContainerProtocol._mgui_get_margins ><a class=viewcode-back  href="../../../_autosummary/magicgui.widgets._protocols.ContainerProtocol.html#magicgui.widgets._protocols.ContainerProtocol._mgui_get_margins">[docs]</a>    <span class=nd >@abstractmethod</span>
-    <span class=k >def</span> <span class=nf >_mgui_get_margins</span><span class=p >(</span><span class=bp >self</span><span class=p >)</span> <span class=o >-&gt;</span> <span class=nb >tuple</span><span class=p >[</span><span class=nb >int</span><span class=p >,</span> <span class=nb >int</span><span class=p >,</span> <span class=nb >int</span><span class=p >,</span> <span class=nb >int</span><span class=p >]:</span>
+    <span class=k >def</span> <span class=nf >_mgui_get_margins</span><span class=p >(</span><span class=bp >self</span><span class=p >)</span> <span class=o >-&gt;</span> <span class=n >Tuple</span><span class=p >[</span><span class=nb >int</span><span class=p >,</span> <span class=nb >int</span><span class=p >,</span> <span class=nb >int</span><span class=p >,</span> <span class=nb >int</span><span class=p >]:</span>
         <span class=k >raise</span> <span class=ne >NotImplementedError</span><span class=p >()</span></div>
 
 <div class=viewcode-block  id=ContainerProtocol._mgui_set_margins ><a class=viewcode-back  href="../../../_autosummary/magicgui.widgets._protocols.ContainerProtocol.html#magicgui.widgets._protocols.ContainerProtocol._mgui_set_margins">[docs]</a>    <span class=nd >@abstractmethod</span>
-    <span class=k >def</span> <span class=nf >_mgui_set_margins</span><span class=p >(</span><span class=bp >self</span><span class=p >,</span> <span class=n >margins</span><span class=p >:</span> <span class=nb >tuple</span><span class=p >[</span><span class=nb >int</span><span class=p >,</span> <span class=nb >int</span><span class=p >,</span> <span class=nb >int</span><span class=p >,</span> <span class=nb >int</span><span class=p >])</span> <span class=o >-&gt;</span> <span class=kc >None</span><span class=p >:</span>
+    <span class=k >def</span> <span class=nf >_mgui_set_margins</span><span class=p >(</span><span class=bp >self</span><span class=p >,</span> <span class=n >margins</span><span class=p >:</span> <span class=n >Tuple</span><span class=p >[</span><span class=nb >int</span><span class=p >,</span> <span class=nb >int</span><span class=p >,</span> <span class=nb >int</span><span class=p >,</span> <span class=nb >int</span><span class=p >])</span> <span class=o >-&gt;</span> <span class=kc >None</span><span class=p >:</span>
         <span class=k >raise</span> <span class=ne >NotImplementedError</span><span class=p >()</span></div></div>
 
 
@@ -483,7 +494,7 @@
     <span class=k >def</span> <span class=nf >_mgui_start_timer</span><span class=p >(</span>
         <span class=bp >self</span><span class=p >,</span>
         <span class=n >interval</span><span class=p >:</span> <span class=nb >int</span> <span class=o >=</span> <span class=mi >0</span><span class=p >,</span>
-        <span class=n >on_timeout</span><span class=p >:</span> <span class=n >Callable</span><span class=p >[[],</span> <span class=kc >None</span><span class=p >]</span> <span class=o >|</span> <span class=kc >None</span> <span class=o >=</span> <span class=kc >None</span><span class=p >,</span>
+        <span class=n >on_timeout</span><span class=p >:</span> <span class=n >Optional</span><span class=p >[</span><span class=n >Callable</span><span class=p >[[],</span> <span class=kc >None</span><span class=p >]]</span> <span class=o >=</span> <span class=kc >None</span><span class=p >,</span>
         <span class=n >single</span><span class=p >:</span> <span class=nb >bool</span> <span class=o >=</span> <span class=kc >False</span><span class=p >,</span>
     <span class=p >)</span> <span class=o >-&gt;</span> <span class=kc >None</span><span class=p >:</span>
         <span class=sd >"""Create and start a timer.</span>

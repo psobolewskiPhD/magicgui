@@ -2,8 +2,9 @@
 <span></span><span class=kn >from</span> <span class=nn >__future__</span> <span class=kn >import</span> <span class=n >annotations</span>
 
 <span class=kn >import</span> <span class=nn >inspect</span>
+<span class=kn >import</span> <span class=nn >warnings</span>
 <span class=kn >from</span> <span class=nn >contextlib</span> <span class=kn >import</span> <span class=n >contextmanager</span>
-<span class=kn >from</span> <span class=nn >typing</span> <span class=kn >import</span> <span class=n >TYPE_CHECKING</span><span class=p >,</span> <span class=n >Any</span><span class=p >,</span> <span class=n >ForwardRef</span>
+<span class=kn >from</span> <span class=nn >typing</span> <span class=kn >import</span> <span class=n >TYPE_CHECKING</span><span class=p >,</span> <span class=n >Any</span><span class=p >,</span> <span class=n >ForwardRef</span><span class=p >,</span> <span class=n >Optional</span><span class=p >,</span> <span class=n >Type</span><span class=p >,</span> <span class=n >Union</span>
 
 <span class=kn >from</span> <span class=nn >magicgui.application</span> <span class=kn >import</span> <span class=n >use_app</span>
 <span class=kn >from</span> <span class=nn >magicgui.events</span> <span class=kn >import</span> <span class=n >EventEmitter</span>
@@ -45,16 +46,16 @@
 
     <span class=n >_widget</span><span class=p >:</span> <span class=n >_protocols</span><span class=o >.</span><span class=n >WidgetProtocol</span>
     <span class=c1 ># if this widget becomes owned by a labeled widget</span>
-    <span class=n >_labeled_widget_ref</span><span class=p >:</span> <span class=s2 >"ReferenceType[_LabeledWidget]"</span> <span class=o >|</span> <span class=kc >None</span> <span class=o >=</span> <span class=kc >None</span>
+    <span class=n >_labeled_widget_ref</span><span class=p >:</span> <span class=n >Optional</span><span class=p >[</span><span class=s2 >"ReferenceType[_LabeledWidget]"</span><span class=p >]</span> <span class=o >=</span> <span class=kc >None</span>
 
     <span class=k >def</span> <span class=fm >__init__</span><span class=p >(</span>
         <span class=bp >self</span><span class=p >,</span>
-        <span class=n >widget_type</span><span class=p >:</span> <span class=nb >type</span><span class=p >[</span><span class=n >_protocols</span><span class=o >.</span><span class=n >WidgetProtocol</span><span class=p >],</span>
+        <span class=n >widget_type</span><span class=p >:</span> <span class=n >Type</span><span class=p >[</span><span class=n >_protocols</span><span class=o >.</span><span class=n >WidgetProtocol</span><span class=p >],</span>
         <span class=n >name</span><span class=p >:</span> <span class=nb >str</span> <span class=o >=</span> <span class=s2 >""</span><span class=p >,</span>
         <span class=n >annotation</span><span class=p >:</span> <span class=n >Any</span> <span class=o >=</span> <span class=kc >None</span><span class=p >,</span>
         <span class=n >label</span><span class=p >:</span> <span class=nb >str</span> <span class=o >=</span> <span class=kc >None</span><span class=p >,</span>
-        <span class=n >tooltip</span><span class=p >:</span> <span class=nb >str</span> <span class=o >|</span> <span class=kc >None</span> <span class=o >=</span> <span class=kc >None</span><span class=p >,</span>
-        <span class=n >visible</span><span class=p >:</span> <span class=nb >bool</span> <span class=o >|</span> <span class=kc >None</span> <span class=o >=</span> <span class=kc >None</span><span class=p >,</span>
+        <span class=n >tooltip</span><span class=p >:</span> <span class=n >Optional</span><span class=p >[</span><span class=nb >str</span><span class=p >]</span> <span class=o >=</span> <span class=kc >None</span><span class=p >,</span>
+        <span class=n >visible</span><span class=p >:</span> <span class=n >Optional</span><span class=p >[</span><span class=nb >bool</span><span class=p >]</span> <span class=o >=</span> <span class=kc >None</span><span class=p >,</span>
         <span class=n >enabled</span><span class=p >:</span> <span class=nb >bool</span> <span class=o >=</span> <span class=kc >True</span><span class=p >,</span>
         <span class=n >gui_only</span><span class=o >=</span><span class=kc >False</span><span class=p >,</span>
         <span class=n >backend_kwargs</span><span class=o >=</span><span class=nb >dict</span><span class=p >(),</span>
@@ -63,9 +64,11 @@
         <span class=c1 ># for ipywidgets API compatibility</span>
         <span class=n >label</span> <span class=o >=</span> <span class=n >label</span> <span class=ow >or</span> <span class=n >extra</span><span class=o >.</span><span class=n >pop</span><span class=p >(</span><span class=s2 >"description"</span><span class=p >,</span> <span class=kc >None</span><span class=p >)</span>
         <span class=k >if</span> <span class=n >extra</span><span class=p >:</span>
-            <span class=k >raise</span> <span class=ne >TypeError</span><span class=p >(</span>
-                <span class=sa >f</span><span class=s2 >"</span><span class=si >{</span><span class=nb >type</span><span class=p >(</span><span class=bp >self</span><span class=p >)</span><span class=o >.</span><span class=vm >__name__</span><span class=si >}</span><span class=s2 > got an unexpected "</span>
-                <span class=sa >f</span><span class=s2 >"keyword argument: </span><span class=si >{</span><span class=s1 >', '</span><span class=o >.</span><span class=n >join</span><span class=p >(</span><span class=n >extra</span><span class=p >)</span><span class=si >}</span><span class=s2 >"</span>
+            <span class=n >warnings</span><span class=o >.</span><span class=n >warn</span><span class=p >(</span>
+                <span class=sa >f</span><span class=s2 >"</span><span class=se >\n\n</span><span class=si >{</span><span class=bp >self</span><span class=o >.</span><span class=vm >__class__</span><span class=o >.</span><span class=vm >__name__</span><span class=si >}</span><span class=s2 >.__init__() got unexpected "</span>
+                <span class=sa >f</span><span class=s2 >"keyword arguments </span><span class=si >{</span><span class=nb >set</span><span class=p >(</span><span class=n >extra</span><span class=p >)</span><span class=si >!r}</span><span class=s2 >.</span><span class=se >\n</span><span class=s2 >"</span>
+                <span class=s2 >"In the future this will raise an exception</span><span class=se >\n</span><span class=s2 >"</span><span class=p >,</span>
+                <span class=ne >FutureWarning</span><span class=p >,</span>
             <span class=p >)</span>
 
         <span class=n >_prot</span> <span class=o >=</span> <span class=bp >self</span><span class=o >.</span><span class=vm >__class__</span><span class=o >.</span><span class=vm >__annotations__</span><span class=p >[</span><span class=s2 >"_widget"</span><span class=p >]</span>
@@ -121,7 +124,7 @@
         <span class=k >return</span> <span class=bp >self</span><span class=o >.</span><span class=n >_param_kind</span>
 
     <span class=nd >@param_kind</span><span class=o >.</span><span class=n >setter</span>
-    <span class=k >def</span> <span class=nf >param_kind</span><span class=p >(</span><span class=bp >self</span><span class=p >,</span> <span class=n >kind</span><span class=p >:</span> <span class=nb >str</span> <span class=o >|</span> <span class=n >inspect</span><span class=o >.</span><span class=n >_ParameterKind</span><span class=p >):</span>
+    <span class=k >def</span> <span class=nf >param_kind</span><span class=p >(</span><span class=bp >self</span><span class=p >,</span> <span class=n >kind</span><span class=p >:</span> <span class=n >Union</span><span class=p >[</span><span class=nb >str</span><span class=p >,</span> <span class=n >inspect</span><span class=o >.</span><span class=n >_ParameterKind</span><span class=p >]):</span>
         <span class=k >if</span> <span class=nb >isinstance</span><span class=p >(</span><span class=n >kind</span><span class=p >,</span> <span class=nb >str</span><span class=p >):</span>
             <span class=n >kind</span> <span class=o >=</span> <span class=n >inspect</span><span class=o >.</span><span class=n >_ParameterKind</span><span class=p >[</span><span class=n >kind</span><span class=o >.</span><span class=n >upper</span><span class=p >()]</span>
         <span class=k >if</span> <span class=ow >not</span> <span class=nb >isinstance</span><span class=p >(</span><span class=n >kind</span><span class=p >,</span> <span class=n >inspect</span><span class=o >.</span><span class=n >_ParameterKind</span><span class=p >):</span>
@@ -239,16 +242,16 @@
         <span class=bp >self</span><span class=o >.</span><span class=n >_widget</span><span class=o >.</span><span class=n >_mgui_set_max_height</span><span class=p >(</span><span class=n >value</span><span class=p >)</span>
 
     <span class=nd >@property</span>
-    <span class=k >def</span> <span class=nf >tooltip</span><span class=p >(</span><span class=bp >self</span><span class=p >)</span> <span class=o >-&gt;</span> <span class=nb >str</span> <span class=o >|</span> <span class=kc >None</span><span class=p >:</span>
+    <span class=k >def</span> <span class=nf >tooltip</span><span class=p >(</span><span class=bp >self</span><span class=p >)</span> <span class=o >-&gt;</span> <span class=n >Optional</span><span class=p >[</span><span class=nb >str</span><span class=p >]:</span>
         <span class=sd >"""Get the tooltip for this widget."""</span>
         <span class=k >return</span> <span class=bp >self</span><span class=o >.</span><span class=n >_widget</span><span class=o >.</span><span class=n >_mgui_get_tooltip</span><span class=p >()</span> <span class=ow >or</span> <span class=kc >None</span>
 
     <span class=nd >@tooltip</span><span class=o >.</span><span class=n >setter</span>
-    <span class=k >def</span> <span class=nf >tooltip</span><span class=p >(</span><span class=bp >self</span><span class=p >,</span> <span class=n >value</span><span class=p >:</span> <span class=nb >str</span> <span class=o >|</span> <span class=kc >None</span><span class=p >)</span> <span class=o >-&gt;</span> <span class=kc >None</span><span class=p >:</span>
+    <span class=k >def</span> <span class=nf >tooltip</span><span class=p >(</span><span class=bp >self</span><span class=p >,</span> <span class=n >value</span><span class=p >:</span> <span class=n >Optional</span><span class=p >[</span><span class=nb >str</span><span class=p >])</span> <span class=o >-&gt;</span> <span class=kc >None</span><span class=p >:</span>
         <span class=sd >"""Set the tooltip for this widget."""</span>
         <span class=k >return</span> <span class=bp >self</span><span class=o >.</span><span class=n >_widget</span><span class=o >.</span><span class=n >_mgui_set_tooltip</span><span class=p >(</span><span class=n >value</span><span class=p >)</span>
 
-    <span class=k >def</span> <span class=nf >_labeled_widget</span><span class=p >(</span><span class=bp >self</span><span class=p >)</span> <span class=o >-&gt;</span> <span class=n >_LabeledWidget</span> <span class=o >|</span> <span class=kc >None</span><span class=p >:</span>
+    <span class=k >def</span> <span class=nf >_labeled_widget</span><span class=p >(</span><span class=bp >self</span><span class=p >)</span> <span class=o >-&gt;</span> <span class=n >Optional</span><span class=p >[</span><span class=n >_LabeledWidget</span><span class=p >]:</span>
         <span class=sd >"""Return _LabeledWidget container, if applicable."""</span>
         <span class=k >return</span> <span class=bp >self</span><span class=o >.</span><span class=n >_labeled_widget_ref</span><span class=p >()</span> <span class=k >if</span> <span class=bp >self</span><span class=o >.</span><span class=n >_labeled_widget_ref</span> <span class=k >else</span> <span class=kc >None</span>
 

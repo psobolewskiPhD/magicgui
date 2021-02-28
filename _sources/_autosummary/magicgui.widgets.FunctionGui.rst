@@ -13,6 +13,9 @@
    .. autosummary::
    
       
+      ~FunctionGui.Gui
+      
+      
       
       ~FunctionGui.append
       
@@ -24,9 +27,6 @@
       
       
       ~FunctionGui.count
-      
-      
-      ~FunctionGui.dict
       
       
       ~FunctionGui.extend
@@ -48,6 +48,9 @@
       
       
       ~FunctionGui.pop
+      
+      
+      ~FunctionGui.refresh_choices
       
       
       ~FunctionGui.remove
@@ -79,7 +82,6 @@
 
    .. autosummary::
    
-      ~FunctionGui.NO_VALUE
       ~FunctionGui.annotation
       ~FunctionGui.call_count
       ~FunctionGui.enabled
