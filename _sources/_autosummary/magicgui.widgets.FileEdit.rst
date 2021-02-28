@@ -23,6 +23,9 @@
       ~FileEdit.count
       
       
+      ~FileEdit.dict
+      
+      
       ~FileEdit.extend
       
       
@@ -42,9 +45,6 @@
       
       
       ~FileEdit.pop
-      
-      
-      ~FileEdit.refresh_choices
       
       
       ~FileEdit.remove
@@ -73,6 +73,7 @@
 
    .. autosummary::
    
+      ~FileEdit.NO_VALUE
       ~FileEdit.annotation
       ~FileEdit.enabled
       ~FileEdit.height
@@ -90,7 +91,6 @@
       ~FileEdit.orientation
       ~FileEdit.param_kind
       ~FileEdit.parent
-      ~FileEdit.return_annotation
       ~FileEdit.tooltip
       ~FileEdit.value
       ~FileEdit.visible

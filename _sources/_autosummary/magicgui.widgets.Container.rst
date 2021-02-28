@@ -23,6 +23,9 @@
       ~Container.count
       
       
+      ~Container.dict
+      
+      
       ~Container.extend
       
       
@@ -42,9 +45,6 @@
       
       
       ~Container.pop
-      
-      
-      ~Container.refresh_choices
       
       
       ~Container.remove
@@ -73,6 +73,7 @@
 
    .. autosummary::
    
+      ~Container.NO_VALUE
       ~Container.annotation
       ~Container.enabled
       ~Container.height
@@ -89,7 +90,6 @@
       ~Container.orientation
       ~Container.param_kind
       ~Container.parent
-      ~Container.return_annotation
       ~Container.tooltip
       ~Container.visible
       ~Container.widget_type

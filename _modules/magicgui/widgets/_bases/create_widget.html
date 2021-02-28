@@ -2,7 +2,7 @@
 <span></span><span class=kn >from</span> <span class=nn >__future__</span> <span class=kn >import</span> <span class=n >annotations</span>
 
 <span class=kn >import</span> <span class=nn >inspect</span>
-<span class=kn >from</span> <span class=nn >typing</span> <span class=kn >import</span> <span class=n >TYPE_CHECKING</span><span class=p >,</span> <span class=n >Any</span><span class=p >,</span> <span class=n >Type</span><span class=p >,</span> <span class=n >Union</span>
+<span class=kn >from</span> <span class=nn >typing</span> <span class=kn >import</span> <span class=n >TYPE_CHECKING</span><span class=p >,</span> <span class=n >Any</span>
 
 <span class=kn >from</span> <span class=nn >magicgui.application</span> <span class=kn >import</span> <span class=n >use_app</span>
 <span class=kn >from</span> <span class=nn >magicgui.widgets</span> <span class=kn >import</span> <span class=n >_bases</span><span class=p >,</span> <span class=n >_protocols</span>
@@ -17,11 +17,11 @@
     <span class=n >value</span><span class=p >:</span> <span class=n >Any</span> <span class=o >=</span> <span class=kc >None</span><span class=p >,</span>
     <span class=n >annotation</span><span class=p >:</span> <span class=n >Any</span> <span class=o >=</span> <span class=kc >None</span><span class=p >,</span>
     <span class=n >name</span><span class=p >:</span> <span class=nb >str</span> <span class=o >=</span> <span class=s2 >""</span><span class=p >,</span>
-    <span class=n >param_kind</span><span class=p >:</span> <span class=n >Union</span><span class=p >[</span><span class=nb >str</span><span class=p >,</span> <span class=n >inspect</span><span class=o >.</span><span class=n >_ParameterKind</span><span class=p >]</span> <span class=o >=</span> <span class=s2 >"POSITIONAL_OR_KEYWORD"</span><span class=p >,</span>
+    <span class=n >param_kind</span><span class=p >:</span> <span class=nb >str</span> <span class=o >|</span> <span class=n >inspect</span><span class=o >.</span><span class=n >_ParameterKind</span> <span class=o >=</span> <span class=s2 >"POSITIONAL_OR_KEYWORD"</span><span class=p >,</span>
     <span class=n >label</span><span class=o >=</span><span class=kc >None</span><span class=p >,</span>
     <span class=n >gui_only</span><span class=o >=</span><span class=kc >False</span><span class=p >,</span>
     <span class=n >app</span><span class=o >=</span><span class=kc >None</span><span class=p >,</span>
-    <span class=n >widget_type</span><span class=p >:</span> <span class=n >Union</span><span class=p >[</span><span class=nb >str</span><span class=p >,</span> <span class=n >Type</span><span class=p >[</span><span class=n >_protocols</span><span class=o >.</span><span class=n >WidgetProtocol</span><span class=p >],</span> <span class=kc >None</span><span class=p >]</span> <span class=o >=</span> <span class=kc >None</span><span class=p >,</span>
+    <span class=n >widget_type</span><span class=p >:</span> <span class=nb >str</span> <span class=o >|</span> <span class=nb >type</span><span class=p >[</span><span class=n >_protocols</span><span class=o >.</span><span class=n >WidgetProtocol</span><span class=p >]</span> <span class=o >|</span> <span class=kc >None</span> <span class=o >=</span> <span class=kc >None</span><span class=p >,</span>
     <span class=n >options</span><span class=p >:</span> <span class=n >WidgetOptions</span> <span class=o >=</span> <span class=nb >dict</span><span class=p >(),</span>
 <span class=p >):</span>
     <span class=sd >"""Create and return appropriate widget subclass.</span>
