@@ -23,9 +23,6 @@
       ~Container.count
       
       
-      ~Container.dict
-      
-      
       ~Container.extend
       
       

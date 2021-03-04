@@ -23,9 +23,6 @@
       ~SliceEdit.count
       
       
-      ~SliceEdit.dict
-      
-      
       ~SliceEdit.extend
       
       

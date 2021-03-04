@@ -23,9 +23,6 @@
       ~RangeEdit.count
       
       
-      ~RangeEdit.dict
-      
-      
       ~RangeEdit.extend
       
       

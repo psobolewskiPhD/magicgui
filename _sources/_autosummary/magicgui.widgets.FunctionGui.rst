@@ -26,9 +26,6 @@
       ~FunctionGui.count
       
       
-      ~FunctionGui.dict
-      
-      
       ~FunctionGui.extend
       
       
