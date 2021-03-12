@@ -181,11 +181,9 @@
                     <span class=c1 ># disable the call button until the function has finished</span>
                     <span class=bp >self</span><span class=o >.</span><span class=n >_call_button</span> <span class=o >=</span> <span class=n >cast</span><span class=p >(</span><span class=n >PushButton</span><span class=p >,</span> <span class=bp >self</span><span class=o >.</span><span class=n >_call_button</span><span class=p >)</span>
                     <span class=bp >self</span><span class=o >.</span><span class=n >_call_button</span><span class=o >.</span><span class=n >enabled</span> <span class=o >=</span> <span class=kc >False</span>
-                    <span class=n >t</span><span class=p >,</span> <span class=bp >self</span><span class=o >.</span><span class=n >_call_button</span><span class=o >.</span><span class=n >text</span> <span class=o >=</span> <span class=bp >self</span><span class=o >.</span><span class=n >_call_button</span><span class=o >.</span><span class=n >text</span><span class=p >,</span> <span class=s2 >"Running..."</span>
                     <span class=k >try</span><span class=p >:</span>
                         <span class=bp >self</span><span class=o >.</span><span class=fm >__call__</span><span class=p >()</span>
                     <span class=k >finally</span><span class=p >:</span>
-                        <span class=bp >self</span><span class=o >.</span><span class=n >_call_button</span><span class=o >.</span><span class=n >text</span> <span class=o >=</span> <span class=n >t</span>
                         <span class=bp >self</span><span class=o >.</span><span class=n >_call_button</span><span class=o >.</span><span class=n >enabled</span> <span class=o >=</span> <span class=kc >True</span>
 
                 <span class=bp >self</span><span class=o >.</span><span class=n >_call_button</span><span class=o >.</span><span class=n >changed</span><span class=o >.</span><span class=n >connect</span><span class=p >(</span><span class=n >_disable_button_and_call</span><span class=p >)</span>
