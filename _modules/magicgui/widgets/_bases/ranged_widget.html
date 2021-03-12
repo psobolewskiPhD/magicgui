@@ -35,15 +35,15 @@
                     <span class=nb >max</span> <span class=o >=</span> <span class=n >kwargs</span><span class=o >.</span><span class=n >pop</span><span class=p >(</span><span class=n >key</span><span class=p >)</span>
                 <span class=k >else</span><span class=p >:</span>
                     <span class=nb >min</span> <span class=o >=</span> <span class=n >kwargs</span><span class=o >.</span><span class=n >pop</span><span class=p >(</span><span class=n >key</span><span class=p >)</span>
-
+        <span class=c1 ># value should be set *after* min max is set</span>
+        <span class=n >val</span> <span class=o >=</span> <span class=n >kwargs</span><span class=o >.</span><span class=n >pop</span><span class=p >(</span><span class=s2 >"value"</span><span class=p >,</span> <span class=kc >None</span><span class=p >)</span>
         <span class=nb >super</span><span class=p >()</span><span class=o >.</span><span class=fm >__init__</span><span class=p >(</span><span class=o >**</span><span class=n >kwargs</span><span class=p >)</span>
 
+        <span class=bp >self</span><span class=o >.</span><span class=n >step</span> <span class=o >=</span> <span class=n >step</span>
         <span class=bp >self</span><span class=o >.</span><span class=n >min</span> <span class=o >=</span> <span class=nb >min</span>
         <span class=bp >self</span><span class=o >.</span><span class=n >max</span> <span class=o >=</span> <span class=nb >max</span>
-        <span class=bp >self</span><span class=o >.</span><span class=n >step</span> <span class=o >=</span> <span class=n >step</span>
-        <span class=k >if</span> <span class=n >kwargs</span><span class=o >.</span><span class=n >get</span><span class=p >(</span><span class=s2 >"value"</span><span class=p >)</span> <span class=ow >is</span> <span class=ow >not</span> <span class=kc >None</span><span class=p >:</span>
-            <span class=c1 ># value may need to be reset *after* min max is set</span>
-            <span class=bp >self</span><span class=o >.</span><span class=n >value</span> <span class=o >=</span> <span class=n >kwargs</span><span class=p >[</span><span class=s2 >"value"</span><span class=p >]</span>
+        <span class=k >if</span> <span class=n >val</span> <span class=ow >is</span> <span class=ow >not</span> <span class=kc >None</span><span class=p >:</span>
+            <span class=bp >self</span><span class=o >.</span><span class=n >value</span> <span class=o >=</span> <span class=n >val</span>
 
     <span class=nd >@property</span>
     <span class=k >def</span> <span class=nf >options</span><span class=p >(</span><span class=bp >self</span><span class=p >)</span> <span class=o >-&gt;</span> <span class=nb >dict</span><span class=p >:</span>
@@ -51,6 +51,16 @@
         <span class=n >d</span> <span class=o >=</span> <span class=nb >super</span><span class=p >()</span><span class=o >.</span><span class=n >options</span><span class=o >.</span><span class=n >copy</span><span class=p >()</span>
         <span class=n >d</span><span class=o >.</span><span class=n >update</span><span class=p >({</span><span class=s2 >"min"</span><span class=p >:</span> <span class=bp >self</span><span class=o >.</span><span class=n >min</span><span class=p >,</span> <span class=s2 >"max"</span><span class=p >:</span> <span class=bp >self</span><span class=o >.</span><span class=n >max</span><span class=p >,</span> <span class=s2 >"step"</span><span class=p >:</span> <span class=bp >self</span><span class=o >.</span><span class=n >step</span><span class=p >})</span>
         <span class=k >return</span> <span class=n >d</span>
+
+    <span class=nd >@ValueWidget</span><span class=o >.</span><span class=n >value</span><span class=o >.</span><span class=n >setter</span>  <span class=c1 ># type: ignore</span>
+    <span class=k >def</span> <span class=nf >value</span><span class=p >(</span><span class=bp >self</span><span class=p >,</span> <span class=n >value</span><span class=p >):</span>
+        <span class=sd >"""Set widget value, will raise Value error if not within min/max."""</span>
+        <span class=k >if</span> <span class=ow >not</span> <span class=p >(</span><span class=bp >self</span><span class=o >.</span><span class=n >min</span> <span class=o >&lt;=</span> <span class=nb >float</span><span class=p >(</span><span class=n >value</span><span class=p >)</span> <span class=o >&lt;=</span> <span class=bp >self</span><span class=o >.</span><span class=n >max</span><span class=p >):</span>
+            <span class=k >raise</span> <span class=ne >ValueError</span><span class=p >(</span>
+                <span class=sa >f</span><span class=s2 >"value </span><span class=si >{</span><span class=n >value</span><span class=si >}</span><span class=s2 > is outside of the allowed range: "</span>
+                <span class=sa >f</span><span class=s2 >"(</span><span class=si >{</span><span class=bp >self</span><span class=o >.</span><span class=n >min</span><span class=si >}</span><span class=s2 >, </span><span class=si >{</span><span class=bp >self</span><span class=o >.</span><span class=n >max</span><span class=si >}</span><span class=s2 >)"</span>
+            <span class=p >)</span>
+        <span class=n >ValueWidget</span><span class=o >.</span><span class=n >value</span><span class=o >.</span><span class=n >fset</span><span class=p >(</span><span class=bp >self</span><span class=p >,</span> <span class=n >value</span><span class=p >)</span>  <span class=c1 ># type: ignore</span>
 
     <span class=nd >@property</span>
     <span class=k >def</span> <span class=nf >min</span><span class=p >(</span><span class=bp >self</span><span class=p >)</span> <span class=o >-&gt;</span> <span class=nb >float</span><span class=p >:</span>

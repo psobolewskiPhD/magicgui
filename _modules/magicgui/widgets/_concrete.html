@@ -32,7 +32,7 @@
     <span class=n >ValueWidget</span><span class=p >,</span>
     <span class=n >Widget</span><span class=p >,</span>
 <span class=p >)</span>
-<span class=kn >from</span> <span class=nn >._transforms</span> <span class=kn >import</span> <span class=n >make_float</span><span class=p >,</span> <span class=n >make_literal_eval</span>
+<span class=kn >from</span> <span class=nn >._transforms</span> <span class=kn >import</span> <span class=n >make_literal_eval</span>
 
 <span class=n >BUILDING_DOCS</span> <span class=o >=</span> <span class=n >sys</span><span class=o >.</span><span class=n >argv</span><span class=p >[</span><span class=o >-</span><span class=mi >2</span><span class=p >:]</span> <span class=o >==</span> <span class=p >[</span><span class=s2 >"build"</span><span class=p >,</span> <span class=s2 >"docs"</span><span class=p >]</span>
 
@@ -287,9 +287,79 @@
     <span class=sd >"""A slider widget to adjust an integer value within a range."""</span>
 
 
-<span class=nd >@backend_widget</span><span class=p >(</span><span class=n >widget_name</span><span class=o >=</span><span class=s2 >"Slider"</span><span class=p >,</span> <span class=n >transform</span><span class=o >=</span><span class=n >make_float</span><span class=p >)</span>
+<span class=k >def</span> <span class=nf >_int_widget_to_float</span><span class=p >(</span><span class=n >name</span><span class=p >):</span>
+    <span class=n >app</span> <span class=o >=</span> <span class=n >use_app</span><span class=p >()</span>
+    <span class=k >assert</span> <span class=n >app</span><span class=o >.</span><span class=n >native</span>
+    <span class=bp >cls</span> <span class=o >=</span> <span class=n >app</span><span class=o >.</span><span class=n >get_obj</span><span class=p >(</span><span class=n >name</span><span class=p >)</span>
+    <span class=kn >import</span> <span class=nn >builtins</span>
+
+    <span class=k >def</span> <span class=nf >update_precision</span><span class=p >(</span><span class=bp >self</span><span class=p >,</span> <span class=nb >min</span><span class=o >=</span><span class=kc >None</span><span class=p >,</span> <span class=nb >max</span><span class=o >=</span><span class=kc >None</span><span class=p >,</span> <span class=n >step</span><span class=o >=</span><span class=kc >None</span><span class=p >):</span>
+        <span class=n >orig</span> <span class=o >=</span> <span class=bp >self</span><span class=o >.</span><span class=n >_precision</span>
+
+        <span class=k >if</span> <span class=nb >min</span> <span class=ow >is</span> <span class=ow >not</span> <span class=kc >None</span> <span class=ow >or</span> <span class=nb >max</span> <span class=ow >is</span> <span class=ow >not</span> <span class=kc >None</span><span class=p >:</span>
+            <span class=nb >min</span> <span class=o >=</span> <span class=nb >min</span> <span class=ow >or</span> <span class=bp >self</span><span class=o >.</span><span class=n >_mgui_get_min</span><span class=p >()</span>
+            <span class=nb >max</span> <span class=o >=</span> <span class=nb >max</span> <span class=ow >or</span> <span class=bp >self</span><span class=o >.</span><span class=n >_mgui_get_max</span><span class=p >()</span>
+
+            <span class=c1 ># make sure val * precision is within int32 overflow limit for Qt</span>
+            <span class=n >val</span> <span class=o >=</span> <span class=n >builtins</span><span class=o >.</span><span class=n >max</span><span class=p >([</span><span class=nb >abs</span><span class=p >(</span><span class=nb >min</span><span class=p >),</span> <span class=nb >abs</span><span class=p >(</span><span class=nb >max</span><span class=p >)])</span>
+            <span class=k >while</span> <span class=nb >abs</span><span class=p >(</span><span class=bp >self</span><span class=o >.</span><span class=n >_precision</span> <span class=o >*</span> <span class=n >val</span><span class=p >)</span> <span class=o >&gt;=</span> <span class=mi >2</span> <span class=o >**</span> <span class=mi >32</span> <span class=o >//</span> <span class=mi >2</span><span class=p >:</span>
+                <span class=bp >self</span><span class=o >.</span><span class=n >_precision</span> <span class=o >*=</span> <span class=mf >0.1</span>
+        <span class=k >elif</span> <span class=n >step</span><span class=p >:</span>
+            <span class=k >while</span> <span class=n >step</span> <span class=o >&lt;</span> <span class=p >(</span><span class=mi >1</span> <span class=o >/</span> <span class=bp >self</span><span class=o >.</span><span class=n >_precision</span><span class=p >):</span>
+                <span class=bp >self</span><span class=o >.</span><span class=n >_precision</span> <span class=o >*=</span> <span class=mi >10</span>
+
+        <span class=n >ratio</span> <span class=o >=</span> <span class=bp >self</span><span class=o >.</span><span class=n >_precision</span> <span class=o >/</span> <span class=n >orig</span>
+        <span class=k >if</span> <span class=n >ratio</span> <span class=o >!=</span> <span class=mi >1</span><span class=p >:</span>
+            <span class=bp >self</span><span class=o >.</span><span class=n >_mgui_set_value</span><span class=p >(</span><span class=bp >self</span><span class=o >.</span><span class=n >_mgui_get_value</span><span class=p >()</span> <span class=o >*</span> <span class=n >ratio</span><span class=p >)</span>
+            <span class=k >if</span> <span class=ow >not</span> <span class=n >step</span><span class=p >:</span>
+                <span class=bp >self</span><span class=o >.</span><span class=n >_mgui_set_max</span><span class=p >(</span><span class=bp >self</span><span class=o >.</span><span class=n >_mgui_get_max</span><span class=p >()</span> <span class=o >*</span> <span class=n >ratio</span><span class=p >)</span>
+                <span class=bp >self</span><span class=o >.</span><span class=n >_mgui_set_min</span><span class=p >(</span><span class=bp >self</span><span class=o >.</span><span class=n >_mgui_get_min</span><span class=p >()</span> <span class=o >*</span> <span class=n >ratio</span><span class=p >)</span>
+            <span class=c1 ># self._mgui_set_step(self._mgui_get_step() * ratio)</span>
+
+    <span class=n >new_cls</span> <span class=o >=</span> <span class=nb >type</span><span class=p >(</span>
+        <span class=sa >f</span><span class=s2 >"Float</span><span class=si >{</span><span class=bp >cls</span><span class=o >.</span><span class=vm >__name__</span><span class=si >}</span><span class=s2 >"</span><span class=p >,</span>
+        <span class=p >(</span><span class=bp >cls</span><span class=p >,),</span>
+        <span class=p >{</span>
+            <span class=s2 >"__module__"</span><span class=p >:</span> <span class=vm >__name__</span><span class=p >,</span>
+            <span class=s2 >"_precision"</span><span class=p >:</span> <span class=mf >1e6</span><span class=p >,</span>
+            <span class=s2 >"_update_precision"</span><span class=p >:</span> <span class=n >update_precision</span><span class=p >,</span>
+        <span class=p >},</span>
+    <span class=p >)</span>
+
+    <span class=c1 ># patch the backend widget to convert between float/int</span>
+    <span class=k >for</span> <span class=n >attr</span> <span class=ow >in</span> <span class=p >[</span><span class=s2 >"value"</span><span class=p >,</span> <span class=s2 >"max"</span><span class=p >,</span> <span class=s2 >"min"</span><span class=p >,</span> <span class=s2 >"step"</span><span class=p >]:</span>
+        <span class=n >get_meth_name</span> <span class=o >=</span> <span class=sa >f</span><span class=s2 >"_mgui_get_</span><span class=si >{</span><span class=n >attr</span><span class=si >}</span><span class=s2 >"</span>
+        <span class=n >set_meth_name</span> <span class=o >=</span> <span class=sa >f</span><span class=s2 >"_mgui_set_</span><span class=si >{</span><span class=n >attr</span><span class=si >}</span><span class=s2 >"</span>
+
+        <span class=k >def</span> <span class=nf >new_getter</span><span class=p >(</span><span class=bp >self</span><span class=p >,</span> <span class=n >o_getter</span><span class=o >=</span><span class=nb >getattr</span><span class=p >(</span><span class=n >new_cls</span><span class=p >,</span> <span class=n >get_meth_name</span><span class=p >)):</span>
+            <span class=k >return</span> <span class=n >o_getter</span><span class=p >(</span><span class=bp >self</span><span class=p >)</span> <span class=o >/</span> <span class=bp >self</span><span class=o >.</span><span class=n >_precision</span>
+
+        <span class=k >def</span> <span class=nf >new_setter</span><span class=p >(</span><span class=bp >self</span><span class=p >,</span> <span class=n >val</span><span class=p >,</span> <span class=n >o_setter</span><span class=o >=</span><span class=nb >getattr</span><span class=p >(</span><span class=n >new_cls</span><span class=p >,</span> <span class=n >set_meth_name</span><span class=p >),</span> <span class=n >attr</span><span class=o >=</span><span class=n >attr</span><span class=p >):</span>
+            <span class=k >if</span> <span class=n >attr</span> <span class=ow >in</span> <span class=p >(</span><span class=s2 >"step"</span><span class=p >,</span> <span class=s2 >"max"</span><span class=p >,</span> <span class=s2 >"min"</span><span class=p >):</span>
+                <span class=bp >self</span><span class=o >.</span><span class=n >_update_precision</span><span class=p >(</span><span class=o >**</span><span class=p >{</span><span class=n >attr</span><span class=p >:</span> <span class=n >val</span><span class=p >})</span>
+            <span class=n >o_setter</span><span class=p >(</span><span class=bp >self</span><span class=p >,</span> <span class=nb >int</span><span class=p >(</span><span class=n >val</span> <span class=o >*</span> <span class=bp >self</span><span class=o >.</span><span class=n >_precision</span><span class=p >))</span>
+
+        <span class=nb >setattr</span><span class=p >(</span><span class=n >new_cls</span><span class=p >,</span> <span class=n >get_meth_name</span><span class=p >,</span> <span class=n >new_getter</span><span class=p >)</span>
+        <span class=nb >setattr</span><span class=p >(</span><span class=n >new_cls</span><span class=p >,</span> <span class=n >set_meth_name</span><span class=p >,</span> <span class=n >new_setter</span><span class=p >)</span>
+
+    <span class=k >return</span> <span class=n >new_cls</span>
+
+
+<span class=nd >@merge_super_sigs</span>
 <span class=k >class</span> <span class=nc >FloatSlider</span><span class=p >(</span><span class=n >SliderWidget</span><span class=p >):</span>
     <span class=sd >"""A slider widget to adjust a float value within a range."""</span>
+
+    <span class=k >def</span> <span class=fm >__init__</span><span class=p >(</span><span class=bp >self</span><span class=p >,</span> <span class=o >**</span><span class=n >kwargs</span><span class=p >):</span>
+        <span class=n >kwargs</span><span class=p >[</span><span class=s2 >"widget_type"</span><span class=p >]</span> <span class=o >=</span> <span class=n >_int_widget_to_float</span><span class=p >(</span><span class=s2 >"Slider"</span><span class=p >)</span>
+        <span class=nb >super</span><span class=p >()</span><span class=o >.</span><span class=fm >__init__</span><span class=p >(</span><span class=o >**</span><span class=n >kwargs</span><span class=p >)</span>
+
+    <span class=k >def</span> <span class=nf >_post_init</span><span class=p >(</span><span class=bp >self</span><span class=p >):</span>
+        <span class=kn >from</span> <span class=nn >magicgui.events</span> <span class=kn >import</span> <span class=n >EventEmitter</span>
+
+        <span class=bp >self</span><span class=o >.</span><span class=n >changed</span> <span class=o >=</span> <span class=n >EventEmitter</span><span class=p >(</span><span class=n >source</span><span class=o >=</span><span class=bp >self</span><span class=p >,</span> <span class=nb >type</span><span class=o >=</span><span class=s2 >"changed"</span><span class=p >)</span>
+        <span class=bp >self</span><span class=o >.</span><span class=n >_widget</span><span class=o >.</span><span class=n >_mgui_bind_change_callback</span><span class=p >(</span>
+            <span class=k >lambda</span> <span class=o >*</span><span class=n >x</span><span class=p >:</span> <span class=bp >self</span><span class=o >.</span><span class=n >changed</span><span class=p >(</span><span class=n >value</span><span class=o >=</span><span class=bp >self</span><span class=o >.</span><span class=n >value</span><span class=p >)</span>
+        <span class=p >)</span>
 
 
 <span class=nd >@merge_super_sigs</span>
