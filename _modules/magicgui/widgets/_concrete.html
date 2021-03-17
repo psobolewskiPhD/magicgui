@@ -19,7 +19,7 @@
 
 <span class=kn >from</span> <span class=nn >magicgui.application</span> <span class=kn >import</span> <span class=n >use_app</span>
 <span class=kn >from</span> <span class=nn >magicgui.types</span> <span class=kn >import</span> <span class=n >FileDialogMode</span><span class=p >,</span> <span class=n >PathLike</span>
-<span class=kn >from</span> <span class=nn >magicgui.widgets._bases.mixins</span> <span class=kn >import</span> <span class=n >_ReadOnlyMixin</span>
+<span class=kn >from</span> <span class=nn >magicgui.widgets._bases.mixins</span> <span class=kn >import</span> <span class=n >_OrientationMixin</span><span class=p >,</span> <span class=n >_ReadOnlyMixin</span>
 
 <span class=kn >from</span> <span class=nn >._bases</span> <span class=kn >import</span> <span class=p >(</span>
     <span class=n >ButtonWidget</span><span class=p >,</span>
@@ -428,6 +428,18 @@
 <span class=nd >@backend_widget</span>
 <span class=k >class</span> <span class=nc >ComboBox</span><span class=p >(</span><span class=n >CategoricalWidget</span><span class=p >):</span>
     <span class=sd >"""A dropdown menu, allowing selection between multiple choices."""</span>
+
+
+<span class=nd >@merge_super_sigs</span>
+<span class=k >class</span> <span class=nc >RadioButtons</span><span class=p >(</span><span class=n >CategoricalWidget</span><span class=p >,</span> <span class=n >_OrientationMixin</span><span class=p >):</span>  <span class=c1 ># type: ignore</span>
+    <span class=sd >"""An exclusive group of radio buttons, providing a choice from multiple choices."""</span>
+
+    <span class=k >def</span> <span class=fm >__init__</span><span class=p >(</span><span class=bp >self</span><span class=p >,</span> <span class=n >choices</span><span class=o >=</span><span class=p >(),</span> <span class=n >orientation</span><span class=o >=</span><span class=s2 >"vertical"</span><span class=p >,</span> <span class=o >**</span><span class=n >kwargs</span><span class=p >):</span>
+        <span class=n >app</span> <span class=o >=</span> <span class=n >use_app</span><span class=p >()</span>
+        <span class=k >assert</span> <span class=n >app</span><span class=o >.</span><span class=n >native</span>
+        <span class=n >kwargs</span><span class=p >[</span><span class=s2 >"widget_type"</span><span class=p >]</span> <span class=o >=</span> <span class=n >app</span><span class=o >.</span><span class=n >get_obj</span><span class=p >(</span><span class=s2 >"RadioButtons"</span><span class=p >)</span>
+        <span class=nb >super</span><span class=p >()</span><span class=o >.</span><span class=fm >__init__</span><span class=p >(</span><span class=n >choices</span><span class=o >=</span><span class=n >choices</span><span class=p >,</span> <span class=o >**</span><span class=n >kwargs</span><span class=p >)</span>
+        <span class=bp >self</span><span class=o >.</span><span class=n >orientation</span> <span class=o >=</span> <span class=n >orientation</span>
 
 
 <span class=nd >@backend_widget</span>

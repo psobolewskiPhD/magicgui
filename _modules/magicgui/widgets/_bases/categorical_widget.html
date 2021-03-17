@@ -77,9 +77,9 @@
         <span class=k >if</span> <span class=n >choice_name</span> <span class=o >==</span> <span class=bp >self</span><span class=o >.</span><span class=n >current_choice</span><span class=p >:</span>
             <span class=bp >self</span><span class=o >.</span><span class=n >changed</span><span class=p >(</span><span class=n >value</span><span class=o >=</span><span class=bp >self</span><span class=o >.</span><span class=n >value</span><span class=p >)</span>
 
-    <span class=k >def</span> <span class=nf >del_choice</span><span class=p >(</span><span class=bp >self</span><span class=p >,</span> <span class=n >choice_name</span><span class=p >:</span> <span class=nb >str</span><span class=p >,</span> <span class=n >data</span><span class=p >:</span> <span class=n >Any</span> <span class=o >=</span> <span class=kc >None</span><span class=p >):</span>
+    <span class=k >def</span> <span class=nf >del_choice</span><span class=p >(</span><span class=bp >self</span><span class=p >,</span> <span class=n >choice_name</span><span class=p >:</span> <span class=nb >str</span><span class=p >):</span>
         <span class=sd >"""Delete the provided ``choice_name`` and associated data."""</span>
-        <span class=n >data</span> <span class=o >=</span> <span class=n >data</span> <span class=k >if</span> <span class=n >data</span> <span class=ow >is</span> <span class=ow >not</span> <span class=kc >None</span> <span class=k >else</span> <span class=n >choice_name</span>
+        <span class=bp >self</span><span class=o >.</span><span class=n >_widget</span><span class=o >.</span><span class=n >_mgui_del_choice</span><span class=p >(</span><span class=n >choice_name</span><span class=p >)</span>
 
     <span class=nd >@property</span>
     <span class=k >def</span> <span class=nf >choices</span><span class=p >(</span><span class=bp >self</span><span class=p >):</span>
