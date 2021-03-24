@@ -68,9 +68,10 @@
 <span class=sd >    ----------</span>
 <span class=sd >    function : Callable</span>
 <span class=sd >        A callable to turn into a GUI</span>
-<span class=sd >    call_button : bool or str, optional</span>
+<span class=sd >    call_button : bool, str, or None, optional</span>
 <span class=sd >        If True, create an additional button that calls the original function when</span>
-<span class=sd >        clicked.  If a ``str``, set the button text. by default False</span>
+<span class=sd >        clicked.  If a ``str``, set the button text. by default False when</span>
+<span class=sd >        auto_call is True, and True otherwise.</span>
 <span class=sd >    layout : str, optional</span>
 <span class=sd >        The type of layout to use. Must be one of {'horizontal', 'vertical'}.</span>
 <span class=sd >        by default "horizontal".</span>
@@ -111,7 +112,7 @@
     <span class=k >def</span> <span class=fm >__init__</span><span class=p >(</span>
         <span class=bp >self</span><span class=p >,</span>
         <span class=n >function</span><span class=p >:</span> <span class=n >Callable</span><span class=p >[</span><span class=o >...</span><span class=p >,</span> <span class=n >_R</span><span class=p >],</span>
-        <span class=n >call_button</span><span class=p >:</span> <span class=nb >bool</span> <span class=o >|</span> <span class=nb >str</span> <span class=o >=</span> <span class=kc >False</span><span class=p >,</span>
+        <span class=n >call_button</span><span class=p >:</span> <span class=nb >bool</span> <span class=o >|</span> <span class=nb >str</span> <span class=o >|</span> <span class=kc >None</span> <span class=o >=</span> <span class=kc >None</span><span class=p >,</span>
         <span class=n >layout</span><span class=p >:</span> <span class=nb >str</span> <span class=o >=</span> <span class=s2 >"vertical"</span><span class=p >,</span>
         <span class=n >labels</span><span class=p >:</span> <span class=nb >bool</span> <span class=o >=</span> <span class=kc >True</span><span class=p >,</span>
         <span class=n >tooltips</span><span class=p >:</span> <span class=nb >bool</span> <span class=o >=</span> <span class=kc >True</span><span class=p >,</span>
@@ -171,6 +172,8 @@
         <span class=c1 ># the nesting level of tqdm_mgui iterators in a given __call__</span>
         <span class=bp >self</span><span class=o >.</span><span class=n >_tqdm_depth</span><span class=p >:</span> <span class=nb >int</span> <span class=o >=</span> <span class=mi >0</span>
 
+        <span class=k >if</span> <span class=n >call_button</span> <span class=ow >is</span> <span class=kc >None</span><span class=p >:</span>
+            <span class=n >call_button</span> <span class=o >=</span> <span class=ow >not</span> <span class=n >auto_call</span>
         <span class=bp >self</span><span class=o >.</span><span class=n >_call_button</span><span class=p >:</span> <span class=n >PushButton</span> <span class=o >|</span> <span class=kc >None</span> <span class=o >=</span> <span class=kc >None</span>
         <span class=k >if</span> <span class=n >call_button</span><span class=p >:</span>
             <span class=n >text</span> <span class=o >=</span> <span class=n >call_button</span> <span class=k >if</span> <span class=nb >isinstance</span><span class=p >(</span><span class=n >call_button</span><span class=p >,</span> <span class=nb >str</span><span class=p >)</span> <span class=k >else</span> <span class=s2 >"Run"</span>
