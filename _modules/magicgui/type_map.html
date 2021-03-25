@@ -167,20 +167,21 @@
     <span class=n >value</span><span class=p >:</span> <span class=n >Any</span> <span class=o >=</span> <span class=kc >None</span><span class=p >,</span> <span class=n >annotation</span><span class=p >:</span> <span class=nb >type</span> <span class=o >|</span> <span class=kc >None</span> <span class=o >=</span> <span class=kc >None</span><span class=p >,</span> <span class=n >options</span><span class=p >:</span> <span class=n >WidgetOptions</span> <span class=o >=</span> <span class=p >{}</span>
 <span class=p >)</span> <span class=o >-&gt;</span> <span class=n >WidgetTuple</span><span class=p >:</span>
     <span class=sd >"""Pick the appropriate widget type for ``value`` with ``annotation``."""</span>
+    <span class=n >annotation</span> <span class=o >=</span> <span class=n >_evaluate_forwardref</span><span class=p >(</span><span class=n >annotation</span><span class=p >)</span>
+    <span class=n >dtype</span> <span class=o >=</span> <span class=n >_normalize_type</span><span class=p >(</span><span class=n >value</span><span class=p >,</span> <span class=n >annotation</span><span class=p >)</span>
+    <span class=n >choices</span> <span class=o >=</span> <span class=n >options</span><span class=o >.</span><span class=n >get</span><span class=p >(</span><span class=s2 >"choices"</span><span class=p >)</span> <span class=ow >or</span> <span class=p >(</span><span class=nb >isinstance</span><span class=p >(</span><span class=n >dtype</span><span class=p >,</span> <span class=n >EnumMeta</span><span class=p >)</span> <span class=ow >and</span> <span class=n >dtype</span><span class=p >)</span>
+
     <span class=k >if</span> <span class=s2 >"widget_type"</span> <span class=ow >in</span> <span class=n >options</span><span class=p >:</span>
         <span class=n >widget_type</span> <span class=o >=</span> <span class=n >options</span><span class=o >.</span><span class=n >pop</span><span class=p >(</span><span class=s2 >"widget_type"</span><span class=p >)</span>
+        <span class=k >if</span> <span class=n >choices</span><span class=p >:</span>
+            <span class=n >options</span><span class=o >.</span><span class=n >setdefault</span><span class=p >(</span><span class=s2 >"choices"</span><span class=p >,</span> <span class=n >choices</span><span class=p >)</span>
         <span class=k >return</span> <span class=n >widget_type</span><span class=p >,</span> <span class=n >options</span>
-
-    <span class=n >annotation</span> <span class=o >=</span> <span class=n >_evaluate_forwardref</span><span class=p >(</span><span class=n >annotation</span><span class=p >)</span>
-
-    <span class=n >dtype</span> <span class=o >=</span> <span class=n >_normalize_type</span><span class=p >(</span><span class=n >value</span><span class=p >,</span> <span class=n >annotation</span><span class=p >)</span>
 
     <span class=c1 ># look for subclasses</span>
     <span class=k >for</span> <span class=n >registered_type</span> <span class=ow >in</span> <span class=n >_TYPE_DEFS</span><span class=p >:</span>
         <span class=k >if</span> <span class=n >dtype</span> <span class=o >==</span> <span class=n >registered_type</span> <span class=ow >or</span> <span class=n >_is_subclass</span><span class=p >(</span><span class=n >dtype</span><span class=p >,</span> <span class=n >registered_type</span><span class=p >):</span>
             <span class=k >return</span> <span class=n >_TYPE_DEFS</span><span class=p >[</span><span class=n >registered_type</span><span class=p >]</span>
 
-    <span class=n >choices</span> <span class=o >=</span> <span class=n >options</span><span class=o >.</span><span class=n >get</span><span class=p >(</span><span class=s2 >"choices"</span><span class=p >)</span> <span class=ow >or</span> <span class=p >(</span><span class=nb >isinstance</span><span class=p >(</span><span class=n >dtype</span><span class=p >,</span> <span class=n >EnumMeta</span><span class=p >)</span> <span class=ow >and</span> <span class=n >dtype</span><span class=p >)</span>
     <span class=k >if</span> <span class=n >choices</span><span class=p >:</span>
         <span class=k >return</span> <span class=n >widgets</span><span class=o >.</span><span class=n >ComboBox</span><span class=p >,</span> <span class=p >{</span><span class=s2 >"choices"</span><span class=p >:</span> <span class=n >choices</span><span class=p >}</span>
 
