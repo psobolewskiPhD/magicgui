@@ -30,11 +30,11 @@ def whoops(a_string: str = 'Hi there'):
 [0m[1;32m      3[0m     [0;34m...[0m[0;34m[0m[0;34m[0m[0m
 
 [0;32m/opt/hostedtoolcache/Python/3.8.8/x64/lib/python3.8/site-packages/magicgui/_magicgui.py[0m in [0;36minner_func[0;34m(func)[0m
-[1;32m    237[0m         [0;31m# MagicFactory is unnecessary if we are immediately instantiating the widget,[0m[0;34m[0m[0;34m[0m[0;34m[0m[0m
-[1;32m    238[0m         [0;31m# so we shortcut that and just return the FunctionGui here.[0m[0;34m[0m[0;34m[0m[0;34m[0m[0m
-[0;32m--> 239[0;31m         [0;32mreturn[0m [0mmagic_class[0m[0;34m([0m[0mfunc[0m[0;34m,[0m [0;34m**[0m[0mkwargs[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
-[0m[1;32m    240[0m [0;34m[0m[0m
-[1;32m    241[0m     [0;32mif[0m [0mfunction[0m [0;32mis[0m [0;32mNone[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+[1;32m    238[0m         [0;31m# MagicFactory is unnecessary if we are immediately instantiating the widget,[0m[0;34m[0m[0;34m[0m[0;34m[0m[0m
+[1;32m    239[0m         [0;31m# so we shortcut that and just return the FunctionGui here.[0m[0;34m[0m[0;34m[0m[0;34m[0m[0m
+[0;32m--> 240[0;31m         [0;32mreturn[0m [0mmagic_class[0m[0;34m([0m[0mfunc[0m[0;34m,[0m [0;34m**[0m[0mkwargs[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m    241[0m [0;34m[0m[0m
+[1;32m    242[0m     [0;32mif[0m [0mfunction[0m [0;32mis[0m [0;32mNone[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
 
 [0;32m/opt/hostedtoolcache/Python/3.8.8/x64/lib/python3.8/site-packages/magicgui/widgets/_function_gui.py[0m in [0;36m__init__[0;34m(self, function, call_button, layout, labels, tooltips, app, visible, auto_call, result_widget, param_options, name, persist, **kwargs)[0m
 [1;32m    159[0m             [0mlabels[0m[0;34m=[0m[0mlabels[0m[0;34m,[0m[0;34m[0m[0;34m[0m[0m
