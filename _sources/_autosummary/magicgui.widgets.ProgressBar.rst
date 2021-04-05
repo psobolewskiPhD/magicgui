@@ -65,6 +65,7 @@
       ~ProgressBar.param_kind
       ~ProgressBar.parent
       ~ProgressBar.range
+      ~ProgressBar.readout
       ~ProgressBar.step
       ~ProgressBar.tooltip
       ~ProgressBar.value

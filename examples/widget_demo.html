@@ -19,16 +19,24 @@
     <span class=n >result_widget</span><span class=o >=</span><span class=kc >True</span><span class=p >,</span>
     <span class=c1 ># numbers default to spinbox widgets, but we can make</span>
     <span class=c1 ># them sliders using the `widget_type` option</span>
-    <span class=n >slider_float</span><span class=o >=</span><span class=p >{</span><span class=s2 >"widget_type"</span><span class=p >:</span> <span class=s2 >"FloatSlider"</span><span class=p >},</span>
+    <span class=n >slider_float</span><span class=o >=</span><span class=p >{</span><span class=s2 >"widget_type"</span><span class=p >:</span> <span class=s2 >"FloatSlider"</span><span class=p >,</span> <span class=s2 >"max"</span><span class=p >:</span> <span class=mi >100</span><span class=p >},</span>
+    <span class=n >slider_int</span><span class=o >=</span><span class=p >{</span><span class=s2 >"widget_type"</span><span class=p >:</span> <span class=s2 >"Slider"</span><span class=p >,</span> <span class=s2 >"readout"</span><span class=p >:</span> <span class=kc >False</span><span class=p >},</span>
+    <span class=n >radio_option</span><span class=o >=</span><span class=p >{</span>
+        <span class=s2 >"widget_type"</span><span class=p >:</span> <span class=s2 >"RadioButtons"</span><span class=p >,</span>
+        <span class=s2 >"orientation"</span><span class=p >:</span> <span class=s2 >"horizontal"</span><span class=p >,</span>
+        <span class=s2 >"choices"</span><span class=p >:</span> <span class=p >[(</span><span class=s2 >"first option"</span><span class=p >,</span> <span class=mi >1</span><span class=p >),</span> <span class=p >(</span><span class=s2 >"second option"</span><span class=p >,</span> <span class=mi >2</span><span class=p >)],</span>
+    <span class=p >},</span>
     <span class=n >filename</span><span class=o >=</span><span class=p >{</span><span class=s2 >"label"</span><span class=p >:</span> <span class=s2 >"Pick a file:"</span><span class=p >},</span>  <span class=c1 ># custom label</span>
 <span class=p >)</span>
 <span class=k >def</span> <span class=nf >widget_demo</span><span class=p >(</span>
     <span class=n >boolean</span><span class=o >=</span><span class=kc >True</span><span class=p >,</span>
     <span class=n >integer</span><span class=o >=</span><span class=mi >1</span><span class=p >,</span>
     <span class=n >spin_float</span><span class=o >=</span><span class=mf >3.14159</span><span class=p >,</span>
-    <span class=n >slider_float</span><span class=o >=</span><span class=mf >4.5</span><span class=p >,</span>
+    <span class=n >slider_float</span><span class=o >=</span><span class=mf >43.5</span><span class=p >,</span>
+    <span class=n >slider_int</span><span class=o >=</span><span class=mi >550</span><span class=p >,</span>
     <span class=n >string</span><span class=o >=</span><span class=s2 >"Text goes here"</span><span class=p >,</span>
     <span class=n >dropdown</span><span class=o >=</span><span class=n >Medium</span><span class=o >.</span><span class=n >Glass</span><span class=p >,</span>
+    <span class=n >radio_option</span><span class=o >=</span><span class=mi >2</span><span class=p >,</span>
     <span class=n >date</span><span class=o >=</span><span class=n >datetime</span><span class=o >.</span><span class=n >date</span><span class=p >(</span><span class=mi >1999</span><span class=p >,</span> <span class=mi >12</span><span class=p >,</span> <span class=mi >31</span><span class=p >),</span>
     <span class=n >time</span><span class=o >=</span><span class=n >datetime</span><span class=o >.</span><span class=n >time</span><span class=p >(</span><span class=mi >1</span><span class=p >,</span> <span class=mi >30</span><span class=p >,</span> <span class=mi >20</span><span class=p >),</span>
     <span class=n >datetime</span><span class=o >=</span><span class=n >datetime</span><span class=o >.</span><span class=n >datetime</span><span class=o >.</span><span class=n >now</span><span class=p >(),</span>

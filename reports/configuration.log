@@ -72,11 +72,11 @@ def whoops(a_string: str = 'Hi there'):
 [1;32m     92[0m                 [0mwidget[0m[0;34m.[0m[0mparam_kind[0m [0;34m=[0m [0m_kind[0m[0;34m[0m[0;34m[0m[0m
 
 [0;32m/opt/hostedtoolcache/Python/3.8.8/x64/lib/python3.8/site-packages/magicgui/widgets/_concrete.py[0m in [0;36m__init__[0;34m(self, **kwargs)[0m
-[1;32m    162[0m                 [0mwidget[0m [0;34m=[0m [0mtransform[0m[0;34m([0m[0mwidget[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
-[1;32m    163[0m             [0mkwargs[0m[0;34m[[0m[0;34m"widget_type"[0m[0;34m][0m [0;34m=[0m [0mwidget[0m[0;34m[0m[0;34m[0m[0m
-[0;32m--> 164[0;31m             [0msuper[0m[0;34m([0m[0mcls[0m[0;34m,[0m [0mself[0m[0;34m)[0m[0;34m.[0m[0m__init__[0m[0;34m([0m[0;34m**[0m[0mkwargs[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
-[0m[1;32m    165[0m [0;34m[0m[0m
-[1;32m    166[0m         [0mcls[0m[0;34m.[0m[0m__init__[0m [0;34m=[0m [0m__init__[0m[0;34m[0m[0;34m[0m[0m
+[1;32m    161[0m                 [0mwidget[0m [0;34m=[0m [0mtransform[0m[0;34m([0m[0mwidget[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[1;32m    162[0m             [0mkwargs[0m[0;34m[[0m[0;34m"widget_type"[0m[0;34m][0m [0;34m=[0m [0mwidget[0m[0;34m[0m[0;34m[0m[0m
+[0;32m--> 163[0;31m             [0msuper[0m[0;34m([0m[0mcls[0m[0;34m,[0m [0mself[0m[0;34m)[0m[0;34m.[0m[0m__init__[0m[0;34m([0m[0;34m**[0m[0mkwargs[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m    164[0m [0;34m[0m[0m
+[1;32m    165[0m         [0mcls[0m[0;34m.[0m[0m__init__[0m [0;34m=[0m [0m__init__[0m[0;34m[0m[0;34m[0m[0m
 
 [0;32m/opt/hostedtoolcache/Python/3.8.8/x64/lib/python3.8/site-packages/magicgui/widgets/_bases/value_widget.py[0m in [0;36m__init__[0;34m(self, value, bind, **kwargs)[0m
 [1;32m     32[0m         [0mself[0m[0;34m.[0m[0m_bound_value[0m[0;34m:[0m [0mAny[0m [0;34m=[0m [0mbind[0m[0;34m[0m[0;34m[0m[0m

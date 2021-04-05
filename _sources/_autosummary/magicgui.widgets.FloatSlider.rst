@@ -59,6 +59,7 @@
       ~FloatSlider.param_kind
       ~FloatSlider.parent
       ~FloatSlider.range
+      ~FloatSlider.readout
       ~FloatSlider.step
       ~FloatSlider.tooltip
       ~FloatSlider.value

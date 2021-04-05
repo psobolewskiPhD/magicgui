@@ -59,6 +59,7 @@
       ~SliderWidget.param_kind
       ~SliderWidget.parent
       ~SliderWidget.range
+      ~SliderWidget.readout
       ~SliderWidget.step
       ~SliderWidget.tooltip
       ~SliderWidget.value
