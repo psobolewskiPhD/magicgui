@@ -10,7 +10,7 @@
 <span class=kn >import</span> <span class=nn >warnings</span>
 <span class=kn >from</span> <span class=nn >collections</span> <span class=kn >import</span> <span class=n >abc</span><span class=p >,</span> <span class=n >defaultdict</span>
 <span class=kn >from</span> <span class=nn >enum</span> <span class=kn >import</span> <span class=n >EnumMeta</span>
-<span class=kn >from</span> <span class=nn >typing</span> <span class=kn >import</span> <span class=n >Any</span><span class=p >,</span> <span class=n >DefaultDict</span><span class=p >,</span> <span class=n >ForwardRef</span><span class=p >,</span> <span class=n >cast</span>
+<span class=kn >from</span> <span class=nn >typing</span> <span class=kn >import</span> <span class=n >Any</span><span class=p >,</span> <span class=n >DefaultDict</span><span class=p >,</span> <span class=n >ForwardRef</span><span class=p >,</span> <span class=n >Union</span><span class=p >,</span> <span class=n >cast</span>
 
 <span class=kn >from</span> <span class=nn >typing_extensions</span> <span class=kn >import</span> <span class=n >get_args</span><span class=p >,</span> <span class=n >get_origin</span>
 
@@ -73,13 +73,20 @@
     <span class=k >return</span> <span class=n >cast</span><span class=p >(</span><span class=n >Any</span><span class=p >,</span> <span class=n >type_</span><span class=p >)</span><span class=o >.</span><span class=n >_evaluate</span><span class=p >(</span><span class=n >globalns</span><span class=p >,</span> <span class=p >{},</span> <span class=nb >set</span><span class=p >())</span>
 
 
-<span class=k >def</span> <span class=nf >_normalize_type</span><span class=p >(</span><span class=n >value</span><span class=p >:</span> <span class=n >Any</span><span class=p >,</span> <span class=n >annotation</span><span class=p >:</span> <span class=n >Any</span><span class=p >)</span> <span class=o >-&gt;</span> <span class=nb >type</span><span class=p >:</span>
+<span class=k >def</span> <span class=nf >_normalize_type</span><span class=p >(</span><span class=n >value</span><span class=p >:</span> <span class=n >Any</span><span class=p >,</span> <span class=n >annotation</span><span class=p >:</span> <span class=n >Any</span><span class=p >)</span> <span class=o >-&gt;</span> <span class=nb >tuple</span><span class=p >[</span><span class=nb >type</span><span class=p >,</span> <span class=nb >bool</span><span class=p >]:</span>
     <span class=sd >"""Return annotation type origin or dtype of value."""</span>
-    <span class=k >if</span> <span class=n >annotation</span><span class=p >:</span>
-        <span class=k >if</span> <span class=n >annotation</span> <span class=ow >is</span> <span class=n >inspect</span><span class=o >.</span><span class=n >Parameter</span><span class=o >.</span><span class=n >empty</span><span class=p >:</span>
-            <span class=k >return</span> <span class=nb >type</span><span class=p >(</span><span class=n >value</span><span class=p >)</span>
-        <span class=k >return</span> <span class=n >get_origin</span><span class=p >(</span><span class=n >annotation</span><span class=p >)</span> <span class=ow >or</span> <span class=n >annotation</span>
-    <span class=k >return</span> <span class=nb >type</span><span class=p >(</span><span class=n >value</span><span class=p >)</span>
+    <span class=k >if</span> <span class=ow >not</span> <span class=n >annotation</span><span class=p >:</span>
+        <span class=k >return</span> <span class=nb >type</span><span class=p >(</span><span class=n >value</span><span class=p >),</span> <span class=kc >False</span>
+    <span class=k >if</span> <span class=n >annotation</span> <span class=ow >is</span> <span class=n >inspect</span><span class=o >.</span><span class=n >Parameter</span><span class=o >.</span><span class=n >empty</span><span class=p >:</span>
+        <span class=k >return</span> <span class=nb >type</span><span class=p >(</span><span class=n >value</span><span class=p >),</span> <span class=kc >False</span>
+
+    <span class=c1 ># look for Optional[Type], which manifests as Union[Type, None]</span>
+    <span class=n >origin</span> <span class=o >=</span> <span class=n >get_origin</span><span class=p >(</span><span class=n >annotation</span><span class=p >)</span>
+    <span class=n >args</span> <span class=o >=</span> <span class=n >get_args</span><span class=p >(</span><span class=n >annotation</span><span class=p >)</span>
+    <span class=k >if</span> <span class=n >origin</span> <span class=ow >is</span> <span class=n >Union</span> <span class=ow >and</span> <span class=nb >len</span><span class=p >(</span><span class=n >args</span><span class=p >)</span> <span class=o >==</span> <span class=mi >2</span> <span class=ow >and</span> <span class=nb >type</span><span class=p >(</span><span class=kc >None</span><span class=p >)</span> <span class=ow >in</span> <span class=n >args</span><span class=p >:</span>
+        <span class=n >type_</span> <span class=o >=</span> <span class=nb >next</span><span class=p >(</span><span class=n >i</span> <span class=k >for</span> <span class=n >i</span> <span class=ow >in</span> <span class=n >args</span> <span class=k >if</span> <span class=ow >not</span> <span class=nb >issubclass</span><span class=p >(</span><span class=n >i</span><span class=p >,</span> <span class=nb >type</span><span class=p >(</span><span class=kc >None</span><span class=p >)))</span>
+        <span class=k >return</span> <span class=n >type_</span><span class=p >,</span> <span class=kc >True</span>
+    <span class=k >return</span> <span class=p >(</span><span class=n >origin</span> <span class=ow >or</span> <span class=n >annotation</span><span class=p >),</span> <span class=kc >False</span>
 
 
 <div class=viewcode-block  id=type_matcher ><a class=viewcode-back  href="../../_autosummary/magicgui.type_map.type_matcher.html#magicgui.type_map.type_matcher">[docs]</a><span class=k >def</span> <span class=nf >type_matcher</span><span class=p >(</span><span class=n >func</span><span class=p >:</span> <span class=n >TypeMatcher</span><span class=p >)</span> <span class=o >-&gt;</span> <span class=n >TypeMatcher</span><span class=p >:</span>
@@ -120,7 +127,7 @@
     <span class=k >if</span> <span class=n >annotation</span> <span class=ow >in</span> <span class=n >_SIMPLE_ANNOTATIONS</span><span class=p >:</span>
         <span class=k >return</span> <span class=n >_SIMPLE_ANNOTATIONS</span><span class=p >[</span><span class=n >annotation</span><span class=p >],</span> <span class=p >{}</span>
 
-    <span class=n >dtype</span> <span class=o >=</span> <span class=n >_normalize_type</span><span class=p >(</span><span class=n >value</span><span class=p >,</span> <span class=n >annotation</span><span class=p >)</span>
+    <span class=n >dtype</span><span class=p >,</span> <span class=n >optional</span> <span class=o >=</span> <span class=n >_normalize_type</span><span class=p >(</span><span class=n >value</span><span class=p >,</span> <span class=n >annotation</span><span class=p >)</span>
 
     <span class=k >if</span> <span class=n >dtype</span> <span class=ow >is</span> <span class=n >widgets</span><span class=o >.</span><span class=n >ProgressBar</span><span class=p >:</span>
         <span class=k >return</span> <span class=n >widgets</span><span class=o >.</span><span class=n >ProgressBar</span><span class=p >,</span> <span class=p >{</span><span class=s2 >"bind"</span><span class=p >:</span> <span class=k >lambda</span> <span class=n >widget</span><span class=p >:</span> <span class=n >widget</span><span class=p >,</span> <span class=s2 >"visible"</span><span class=p >:</span> <span class=kc >True</span><span class=p >}</span>
@@ -137,7 +144,7 @@
 <span class=nd >@type_matcher</span>
 <span class=k >def</span> <span class=nf >callable_type</span><span class=p >(</span><span class=n >value</span><span class=p >,</span> <span class=n >annotation</span><span class=p >)</span> <span class=o >-&gt;</span> <span class=n >WidgetTuple</span> <span class=o >|</span> <span class=kc >None</span><span class=p >:</span>
     <span class=sd >"""Determine if value/annotation is a function type."""</span>
-    <span class=n >dtype</span> <span class=o >=</span> <span class=n >_normalize_type</span><span class=p >(</span><span class=n >value</span><span class=p >,</span> <span class=n >annotation</span><span class=p >)</span>
+    <span class=n >dtype</span><span class=p >,</span> <span class=n >optional</span> <span class=o >=</span> <span class=n >_normalize_type</span><span class=p >(</span><span class=n >value</span><span class=p >,</span> <span class=n >annotation</span><span class=p >)</span>
 
     <span class=k >if</span> <span class=n >dtype</span> <span class=ow >in</span> <span class=p >(</span><span class=n >types</span><span class=o >.</span><span class=n >FunctionType</span><span class=p >,):</span>
         <span class=k >return</span> <span class=n >widgets</span><span class=o >.</span><span class=n >FunctionGui</span><span class=p >,</span> <span class=p >{</span><span class=s2 >"function"</span><span class=p >:</span> <span class=n >value</span><span class=p >}</span>  <span class=c1 ># type: ignore</span>
@@ -168,7 +175,9 @@
 <span class=p >)</span> <span class=o >-&gt;</span> <span class=n >WidgetTuple</span><span class=p >:</span>
     <span class=sd >"""Pick the appropriate widget type for ``value`` with ``annotation``."""</span>
     <span class=n >annotation</span> <span class=o >=</span> <span class=n >_evaluate_forwardref</span><span class=p >(</span><span class=n >annotation</span><span class=p >)</span>
-    <span class=n >dtype</span> <span class=o >=</span> <span class=n >_normalize_type</span><span class=p >(</span><span class=n >value</span><span class=p >,</span> <span class=n >annotation</span><span class=p >)</span>
+    <span class=n >dtype</span><span class=p >,</span> <span class=n >optional</span> <span class=o >=</span> <span class=n >_normalize_type</span><span class=p >(</span><span class=n >value</span><span class=p >,</span> <span class=n >annotation</span><span class=p >)</span>
+    <span class=k >if</span> <span class=n >optional</span><span class=p >:</span>
+        <span class=n >options</span><span class=o >.</span><span class=n >setdefault</span><span class=p >(</span><span class=s2 >"nullable"</span><span class=p >,</span> <span class=kc >True</span><span class=p >)</span>
     <span class=n >choices</span> <span class=o >=</span> <span class=n >options</span><span class=o >.</span><span class=n >get</span><span class=p >(</span><span class=s2 >"choices"</span><span class=p >)</span> <span class=ow >or</span> <span class=p >(</span><span class=nb >isinstance</span><span class=p >(</span><span class=n >dtype</span><span class=p >,</span> <span class=n >EnumMeta</span><span class=p >)</span> <span class=ow >and</span> <span class=n >dtype</span><span class=p >)</span>
 
     <span class=k >if</span> <span class=s2 >"widget_type"</span> <span class=ow >in</span> <span class=n >options</span><span class=p >:</span>

@@ -66,6 +66,8 @@
       ~RadioButtons.min_height
       ~RadioButtons.min_width
       ~RadioButtons.native
+      ~RadioButtons.null_string
+      ~RadioButtons.null_value
       ~RadioButtons.options
       ~RadioButtons.orientation
       ~RadioButtons.param_kind

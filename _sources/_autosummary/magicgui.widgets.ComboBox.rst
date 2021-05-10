@@ -66,6 +66,8 @@
       ~ComboBox.min_height
       ~ComboBox.min_width
       ~ComboBox.native
+      ~ComboBox.null_string
+      ~ComboBox.null_value
       ~ComboBox.options
       ~ComboBox.param_kind
       ~ComboBox.parent

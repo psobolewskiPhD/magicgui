@@ -399,12 +399,17 @@
 <span class=sd >    """</span>
 
     <span class=k >def</span> <span class=fm >__init__</span><span class=p >(</span>
-        <span class=bp >self</span><span class=p >,</span> <span class=n >mode</span><span class=p >:</span> <span class=n >FileDialogMode</span> <span class=o >=</span> <span class=n >FileDialogMode</span><span class=o >.</span><span class=n >EXISTING_FILE</span><span class=p >,</span> <span class=nb >filter</span><span class=o >=</span><span class=kc >None</span><span class=p >,</span> <span class=o >**</span><span class=n >kwargs</span>
+        <span class=bp >self</span><span class=p >,</span>
+        <span class=n >mode</span><span class=p >:</span> <span class=n >FileDialogMode</span> <span class=o >=</span> <span class=n >FileDialogMode</span><span class=o >.</span><span class=n >EXISTING_FILE</span><span class=p >,</span>
+        <span class=nb >filter</span><span class=o >=</span><span class=kc >None</span><span class=p >,</span>
+        <span class=n >nullable</span><span class=o >=</span><span class=kc >False</span><span class=p >,</span>
+        <span class=o >**</span><span class=n >kwargs</span><span class=p >,</span>
     <span class=p >):</span>
         <span class=bp >self</span><span class=o >.</span><span class=n >line_edit</span> <span class=o >=</span> <span class=n >LineEdit</span><span class=p >(</span><span class=n >value</span><span class=o >=</span><span class=n >kwargs</span><span class=o >.</span><span class=n >pop</span><span class=p >(</span><span class=s2 >"value"</span><span class=p >,</span> <span class=kc >None</span><span class=p >))</span>
         <span class=bp >self</span><span class=o >.</span><span class=n >choose_btn</span> <span class=o >=</span> <span class=n >PushButton</span><span class=p >()</span>
         <span class=bp >self</span><span class=o >.</span><span class=n >mode</span> <span class=o >=</span> <span class=n >mode</span>  <span class=c1 ># sets the button text too</span>
         <span class=bp >self</span><span class=o >.</span><span class=n >filter</span> <span class=o >=</span> <span class=nb >filter</span>
+        <span class=bp >self</span><span class=o >.</span><span class=n >_nullable</span> <span class=o >=</span> <span class=n >nullable</span>
         <span class=n >kwargs</span><span class=p >[</span><span class=s2 >"widgets"</span><span class=p >]</span> <span class=o >=</span> <span class=p >[</span><span class=bp >self</span><span class=o >.</span><span class=n >line_edit</span><span class=p >,</span> <span class=bp >self</span><span class=o >.</span><span class=n >choose_btn</span><span class=p >]</span>
         <span class=n >kwargs</span><span class=p >[</span><span class=s2 >"labels"</span><span class=p >]</span> <span class=o >=</span> <span class=kc >False</span>
         <span class=n >kwargs</span><span class=p >[</span><span class=s2 >"layout"</span><span class=p >]</span> <span class=o >=</span> <span class=s2 >"horizontal"</span>
@@ -435,8 +440,11 @@
 
     <span class=k >def</span> <span class=nf >_on_choose_clicked</span><span class=p >(</span><span class=bp >self</span><span class=p >,</span> <span class=n >event</span><span class=o >=</span><span class=kc >None</span><span class=p >):</span>
         <span class=n >_p</span> <span class=o >=</span> <span class=bp >self</span><span class=o >.</span><span class=n >value</span>
-        <span class=n >start_path</span><span class=p >:</span> <span class=n >Path</span> <span class=o >=</span> <span class=n >_p</span><span class=p >[</span><span class=mi >0</span><span class=p >]</span> <span class=k >if</span> <span class=nb >isinstance</span><span class=p >(</span><span class=n >_p</span><span class=p >,</span> <span class=nb >tuple</span><span class=p >)</span> <span class=k >else</span> <span class=n >_p</span>
-        <span class=n >_start_path</span> <span class=o >=</span> <span class=n >os</span><span class=o >.</span><span class=n >fspath</span><span class=p >(</span><span class=n >start_path</span><span class=o >.</span><span class=n >expanduser</span><span class=p >()</span><span class=o >.</span><span class=n >absolute</span><span class=p >())</span>
+        <span class=k >if</span> <span class=n >_p</span><span class=p >:</span>
+            <span class=n >start_path</span><span class=p >:</span> <span class=n >Path</span> <span class=o >=</span> <span class=n >_p</span><span class=p >[</span><span class=mi >0</span><span class=p >]</span> <span class=k >if</span> <span class=nb >isinstance</span><span class=p >(</span><span class=n >_p</span><span class=p >,</span> <span class=nb >tuple</span><span class=p >)</span> <span class=k >else</span> <span class=n >_p</span>
+            <span class=n >_start_path</span><span class=p >:</span> <span class=nb >str</span> <span class=o >|</span> <span class=kc >None</span> <span class=o >=</span> <span class=n >os</span><span class=o >.</span><span class=n >fspath</span><span class=p >(</span><span class=n >start_path</span><span class=o >.</span><span class=n >expanduser</span><span class=p >()</span><span class=o >.</span><span class=n >absolute</span><span class=p >())</span>
+        <span class=k >else</span><span class=p >:</span>
+            <span class=n >_start_path</span> <span class=o >=</span> <span class=kc >None</span>
         <span class=n >result</span> <span class=o >=</span> <span class=bp >self</span><span class=o >.</span><span class=n >_show_file_dialog</span><span class=p >(</span>
             <span class=bp >self</span><span class=o >.</span><span class=n >mode</span><span class=p >,</span>
             <span class=n >caption</span><span class=o >=</span><span class=bp >self</span><span class=o >.</span><span class=n >_btn_text</span><span class=p >,</span>
@@ -447,9 +455,11 @@
             <span class=bp >self</span><span class=o >.</span><span class=n >value</span> <span class=o >=</span> <span class=n >result</span>
 
     <span class=nd >@property</span>
-    <span class=k >def</span> <span class=nf >value</span><span class=p >(</span><span class=bp >self</span><span class=p >)</span> <span class=o >-&gt;</span> <span class=nb >tuple</span><span class=p >[</span><span class=n >Path</span><span class=p >,</span> <span class=o >...</span><span class=p >]</span> <span class=o >|</span> <span class=n >Path</span><span class=p >:</span>
+    <span class=k >def</span> <span class=nf >value</span><span class=p >(</span><span class=bp >self</span><span class=p >)</span> <span class=o >-&gt;</span> <span class=nb >tuple</span><span class=p >[</span><span class=n >Path</span><span class=p >,</span> <span class=o >...</span><span class=p >]</span> <span class=o >|</span> <span class=n >Path</span> <span class=o >|</span> <span class=kc >None</span><span class=p >:</span>
         <span class=sd >"""Return current value of the widget.  This may be interpreted by backends."""</span>
         <span class=n >text</span> <span class=o >=</span> <span class=bp >self</span><span class=o >.</span><span class=n >line_edit</span><span class=o >.</span><span class=n >value</span>
+        <span class=k >if</span> <span class=bp >self</span><span class=o >.</span><span class=n >_nullable</span> <span class=ow >and</span> <span class=ow >not</span> <span class=n >text</span><span class=p >:</span>
+            <span class=k >return</span> <span class=kc >None</span>
         <span class=k >if</span> <span class=bp >self</span><span class=o >.</span><span class=n >mode</span> <span class=ow >is</span> <span class=n >FileDialogMode</span><span class=o >.</span><span class=n >EXISTING_FILES</span><span class=p >:</span>
             <span class=k >return</span> <span class=nb >tuple</span><span class=p >(</span><span class=n >Path</span><span class=p >(</span><span class=n >p</span><span class=p >)</span> <span class=k >for</span> <span class=n >p</span> <span class=ow >in</span> <span class=n >text</span><span class=o >.</span><span class=n >split</span><span class=p >(</span><span class=s2 >", "</span><span class=p >))</span>
         <span class=k >return</span> <span class=n >Path</span><span class=p >(</span><span class=n >text</span><span class=p >)</span>
@@ -520,7 +530,7 @@
         <span class=k >if</span> <span class=nb >isinstance</span><span class=p >(</span><span class=n >arg</span><span class=p >,</span> <span class=p >(</span><span class=nb >int</span><span class=p >,</span> <span class=nb >float</span><span class=p >)):</span>
             <span class=k >return</span> <span class=p >(</span><span class=nb >int</span><span class=p >(</span><span class=n >arg</span><span class=p >),)</span> <span class=o >*</span> <span class=mi >3</span>
         <span class=k >elif</span> <span class=nb >isinstance</span><span class=p >(</span><span class=n >arg</span><span class=p >,</span> <span class=p >(</span><span class=nb >list</span><span class=p >,</span> <span class=nb >tuple</span><span class=p >)):</span>
-            <span class=k >if</span> <span class=ow >not</span> <span class=nb >len</span><span class=p >(</span><span class=n >arg</span><span class=p >)</span> <span class=o >==</span> <span class=mi >3</span><span class=p >:</span>
+            <span class=k >if</span> <span class=nb >len</span><span class=p >(</span><span class=n >arg</span><span class=p >)</span> <span class=o >!=</span> <span class=mi >3</span><span class=p >:</span>
                 <span class=k >raise</span> <span class=ne >ValueError</span><span class=p >(</span><span class=sa >f</span><span class=s2 >"</span><span class=si >{</span><span class=n >name</span><span class=si >}</span><span class=s2 > sequence must be length 3"</span><span class=p >)</span>
             <span class=k >return</span> <span class=nb >tuple</span><span class=p >(</span><span class=nb >int</span><span class=p >(</span><span class=n >x</span><span class=p >)</span> <span class=k >for</span> <span class=n >x</span> <span class=ow >in</span> <span class=n >arg</span><span class=p >)</span>
         <span class=k >elif</span> <span class=n >arg</span> <span class=ow >is</span> <span class=ow >not</span> <span class=kc >None</span><span class=p >:</span>

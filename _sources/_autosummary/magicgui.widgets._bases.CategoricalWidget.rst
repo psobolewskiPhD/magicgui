@@ -66,6 +66,8 @@
       ~CategoricalWidget.min_height
       ~CategoricalWidget.min_width
       ~CategoricalWidget.native
+      ~CategoricalWidget.null_string
+      ~CategoricalWidget.null_value
       ~CategoricalWidget.options
       ~CategoricalWidget.param_kind
       ~CategoricalWidget.parent
