@@ -62,6 +62,7 @@
       ~SliderWidget.readout
       ~SliderWidget.step
       ~SliderWidget.tooltip
+      ~SliderWidget.tracking
       ~SliderWidget.value
       ~SliderWidget.visible
       ~SliderWidget.widget_type

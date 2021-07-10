@@ -68,6 +68,7 @@
       ~ProgressBar.readout
       ~ProgressBar.step
       ~ProgressBar.tooltip
+      ~ProgressBar.tracking
       ~ProgressBar.value
       ~ProgressBar.visible
       ~ProgressBar.widget_type

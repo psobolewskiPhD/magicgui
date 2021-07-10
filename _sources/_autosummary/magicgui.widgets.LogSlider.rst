@@ -61,6 +61,7 @@
       ~LogSlider.range
       ~LogSlider.step
       ~LogSlider.tooltip
+      ~LogSlider.tracking
       ~LogSlider.value
       ~LogSlider.visible
       ~LogSlider.widget_type

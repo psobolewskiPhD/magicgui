@@ -62,6 +62,7 @@
       ~FloatSlider.readout
       ~FloatSlider.step
       ~FloatSlider.tooltip
+      ~FloatSlider.tracking
       ~FloatSlider.value
       ~FloatSlider.visible
       ~FloatSlider.widget_type
