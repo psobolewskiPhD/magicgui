@@ -5,7 +5,7 @@
 
 <span class=kn >from</span> <span class=nn >magicgui.widgets</span> <span class=kn >import</span> <span class=n >_protocols</span>
 
-<span class=kn >from</span> <span class=nn >.value_widget</span> <span class=kn >import</span> <span class=n >ValueWidget</span>
+<span class=kn >from</span> <span class=nn >.value_widget</span> <span class=kn >import</span> <span class=n >UNSET</span><span class=p >,</span> <span class=n >ValueWidget</span>
 
 
 <div class=viewcode-block  id=RangedWidget ><a class=viewcode-back  href="../../../../_autosummary/magicgui.widgets._bases.RangedWidget.html#magicgui.widgets._bases.RangedWidget">[docs]</a><span class=k >class</span> <span class=nc >RangedWidget</span><span class=p >(</span><span class=n >ValueWidget</span><span class=p >):</span>
@@ -36,13 +36,13 @@
                 <span class=k >else</span><span class=p >:</span>
                     <span class=nb >min</span> <span class=o >=</span> <span class=n >kwargs</span><span class=o >.</span><span class=n >pop</span><span class=p >(</span><span class=n >key</span><span class=p >)</span>
         <span class=c1 ># value should be set *after* min max is set</span>
-        <span class=n >val</span> <span class=o >=</span> <span class=n >kwargs</span><span class=o >.</span><span class=n >pop</span><span class=p >(</span><span class=s2 >"value"</span><span class=p >,</span> <span class=kc >None</span><span class=p >)</span>
+        <span class=n >val</span> <span class=o >=</span> <span class=n >kwargs</span><span class=o >.</span><span class=n >pop</span><span class=p >(</span><span class=s2 >"value"</span><span class=p >,</span> <span class=n >UNSET</span><span class=p >)</span>
         <span class=nb >super</span><span class=p >()</span><span class=o >.</span><span class=fm >__init__</span><span class=p >(</span><span class=o >**</span><span class=n >kwargs</span><span class=p >)</span>
 
         <span class=bp >self</span><span class=o >.</span><span class=n >step</span> <span class=o >=</span> <span class=n >step</span>
         <span class=bp >self</span><span class=o >.</span><span class=n >min</span> <span class=o >=</span> <span class=nb >min</span>
         <span class=bp >self</span><span class=o >.</span><span class=n >max</span> <span class=o >=</span> <span class=nb >max</span>
-        <span class=k >if</span> <span class=n >val</span> <span class=ow >is</span> <span class=ow >not</span> <span class=kc >None</span><span class=p >:</span>
+        <span class=k >if</span> <span class=n >val</span> <span class=ow >is</span> <span class=ow >not</span> <span class=n >UNSET</span><span class=p >:</span>
             <span class=bp >self</span><span class=o >.</span><span class=n >value</span> <span class=o >=</span> <span class=n >val</span>
 
     <span class=nd >@property</span>

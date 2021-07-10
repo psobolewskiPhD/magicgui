@@ -10,7 +10,7 @@
 
 <span class=kn >from</span> <span class=nn >.widget</span> <span class=kn >import</span> <span class=n >Widget</span>
 
-<span class=n >UNBOUND</span> <span class=o >=</span> <span class=nb >object</span><span class=p >()</span>
+<span class=n >UNSET</span> <span class=o >=</span> <span class=nb >object</span><span class=p >()</span>
 
 
 <div class=viewcode-block  id=ValueWidget ><a class=viewcode-back  href="../../../../_autosummary/magicgui.widgets._bases.ValueWidget.html#magicgui.widgets._bases.ValueWidget">[docs]</a><span class=k >class</span> <span class=nc >ValueWidget</span><span class=p >(</span><span class=n >Widget</span><span class=p >):</span>
@@ -31,16 +31,14 @@
     <span class=n >_widget</span><span class=p >:</span> <span class=n >_protocols</span><span class=o >.</span><span class=n >ValueWidgetProtocol</span>
     <span class=n >changed</span><span class=p >:</span> <span class=n >EventEmitter</span>
 
-    <span class=k >def</span> <span class=fm >__init__</span><span class=p >(</span>
-        <span class=bp >self</span><span class=p >,</span> <span class=n >value</span><span class=p >:</span> <span class=n >Any</span> <span class=o >=</span> <span class=kc >None</span><span class=p >,</span> <span class=n >bind</span><span class=p >:</span> <span class=n >Any</span> <span class=o >=</span> <span class=n >UNBOUND</span><span class=p >,</span> <span class=n >nullable</span><span class=o >=</span><span class=kc >False</span><span class=p >,</span> <span class=o >**</span><span class=n >kwargs</span>
-    <span class=p >):</span>
+    <span class=k >def</span> <span class=fm >__init__</span><span class=p >(</span><span class=bp >self</span><span class=p >,</span> <span class=n >value</span><span class=p >:</span> <span class=n >Any</span> <span class=o >=</span> <span class=n >UNSET</span><span class=p >,</span> <span class=n >bind</span><span class=p >:</span> <span class=n >Any</span> <span class=o >=</span> <span class=n >UNSET</span><span class=p >,</span> <span class=n >nullable</span><span class=o >=</span><span class=kc >False</span><span class=p >,</span> <span class=o >**</span><span class=n >kwargs</span><span class=p >):</span>
         <span class=bp >self</span><span class=o >.</span><span class=n >_nullable</span> <span class=o >=</span> <span class=n >nullable</span>
         <span class=bp >self</span><span class=o >.</span><span class=n >_bound_value</span><span class=p >:</span> <span class=n >Any</span> <span class=o >=</span> <span class=n >bind</span>
         <span class=bp >self</span><span class=o >.</span><span class=n >_call_bound</span><span class=p >:</span> <span class=nb >bool</span> <span class=o >=</span> <span class=kc >True</span>
         <span class=nb >super</span><span class=p >()</span><span class=o >.</span><span class=fm >__init__</span><span class=p >(</span><span class=o >**</span><span class=n >kwargs</span><span class=p >)</span>
-        <span class=k >if</span> <span class=n >value</span> <span class=ow >is</span> <span class=ow >not</span> <span class=kc >None</span><span class=p >:</span>
+        <span class=k >if</span> <span class=n >value</span> <span class=ow >is</span> <span class=ow >not</span> <span class=n >UNSET</span><span class=p >:</span>
             <span class=bp >self</span><span class=o >.</span><span class=n >value</span> <span class=o >=</span> <span class=n >value</span>
-        <span class=k >if</span> <span class=bp >self</span><span class=o >.</span><span class=n >_bound_value</span> <span class=ow >is</span> <span class=ow >not</span> <span class=n >UNBOUND</span> <span class=ow >and</span> <span class=s2 >"visible"</span> <span class=ow >not</span> <span class=ow >in</span> <span class=n >kwargs</span><span class=p >:</span>
+        <span class=k >if</span> <span class=bp >self</span><span class=o >.</span><span class=n >_bound_value</span> <span class=ow >is</span> <span class=ow >not</span> <span class=n >UNSET</span> <span class=ow >and</span> <span class=s2 >"visible"</span> <span class=ow >not</span> <span class=ow >in</span> <span class=n >kwargs</span><span class=p >:</span>
             <span class=bp >self</span><span class=o >.</span><span class=n >hide</span><span class=p >()</span>
 
     <span class=k >def</span> <span class=nf >_post_init</span><span class=p >(</span><span class=bp >self</span><span class=p >):</span>
@@ -64,7 +62,7 @@
     <span class=nd >@property</span>
     <span class=k >def</span> <span class=nf >value</span><span class=p >(</span><span class=bp >self</span><span class=p >):</span>
         <span class=sd >"""Return current value of the widget.  This may be interpreted by backends."""</span>
-        <span class=k >if</span> <span class=bp >self</span><span class=o >.</span><span class=n >_bound_value</span> <span class=ow >is</span> <span class=ow >not</span> <span class=n >UNBOUND</span><span class=p >:</span>
+        <span class=k >if</span> <span class=bp >self</span><span class=o >.</span><span class=n >_bound_value</span> <span class=ow >is</span> <span class=ow >not</span> <span class=n >UNSET</span><span class=p >:</span>
             <span class=k >if</span> <span class=n >callable</span><span class=p >(</span><span class=bp >self</span><span class=o >.</span><span class=n >_bound_value</span><span class=p >)</span> <span class=ow >and</span> <span class=bp >self</span><span class=o >.</span><span class=n >_call_bound</span><span class=p >:</span>
                 <span class=k >try</span><span class=p >:</span>
                     <span class=k >return</span> <span class=bp >self</span><span class=o >.</span><span class=n >_bound_value</span><span class=p >(</span><span class=bp >self</span><span class=p >)</span>
@@ -84,13 +82,13 @@
 
     <span class=k >def</span> <span class=fm >__repr__</span><span class=p >(</span><span class=bp >self</span><span class=p >)</span> <span class=o >-&gt;</span> <span class=nb >str</span><span class=p >:</span>
         <span class=sd >"""Return representation of widget of instsance."""</span>
-        <span class=n >val</span> <span class=o >=</span> <span class=bp >self</span><span class=o >.</span><span class=n >value</span> <span class=k >if</span> <span class=bp >self</span><span class=o >.</span><span class=n >_bound_value</span> <span class=ow >is</span> <span class=n >UNBOUND</span> <span class=k >else</span> <span class=bp >self</span><span class=o >.</span><span class=n >_bound_value</span>
-        <span class=k >if</span> <span class=nb >hasattr</span><span class=p >(</span><span class=bp >self</span><span class=p >,</span> <span class=s2 >"_widget"</span><span class=p >):</span>
+        <span class=k >try</span><span class=p >:</span>
+            <span class=n >val</span> <span class=o >=</span> <span class=bp >self</span><span class=o >.</span><span class=n >value</span> <span class=k >if</span> <span class=bp >self</span><span class=o >.</span><span class=n >_bound_value</span> <span class=ow >is</span> <span class=n >UNSET</span> <span class=k >else</span> <span class=bp >self</span><span class=o >.</span><span class=n >_bound_value</span>
             <span class=k >return</span> <span class=p >(</span>
                 <span class=sa >f</span><span class=s2 >"</span><span class=si >{</span><span class=bp >self</span><span class=o >.</span><span class=n >widget_type</span><span class=si >}</span><span class=s2 >(value=</span><span class=si >{</span><span class=n >val</span><span class=si >!r}</span><span class=s2 >, "</span>
                 <span class=sa >f</span><span class=s2 >"annotation=</span><span class=si >{</span><span class=bp >self</span><span class=o >.</span><span class=n >annotation</span><span class=si >!r}</span><span class=s2 >, name=</span><span class=si >{</span><span class=bp >self</span><span class=o >.</span><span class=n >name</span><span class=si >!r}</span><span class=s2 >)"</span>
             <span class=p >)</span>
-        <span class=k >else</span><span class=p >:</span>
+        <span class=k >except</span> <span class=ne >AttributeError</span><span class=p >:</span>  <span class=c1 ># pragma: no cover</span>
             <span class=k >return</span> <span class=sa >f</span><span class=s2 >"&lt;Uninitialized </span><span class=si >{</span><span class=bp >self</span><span class=o >.</span><span class=n >widget_type</span><span class=si >}</span><span class=s2 >&gt;"</span>
 
     <span class=k >def</span> <span class=nf >bind</span><span class=p >(</span><span class=bp >self</span><span class=p >,</span> <span class=n >value</span><span class=p >:</span> <span class=n >Any</span><span class=p >,</span> <span class=n >call</span><span class=p >:</span> <span class=nb >bool</span> <span class=o >=</span> <span class=kc >True</span><span class=p >)</span> <span class=o >-&gt;</span> <span class=kc >None</span><span class=p >:</span>
@@ -123,7 +121,7 @@
 
     <span class=k >def</span> <span class=nf >unbind</span><span class=p >(</span><span class=bp >self</span><span class=p >)</span> <span class=o >-&gt;</span> <span class=kc >None</span><span class=p >:</span>
         <span class=sd >"""Unbinds any bound values. (see ``ValueWidget.bind``)."""</span>
-        <span class=bp >self</span><span class=o >.</span><span class=n >_bound_value</span> <span class=o >=</span> <span class=n >UNBOUND</span>
+        <span class=bp >self</span><span class=o >.</span><span class=n >_bound_value</span> <span class=o >=</span> <span class=n >UNSET</span>
 
     <span class=nd >@property</span>
     <span class=k >def</span> <span class=nf >annotation</span><span class=p >(</span><span class=bp >self</span><span class=p >):</span>
