@@ -24,7 +24,7 @@ def whoops(a_string: str = 'Hi there'):
 
 [0;31m---------------------------------------------------------------------------[0m
 [0;31mTypeError[0m                                 Traceback (most recent call last)
-[0;32m/tmp/ipykernel_2052/1708989931.py[0m in [0;36m<module>[0;34m[0m
+[0;32m/tmp/ipykernel_2144/1708989931.py[0m in [0;36m<module>[0;34m[0m
 [1;32m      1[0m [0;34m@[0m[0mmagicgui[0m[0;34m([0m[0ma_string[0m[0;34m=[0m[0;34m{[0m[0;34m'min'[0m[0;34m:[0m [0;36m10[0m[0;34m}[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
 [0;32m----> 2[0;31m [0;32mdef[0m [0mwhoops[0m[0;34m([0m[0ma_string[0m[0;34m:[0m [0mstr[0m [0;34m=[0m [0;34m'Hi there'[0m[0;34m)[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
 [0m[1;32m      3[0m     [0;34m...[0m[0;34m[0m[0;34m[0m[0m
@@ -79,11 +79,11 @@ def whoops(a_string: str = 'Hi there'):
 [1;32m    166[0m         [0mcls[0m[0;34m.[0m[0m__init__[0m [0;34m=[0m [0m__init__[0m[0;34m[0m[0;34m[0m[0m
 
 [0;32m/opt/hostedtoolcache/Python/3.8.10/x64/lib/python3.8/site-packages/magicgui/widgets/_bases/value_widget.py[0m in [0;36m__init__[0;34m(self, value, bind, nullable, **kwargs)[0m
-[1;32m     35[0m         [0mself[0m[0;34m.[0m[0m_bound_value[0m[0;34m:[0m [0mAny[0m [0;34m=[0m [0mbind[0m[0;34m[0m[0;34m[0m[0m
-[1;32m     36[0m         [0mself[0m[0;34m.[0m[0m_call_bound[0m[0;34m:[0m [0mbool[0m [0;34m=[0m [0;32mTrue[0m[0;34m[0m[0;34m[0m[0m
-[0;32m---> 37[0;31m         [0msuper[0m[0;34m([0m[0;34m)[0m[0;34m.[0m[0m__init__[0m[0;34m([0m[0;34m**[0m[0mkwargs[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
-[0m[1;32m     38[0m         [0;32mif[0m [0mvalue[0m [0;32mis[0m [0;32mnot[0m [0mUNSET[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
-[1;32m     39[0m             [0mself[0m[0;34m.[0m[0mvalue[0m [0;34m=[0m [0mvalue[0m[0;34m[0m[0;34m[0m[0m
+[1;32m     40[0m         [0mself[0m[0;34m.[0m[0m_bound_value[0m[0;34m:[0m [0mAny[0m [0;34m=[0m [0mbind[0m[0;34m[0m[0;34m[0m[0m
+[1;32m     41[0m         [0mself[0m[0;34m.[0m[0m_call_bound[0m[0;34m:[0m [0mbool[0m [0;34m=[0m [0;32mTrue[0m[0;34m[0m[0;34m[0m[0m
+[0;32m---> 42[0;31m         [0msuper[0m[0;34m([0m[0;34m)[0m[0;34m.[0m[0m__init__[0m[0;34m([0m[0;34m**[0m[0mkwargs[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m     43[0m         [0;32mif[0m [0mvalue[0m [0;32mis[0m [0;32mnot[0m [0mUNSET[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+[1;32m     44[0m             [0mself[0m[0;34m.[0m[0mvalue[0m [0;34m=[0m [0mvalue[0m[0;34m[0m[0;34m[0m[0m
 
 [0;32m/opt/hostedtoolcache/Python/3.8.10/x64/lib/python3.8/site-packages/magicgui/widgets/_bases/widget.py[0m in [0;36m__init__[0;34m(self, widget_type, name, annotation, label, tooltip, visible, enabled, gui_only, backend_kwargs, **extra)[0m
 [1;32m     63[0m         [0mlabel[0m [0;34m=[0m [0mlabel[0m [0;32mor[0m [0mextra[0m[0;34m.[0m[0mpop[0m[0;34m([0m[0;34m"description"[0m[0;34m,[0m [0;32mNone[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m

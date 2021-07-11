@@ -10,7 +10,13 @@
 
 <span class=kn >from</span> <span class=nn >.widget</span> <span class=kn >import</span> <span class=n >Widget</span>
 
-<span class=n >UNSET</span> <span class=o >=</span> <span class=nb >object</span><span class=p >()</span>
+
+<span class=k >class</span> <span class=nc >_Unset</span><span class=p >:</span>
+    <span class=k >def</span> <span class=fm >__repr__</span><span class=p >(</span><span class=bp >self</span><span class=p >)</span> <span class=o >-&gt;</span> <span class=nb >str</span><span class=p >:</span>
+        <span class=k >return</span> <span class=s2 >"UNSET"</span>
+
+
+<span class=n >UNSET</span> <span class=o >=</span> <span class=n >_Unset</span><span class=p >()</span>
 
 
 <div class=viewcode-block  id=ValueWidget ><a class=viewcode-back  href="../../../../_autosummary/magicgui.widgets._bases.ValueWidget.html#magicgui.widgets._bases.ValueWidget">[docs]</a><span class=k >class</span> <span class=nc >ValueWidget</span><span class=p >(</span><span class=n >Widget</span><span class=p >):</span>
@@ -19,13 +25,12 @@
 <span class=sd >    Parameters</span>
 <span class=sd >    ----------</span>
 <span class=sd >    value : Any, optional</span>
-<span class=sd >        The starting value for the widget, by default ``None``</span>
+<span class=sd >        The starting value for the widget.</span>
 <span class=sd >    bind : Any, optional</span>
 <span class=sd >        A value or callback to bind this widget, then whenever `widget.value` is</span>
 <span class=sd >        accessed, the value provided here will be returned.  ``value`` can be a</span>
 <span class=sd >        callable, in which case ``value(self)`` will be returned (i.e. your callback</span>
 <span class=sd >        must accept a single parameter, which is this widget instance.).</span>
-
 <span class=sd >    """</span>
 
     <span class=n >_widget</span><span class=p >:</span> <span class=n >_protocols</span><span class=o >.</span><span class=n >ValueWidgetProtocol</span>
