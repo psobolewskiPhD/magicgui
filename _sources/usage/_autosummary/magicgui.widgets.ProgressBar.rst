@@ -53,9 +53,11 @@
    .. autosummary::
    
       ~ProgressBar.annotation
+      ~ProgressBar.changed
       ~ProgressBar.enabled
       ~ProgressBar.height
       ~ProgressBar.label
+      ~ProgressBar.label_changed
       ~ProgressBar.max
       ~ProgressBar.max_height
       ~ProgressBar.max_width
@@ -68,6 +70,7 @@
       ~ProgressBar.orientation
       ~ProgressBar.param_kind
       ~ProgressBar.parent
+      ~ProgressBar.parent_changed
       ~ProgressBar.range
       ~ProgressBar.readout
       ~ProgressBar.step

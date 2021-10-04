@@ -24,7 +24,7 @@ def whoops(a_string: str = 'Hi there'):
 
 [0;31m---------------------------------------------------------------------------[0m
 [0;31mTypeError[0m                                 Traceback (most recent call last)
-[0;32m/tmp/ipykernel_1927/1708989931.py[0m in [0;36m<module>[0;34m[0m
+[0;32m/tmp/ipykernel_1965/1708989931.py[0m in [0;36m<module>[0;34m[0m
 [1;32m      1[0m [0;34m@[0m[0mmagicgui[0m[0;34m([0m[0ma_string[0m[0;34m=[0m[0;34m{[0m[0;34m'min'[0m[0;34m:[0m [0;36m10[0m[0;34m}[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
 [0;32m----> 2[0;31m [0;32mdef[0m [0mwhoops[0m[0;34m([0m[0ma_string[0m[0;34m:[0m [0mstr[0m [0;34m=[0m [0;34m'Hi there'[0m[0;34m)[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
 [0m[1;32m      3[0m     [0;34m...[0m[0;34m[0m[0;34m[0m[0m
@@ -37,11 +37,11 @@ def whoops(a_string: str = 'Hi there'):
 [1;32m    243[0m     [0;32mif[0m [0mfunction[0m [0;32mis[0m [0;32mNone[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
 
 [0;32m/opt/hostedtoolcache/Python/3.9.7/x64/lib/python3.9/site-packages/magicgui/widgets/_function_gui.py[0m in [0;36m__init__[0;34m(self, function, call_button, layout, labels, tooltips, app, visible, auto_call, result_widget, param_options, name, persist, **kwargs)[0m
-[1;32m    159[0m             [0mlabels[0m[0;34m=[0m[0mlabels[0m[0;34m,[0m[0;34m[0m[0;34m[0m[0m
-[1;32m    160[0m             [0mvisible[0m[0;34m=[0m[0mvisible[0m[0;34m,[0m[0;34m[0m[0;34m[0m[0m
-[0;32m--> 161[0;31m             [0mwidgets[0m[0;34m=[0m[0mlist[0m[0;34m([0m[0msig[0m[0;34m.[0m[0mwidgets[0m[0;34m([0m[0mapp[0m[0;34m)[0m[0;34m.[0m[0mvalues[0m[0;34m([0m[0;34m)[0m[0;34m)[0m[0;34m,[0m[0;34m[0m[0;34m[0m[0m
-[0m[1;32m    162[0m             [0mname[0m[0;34m=[0m[0mname[0m [0;32mor[0m [0mself[0m[0;34m.[0m[0m_callable_name[0m[0;34m,[0m[0;34m[0m[0;34m[0m[0m
-[1;32m    163[0m         )
+[1;32m    160[0m             [0mlabels[0m[0;34m=[0m[0mlabels[0m[0;34m,[0m[0;34m[0m[0;34m[0m[0m
+[1;32m    161[0m             [0mvisible[0m[0;34m=[0m[0mvisible[0m[0;34m,[0m[0;34m[0m[0;34m[0m[0m
+[0;32m--> 162[0;31m             [0mwidgets[0m[0;34m=[0m[0mlist[0m[0;34m([0m[0msig[0m[0;34m.[0m[0mwidgets[0m[0;34m([0m[0mapp[0m[0;34m)[0m[0;34m.[0m[0mvalues[0m[0;34m([0m[0;34m)[0m[0;34m)[0m[0;34m,[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m    163[0m             [0mname[0m[0;34m=[0m[0mname[0m [0;32mor[0m [0mself[0m[0;34m.[0m[0m_callable_name[0m[0;34m,[0m[0;34m[0m[0;34m[0m[0m
+[1;32m    164[0m         )
 
 [0;32m/opt/hostedtoolcache/Python/3.9.7/x64/lib/python3.9/site-packages/magicgui/signature.py[0m in [0;36mwidgets[0;34m(self, app)[0m
 [1;32m    220[0m         [0;34m"""Return mapping from parameters to widgets for all params in Signature."""[0m[0;34m[0m[0;34m[0m[0m
@@ -86,11 +86,11 @@ def whoops(a_string: str = 'Hi there'):
 [1;32m     45[0m             [0mself[0m[0;34m.[0m[0mvalue[0m [0;34m=[0m [0mvalue[0m[0;34m[0m[0;34m[0m[0m
 
 [0;32m/opt/hostedtoolcache/Python/3.9.7/x64/lib/python3.9/site-packages/magicgui/widgets/_bases/widget.py[0m in [0;36m__init__[0;34m(self, widget_type, name, annotation, label, tooltip, visible, enabled, gui_only, backend_kwargs, **extra)[0m
-[1;32m     68[0m         [0mlabel[0m [0;34m=[0m [0mlabel[0m [0;32mor[0m [0mextra[0m[0;34m.[0m[0mpop[0m[0;34m([0m[0;34m"description"[0m[0;34m,[0m [0;32mNone[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
-[1;32m     69[0m         [0;32mif[0m [0mextra[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
-[0;32m---> 70[0;31m             raise TypeError(
-[0m[1;32m     71[0m                 [0;34mf"{type(self).__name__} got an unexpected "[0m[0;34m[0m[0;34m[0m[0m
-[1;32m     72[0m                 [0;34mf"keyword argument: {', '.join(extra)}"[0m[0;34m[0m[0;34m[0m[0m
+[1;32m     71[0m         [0mlabel[0m [0;34m=[0m [0mlabel[0m [0;32mor[0m [0mextra[0m[0;34m.[0m[0mpop[0m[0;34m([0m[0;34m"description"[0m[0;34m,[0m [0;32mNone[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[1;32m     72[0m         [0;32mif[0m [0mextra[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+[0;32m---> 73[0;31m             raise TypeError(
+[0m[1;32m     74[0m                 [0;34mf"{type(self).__name__} got an unexpected "[0m[0;34m[0m[0;34m[0m[0m
+[1;32m     75[0m                 [0;34mf"keyword argument: {', '.join(extra)}"[0m[0;34m[0m[0;34m[0m[0m
 
 [0;31mTypeError[0m: LineEdit got an unexpected keyword argument: min
 TypeError: LineEdit got an unexpected keyword argument: min

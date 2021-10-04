@@ -59,11 +59,13 @@
    .. autosummary::
    
       ~Select.annotation
+      ~Select.changed
       ~Select.choices
       ~Select.current_choice
       ~Select.enabled
       ~Select.height
       ~Select.label
+      ~Select.label_changed
       ~Select.max_height
       ~Select.max_width
       ~Select.min_height
@@ -74,6 +76,7 @@
       ~Select.options
       ~Select.param_kind
       ~Select.parent
+      ~Select.parent_changed
       ~Select.tooltip
       ~Select.value
       ~Select.visible

@@ -47,10 +47,12 @@
    .. autosummary::
    
       ~PushButton.annotation
+      ~PushButton.changed
       ~PushButton.clicked
       ~PushButton.enabled
       ~PushButton.height
       ~PushButton.label
+      ~PushButton.label_changed
       ~PushButton.max_height
       ~PushButton.max_width
       ~PushButton.min_height
@@ -60,6 +62,7 @@
       ~PushButton.options
       ~PushButton.param_kind
       ~PushButton.parent
+      ~PushButton.parent_changed
       ~PushButton.text
       ~PushButton.tooltip
       ~PushButton.value

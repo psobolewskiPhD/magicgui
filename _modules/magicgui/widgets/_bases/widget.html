@@ -7,7 +7,7 @@
 <span class=kn >from</span> <span class=nn >typing</span> <span class=kn >import</span> <span class=n >TYPE_CHECKING</span><span class=p >,</span> <span class=n >Any</span><span class=p >,</span> <span class=n >ForwardRef</span>
 
 <span class=kn >from</span> <span class=nn >magicgui.application</span> <span class=kn >import</span> <span class=n >use_app</span>
-<span class=kn >from</span> <span class=nn >magicgui.events</span> <span class=kn >import</span> <span class=n >EventEmitter</span>
+<span class=kn >from</span> <span class=nn >magicgui.events</span> <span class=kn >import</span> <span class=n >Signal</span>
 <span class=kn >from</span> <span class=nn >magicgui.widgets</span> <span class=kn >import</span> <span class=n >_protocols</span>
 
 <span class=n >BUILDING_DOCS</span> <span class=o >=</span> <span class=n >sys</span><span class=o >.</span><span class=n >argv</span><span class=p >[</span><span class=o >-</span><span class=mi >2</span><span class=p >:]</span> <span class=o >==</span> <span class=p >[</span><span class=s2 >"build"</span><span class=p >,</span> <span class=s2 >"docs"</span><span class=p >]</span>
@@ -52,6 +52,9 @@
     <span class=c1 ># if this widget becomes owned by a labeled widget</span>
     <span class=n >_labeled_widget_ref</span><span class=p >:</span> <span class=n >ReferenceType</span><span class=p >[</span><span class=n >_LabeledWidget</span><span class=p >]</span> <span class=o >|</span> <span class=kc >None</span> <span class=o >=</span> <span class=kc >None</span>
 
+    <span class=n >parent_changed</span> <span class=o >=</span> <span class=n >Signal</span><span class=p >(</span><span class=nb >object</span><span class=p >)</span>
+    <span class=n >label_changed</span> <span class=o >=</span> <span class=n >Signal</span><span class=p >(</span><span class=nb >str</span><span class=p >)</span>
+
     <span class=k >def</span> <span class=fm >__init__</span><span class=p >(</span>
         <span class=bp >self</span><span class=p >,</span>
         <span class=n >widget_type</span><span class=p >:</span> <span class=nb >type</span><span class=p >[</span><span class=n >_protocols</span><span class=o >.</span><span class=n >WidgetProtocol</span><span class=p >],</span>
@@ -88,8 +91,6 @@
         <span class=bp >self</span><span class=o >.</span><span class=n >enabled</span> <span class=o >=</span> <span class=n >enabled</span>
         <span class=bp >self</span><span class=o >.</span><span class=n >annotation</span><span class=p >:</span> <span class=n >Any</span> <span class=o >=</span> <span class=n >annotation</span>
         <span class=bp >self</span><span class=o >.</span><span class=n >gui_only</span> <span class=o >=</span> <span class=n >gui_only</span>
-        <span class=bp >self</span><span class=o >.</span><span class=n >parent_changed</span> <span class=o >=</span> <span class=n >EventEmitter</span><span class=p >(</span><span class=n >source</span><span class=o >=</span><span class=bp >self</span><span class=p >,</span> <span class=nb >type</span><span class=o >=</span><span class=s2 >"parent_changed"</span><span class=p >)</span>
-        <span class=bp >self</span><span class=o >.</span><span class=n >label_changed</span> <span class=o >=</span> <span class=n >EventEmitter</span><span class=p >(</span><span class=n >source</span><span class=o >=</span><span class=bp >self</span><span class=p >,</span> <span class=nb >type</span><span class=o >=</span><span class=s2 >"label_changed"</span><span class=p >)</span>
         <span class=bp >self</span><span class=o >.</span><span class=n >_widget</span><span class=o >.</span><span class=n >_mgui_bind_parent_change_callback</span><span class=p >(</span><span class=bp >self</span><span class=o >.</span><span class=n >_emit_parent</span><span class=p >)</span>
 
         <span class=c1 ># put the magicgui widget on the native object...may cause error on some backend</span>
@@ -181,7 +182,7 @@
     <span class=nd >@label</span><span class=o >.</span><span class=n >setter</span>
     <span class=k >def</span> <span class=nf >label</span><span class=p >(</span><span class=bp >self</span><span class=p >,</span> <span class=n >value</span><span class=p >):</span>
         <span class=bp >self</span><span class=o >.</span><span class=n >_label</span> <span class=o >=</span> <span class=n >value</span>
-        <span class=bp >self</span><span class=o >.</span><span class=n >label_changed</span><span class=p >(</span><span class=n >value</span><span class=o >=</span><span class=n >value</span><span class=p >)</span>
+        <span class=bp >self</span><span class=o >.</span><span class=n >label_changed</span><span class=o >.</span><span class=n >emit</span><span class=p >(</span><span class=n >value</span><span class=p >)</span>
 
     <span class=nd >@property</span>
     <span class=k >def</span> <span class=nf >width</span><span class=p >(</span><span class=bp >self</span><span class=p >)</span> <span class=o >-&gt;</span> <span class=nb >int</span><span class=p >:</span>
@@ -340,6 +341,6 @@
             <span class=n >file_obj</span><span class=o >.</span><span class=n >seek</span><span class=p >(</span><span class=mi >0</span><span class=p >)</span>
             <span class=k >return</span> <span class=n >file_obj</span><span class=o >.</span><span class=n >read</span><span class=p >()</span>
 
-    <span class=k >def</span> <span class=nf >_emit_parent</span><span class=p >(</span><span class=bp >self</span><span class=p >,</span> <span class=n >event</span><span class=o >=</span><span class=kc >None</span><span class=p >):</span>
-        <span class=bp >self</span><span class=o >.</span><span class=n >parent_changed</span><span class=p >(</span><span class=n >value</span><span class=o >=</span><span class=bp >self</span><span class=o >.</span><span class=n >parent</span><span class=p >)</span></div>
+    <span class=k >def</span> <span class=nf >_emit_parent</span><span class=p >(</span><span class=bp >self</span><span class=p >,</span> <span class=o >*</span><span class=n >_</span><span class=p >):</span>
+        <span class=bp >self</span><span class=o >.</span><span class=n >parent_changed</span><span class=o >.</span><span class=n >emit</span><span class=p >(</span><span class=bp >self</span><span class=o >.</span><span class=n >parent</span><span class=p >)</span></div>
 </pre></div> </article> </div> </div> </main> </div> <footer class=md-footer > <div class=md-footer-nav > <nav class="md-footer-nav__inner md-grid"> </a> </nav> </div> <div class="md-footer-meta md-typeset"> <div class="md-footer-meta__inner md-grid"> <div class=md-footer-copyright > <div class=md-footer-copyright__highlight > &#169; Copyright 2020. </div> Created using <a href="http://www.sphinx-doc.org/">Sphinx</a> 3.5.4. and <a href="https://jupyterbook.org/index.html">Jupyter Book</a> and <a href="https://github.com/bashtage/sphinx-material/">Material for Sphinx</a> </div> </div> </div> </footer> <script src="../../../../_static/javascripts/application.js"></script> <script>app.initialize({version: "1.0.4", url: {base: ".."}})</script>

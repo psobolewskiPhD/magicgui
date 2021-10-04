@@ -453,7 +453,7 @@
         <span class=bp >self</span><span class=o >.</span><span class=n >choose_btn</span><span class=o >.</span><span class=n >changed</span><span class=o >.</span><span class=n >disconnect</span><span class=p >()</span>
         <span class=bp >self</span><span class=o >.</span><span class=n >line_edit</span><span class=o >.</span><span class=n >changed</span><span class=o >.</span><span class=n >disconnect</span><span class=p >()</span>
         <span class=bp >self</span><span class=o >.</span><span class=n >choose_btn</span><span class=o >.</span><span class=n >changed</span><span class=o >.</span><span class=n >connect</span><span class=p >(</span><span class=bp >self</span><span class=o >.</span><span class=n >_on_choose_clicked</span><span class=p >)</span>
-        <span class=bp >self</span><span class=o >.</span><span class=n >line_edit</span><span class=o >.</span><span class=n >changed</span><span class=o >.</span><span class=n >connect</span><span class=p >(</span><span class=k >lambda</span> <span class=n >x</span><span class=p >:</span> <span class=bp >self</span><span class=o >.</span><span class=n >changed</span><span class=p >(</span><span class=n >value</span><span class=o >=</span><span class=bp >self</span><span class=o >.</span><span class=n >value</span><span class=p >))</span>
+        <span class=bp >self</span><span class=o >.</span><span class=n >line_edit</span><span class=o >.</span><span class=n >changed</span><span class=o >.</span><span class=n >connect</span><span class=p >(</span><span class=k >lambda</span><span class=p >:</span> <span class=bp >self</span><span class=o >.</span><span class=n >changed</span><span class=o >.</span><span class=n >emit</span><span class=p >(</span><span class=bp >self</span><span class=o >.</span><span class=n >value</span><span class=p >))</span>
 
     <span class=nd >@property</span>
     <span class=k >def</span> <span class=nf >mode</span><span class=p >(</span><span class=bp >self</span><span class=p >)</span> <span class=o >-&gt;</span> <span class=n >FileDialogMode</span><span class=p >:</span>
@@ -472,7 +472,7 @@
         <span class=k >else</span><span class=p >:</span>
             <span class=k >return</span> <span class=s2 >"Select file"</span> <span class=o >+</span> <span class=p >(</span><span class=s2 >"s"</span> <span class=k >if</span> <span class=bp >self</span><span class=o >.</span><span class=n >mode</span><span class=o >.</span><span class=n >name</span><span class=o >.</span><span class=n >endswith</span><span class=p >(</span><span class=s2 >"S"</span><span class=p >)</span> <span class=k >else</span> <span class=s2 >""</span><span class=p >)</span>
 
-    <span class=k >def</span> <span class=nf >_on_choose_clicked</span><span class=p >(</span><span class=bp >self</span><span class=p >,</span> <span class=n >event</span><span class=o >=</span><span class=kc >None</span><span class=p >):</span>
+    <span class=k >def</span> <span class=nf >_on_choose_clicked</span><span class=p >(</span><span class=bp >self</span><span class=p >):</span>
         <span class=n >_p</span> <span class=o >=</span> <span class=bp >self</span><span class=o >.</span><span class=n >value</span>
         <span class=k >if</span> <span class=n >_p</span><span class=p >:</span>
             <span class=n >start_path</span><span class=p >:</span> <span class=n >Path</span> <span class=o >=</span> <span class=n >_p</span><span class=p >[</span><span class=mi >0</span><span class=p >]</span> <span class=k >if</span> <span class=nb >isinstance</span><span class=p >(</span><span class=n >_p</span><span class=p >,</span> <span class=nb >tuple</span><span class=p >)</span> <span class=k >else</span> <span class=n >_p</span>
@@ -631,7 +631,7 @@
         <span class=bp >self</span><span class=o >.</span><span class=n >labels</span> <span class=o >=</span> <span class=kc >False</span>  <span class=c1 ># important to avoid infinite recursion during insert!</span>
         <span class=bp >self</span><span class=o >.</span><span class=n >_inner_widget</span><span class=o >.</span><span class=n >label_changed</span><span class=o >.</span><span class=n >connect</span><span class=p >(</span><span class=bp >self</span><span class=o >.</span><span class=n >_on_label_change</span><span class=p >)</span>
         <span class=k >for</span> <span class=n >w</span> <span class=ow >in</span> <span class=p >[</span><span class=bp >self</span><span class=o >.</span><span class=n >_label_widget</span><span class=p >,</span> <span class=n >widget</span><span class=p >]:</span>
-            <span class=k >with</span> <span class=n >w</span><span class=o >.</span><span class=n >parent_changed</span><span class=o >.</span><span class=n >blocker</span><span class=p >():</span>
+            <span class=k >with</span> <span class=n >w</span><span class=o >.</span><span class=n >parent_changed</span><span class=o >.</span><span class=n >blocked</span><span class=p >():</span>
                 <span class=bp >self</span><span class=o >.</span><span class=n >append</span><span class=p >(</span><span class=n >w</span><span class=p >)</span>
         <span class=bp >self</span><span class=o >.</span><span class=n >margins</span> <span class=o >=</span> <span class=p >(</span><span class=mi >0</span><span class=p >,</span> <span class=mi >0</span><span class=p >,</span> <span class=mi >0</span><span class=p >,</span> <span class=mi >0</span><span class=p >)</span>
 
@@ -656,8 +656,8 @@
     <span class=k >def</span> <span class=nf >label</span><span class=p >(</span><span class=bp >self</span><span class=p >,</span> <span class=n >label</span><span class=p >):</span>
         <span class=bp >self</span><span class=o >.</span><span class=n >_label_widget</span><span class=o >.</span><span class=n >label</span> <span class=o >=</span> <span class=n >label</span>
 
-    <span class=k >def</span> <span class=nf >_on_label_change</span><span class=p >(</span><span class=bp >self</span><span class=p >,</span> <span class=n >event</span><span class=p >):</span>
-        <span class=bp >self</span><span class=o >.</span><span class=n >_label_widget</span><span class=o >.</span><span class=n >value</span> <span class=o >=</span> <span class=n >event</span><span class=o >.</span><span class=n >value</span>
+    <span class=k >def</span> <span class=nf >_on_label_change</span><span class=p >(</span><span class=bp >self</span><span class=p >,</span> <span class=n >value</span><span class=p >:</span> <span class=nb >str</span><span class=p >):</span>
+        <span class=bp >self</span><span class=o >.</span><span class=n >_label_widget</span><span class=o >.</span><span class=n >value</span> <span class=o >=</span> <span class=n >value</span>
 
     <span class=nd >@property</span>
     <span class=k >def</span> <span class=nf >label_width</span><span class=p >(</span><span class=bp >self</span><span class=p >):</span>

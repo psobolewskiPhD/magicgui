@@ -75,9 +75,11 @@
    
       ~FileEdit.NO_VALUE
       ~FileEdit.annotation
+      ~FileEdit.changed
       ~FileEdit.enabled
       ~FileEdit.height
       ~FileEdit.label
+      ~FileEdit.label_changed
       ~FileEdit.labels
       ~FileEdit.layout
       ~FileEdit.margins
@@ -91,6 +93,7 @@
       ~FileEdit.orientation
       ~FileEdit.param_kind
       ~FileEdit.parent
+      ~FileEdit.parent_changed
       ~FileEdit.tooltip
       ~FileEdit.value
       ~FileEdit.visible

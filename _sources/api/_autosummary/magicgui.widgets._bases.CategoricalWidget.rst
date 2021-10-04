@@ -59,11 +59,13 @@
    .. autosummary::
    
       ~CategoricalWidget.annotation
+      ~CategoricalWidget.changed
       ~CategoricalWidget.choices
       ~CategoricalWidget.current_choice
       ~CategoricalWidget.enabled
       ~CategoricalWidget.height
       ~CategoricalWidget.label
+      ~CategoricalWidget.label_changed
       ~CategoricalWidget.max_height
       ~CategoricalWidget.max_width
       ~CategoricalWidget.min_height
@@ -74,6 +76,7 @@
       ~CategoricalWidget.options
       ~CategoricalWidget.param_kind
       ~CategoricalWidget.parent
+      ~CategoricalWidget.parent_changed
       ~CategoricalWidget.tooltip
       ~CategoricalWidget.value
       ~CategoricalWidget.visible

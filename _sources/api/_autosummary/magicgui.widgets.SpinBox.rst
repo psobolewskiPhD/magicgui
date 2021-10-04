@@ -47,9 +47,11 @@
    .. autosummary::
    
       ~SpinBox.annotation
+      ~SpinBox.changed
       ~SpinBox.enabled
       ~SpinBox.height
       ~SpinBox.label
+      ~SpinBox.label_changed
       ~SpinBox.max
       ~SpinBox.max_height
       ~SpinBox.max_width
@@ -61,6 +63,7 @@
       ~SpinBox.options
       ~SpinBox.param_kind
       ~SpinBox.parent
+      ~SpinBox.parent_changed
       ~SpinBox.range
       ~SpinBox.step
       ~SpinBox.tooltip

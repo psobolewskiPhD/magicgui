@@ -23,7 +23,7 @@
 <span class=p >)</span>
 
 <span class=kn >from</span> <span class=nn >magicgui.application</span> <span class=kn >import</span> <span class=n >AppRef</span>
-<span class=kn >from</span> <span class=nn >magicgui.events</span> <span class=kn >import</span> <span class=n >EventEmitter</span>
+<span class=kn >from</span> <span class=nn >magicgui.events</span> <span class=kn >import</span> <span class=n >Signal</span>
 <span class=kn >from</span> <span class=nn >magicgui.signature</span> <span class=kn >import</span> <span class=n >MagicSignature</span><span class=p >,</span> <span class=n >magic_signature</span>
 <span class=kn >from</span> <span class=nn >magicgui.widgets</span> <span class=kn >import</span> <span class=n >Container</span><span class=p >,</span> <span class=n >LineEdit</span><span class=p >,</span> <span class=n >MainWindow</span><span class=p >,</span> <span class=n >ProgressBar</span><span class=p >,</span> <span class=n >PushButton</span>
 <span class=kn >from</span> <span class=nn >magicgui.widgets._protocols</span> <span class=kn >import</span> <span class=n >ContainerProtocol</span><span class=p >,</span> <span class=n >MainWindowProtocol</span>
@@ -107,6 +107,7 @@
 <span class=sd >        If unexpected keyword arguments are provided</span>
 <span class=sd >    """</span>
 
+    <span class=n >called</span> <span class=o >=</span> <span class=n >Signal</span><span class=p >(</span><span class=nb >object</span><span class=p >)</span>
     <span class=n >_widget</span><span class=p >:</span> <span class=n >ContainerProtocol</span>
 
     <span class=k >def</span> <span class=fm >__init__</span><span class=p >(</span>
@@ -163,7 +164,6 @@
             <span class=n >name</span><span class=o >=</span><span class=n >name</span> <span class=ow >or</span> <span class=bp >self</span><span class=o >.</span><span class=n >_callable_name</span><span class=p >,</span>
         <span class=p >)</span>
         <span class=bp >self</span><span class=o >.</span><span class=n >_param_options</span> <span class=o >=</span> <span class=n >param_options</span>
-        <span class=bp >self</span><span class=o >.</span><span class=n >called</span> <span class=o >=</span> <span class=n >EventEmitter</span><span class=p >(</span><span class=bp >self</span><span class=p >,</span> <span class=nb >type</span><span class=o >=</span><span class=s2 >"called"</span><span class=p >)</span>
         <span class=bp >self</span><span class=o >.</span><span class=n >_result_name</span> <span class=o >=</span> <span class=s2 >""</span>
         <span class=bp >self</span><span class=o >.</span><span class=n >_call_count</span><span class=p >:</span> <span class=nb >int</span> <span class=o >=</span> <span class=mi >0</span>
 
@@ -180,7 +180,8 @@
             <span class=bp >self</span><span class=o >.</span><span class=n >_call_button</span> <span class=o >=</span> <span class=n >PushButton</span><span class=p >(</span><span class=n >gui_only</span><span class=o >=</span><span class=kc >True</span><span class=p >,</span> <span class=n >text</span><span class=o >=</span><span class=n >text</span><span class=p >,</span> <span class=n >name</span><span class=o >=</span><span class=s2 >"call_button"</span><span class=p >)</span>
             <span class=k >if</span> <span class=ow >not</span> <span class=n >auto_call</span><span class=p >:</span>  <span class=c1 ># (otherwise it already gets called)</span>
 
-                <span class=k >def</span> <span class=nf >_disable_button_and_call</span><span class=p >(</span><span class=n >val</span><span class=p >):</span>
+                <span class=nd >@self</span><span class=o >.</span><span class=n >_call_button</span><span class=o >.</span><span class=n >changed</span><span class=o >.</span><span class=n >connect</span>
+                <span class=k >def</span> <span class=nf >_disable_button_and_call</span><span class=p >():</span>
                     <span class=c1 ># disable the call button until the function has finished</span>
                     <span class=bp >self</span><span class=o >.</span><span class=n >_call_button</span> <span class=o >=</span> <span class=n >cast</span><span class=p >(</span><span class=n >PushButton</span><span class=p >,</span> <span class=bp >self</span><span class=o >.</span><span class=n >_call_button</span><span class=p >)</span>
                     <span class=bp >self</span><span class=o >.</span><span class=n >_call_button</span><span class=o >.</span><span class=n >enabled</span> <span class=o >=</span> <span class=kc >False</span>
@@ -189,7 +190,6 @@
                     <span class=k >finally</span><span class=p >:</span>
                         <span class=bp >self</span><span class=o >.</span><span class=n >_call_button</span><span class=o >.</span><span class=n >enabled</span> <span class=o >=</span> <span class=kc >True</span>
 
-                <span class=bp >self</span><span class=o >.</span><span class=n >_call_button</span><span class=o >.</span><span class=n >changed</span><span class=o >.</span><span class=n >connect</span><span class=p >(</span><span class=n >_disable_button_and_call</span><span class=p >)</span>
             <span class=bp >self</span><span class=o >.</span><span class=n >append</span><span class=p >(</span><span class=bp >self</span><span class=o >.</span><span class=n >_call_button</span><span class=p >)</span>
 
         <span class=bp >self</span><span class=o >.</span><span class=n >_result_widget</span><span class=p >:</span> <span class=n >LineEdit</span> <span class=o >|</span> <span class=kc >None</span> <span class=o >=</span> <span class=kc >None</span>
@@ -204,7 +204,7 @@
         <span class=bp >self</span><span class=o >.</span><span class=n >_auto_call</span> <span class=o >=</span> <span class=n >auto_call</span>
         <span class=bp >self</span><span class=o >.</span><span class=n >changed</span><span class=o >.</span><span class=n >connect</span><span class=p >(</span><span class=bp >self</span><span class=o >.</span><span class=n >_on_change</span><span class=p >)</span>
 
-    <span class=k >def</span> <span class=nf >_on_change</span><span class=p >(</span><span class=bp >self</span><span class=p >,</span> <span class=n >e</span><span class=p >):</span>
+    <span class=k >def</span> <span class=nf >_on_change</span><span class=p >(</span><span class=bp >self</span><span class=p >):</span>
         <span class=k >if</span> <span class=bp >self</span><span class=o >.</span><span class=n >persist</span><span class=p >:</span>
             <span class=bp >self</span><span class=o >.</span><span class=n >_dump</span><span class=p >()</span>
         <span class=k >if</span> <span class=bp >self</span><span class=o >.</span><span class=n >_auto_call</span><span class=p >:</span>
@@ -287,7 +287,7 @@
 
         <span class=bp >self</span><span class=o >.</span><span class=n >_call_count</span> <span class=o >+=</span> <span class=mi >1</span>
         <span class=k >if</span> <span class=bp >self</span><span class=o >.</span><span class=n >_result_widget</span> <span class=ow >is</span> <span class=ow >not</span> <span class=kc >None</span><span class=p >:</span>
-            <span class=k >with</span> <span class=bp >self</span><span class=o >.</span><span class=n >_result_widget</span><span class=o >.</span><span class=n >changed</span><span class=o >.</span><span class=n >blocker</span><span class=p >():</span>
+            <span class=k >with</span> <span class=bp >self</span><span class=o >.</span><span class=n >_result_widget</span><span class=o >.</span><span class=n >changed</span><span class=o >.</span><span class=n >blocked</span><span class=p >():</span>
                 <span class=bp >self</span><span class=o >.</span><span class=n >_result_widget</span><span class=o >.</span><span class=n >value</span> <span class=o >=</span> <span class=n >value</span>
 
         <span class=n >return_type</span> <span class=o >=</span> <span class=n >sig</span><span class=o >.</span><span class=n >return_annotation</span>
@@ -296,7 +296,7 @@
 
             <span class=k >for</span> <span class=n >callback</span> <span class=ow >in</span> <span class=n >_type2callback</span><span class=p >(</span><span class=n >return_type</span><span class=p >):</span>
                 <span class=n >callback</span><span class=p >(</span><span class=bp >self</span><span class=p >,</span> <span class=n >value</span><span class=p >,</span> <span class=n >return_type</span><span class=p >)</span>
-        <span class=bp >self</span><span class=o >.</span><span class=n >called</span><span class=p >(</span><span class=n >value</span><span class=o >=</span><span class=n >value</span><span class=p >)</span>
+        <span class=bp >self</span><span class=o >.</span><span class=n >called</span><span class=o >.</span><span class=n >emit</span><span class=p >(</span><span class=n >value</span><span class=p >)</span>
         <span class=k >return</span> <span class=n >value</span>
 
     <span class=k >def</span> <span class=fm >__repr__</span><span class=p >(</span><span class=bp >self</span><span class=p >)</span> <span class=o >-&gt;</span> <span class=nb >str</span><span class=p >:</span>

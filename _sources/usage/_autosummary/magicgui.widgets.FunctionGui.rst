@@ -82,9 +82,12 @@
       ~FunctionGui.NO_VALUE
       ~FunctionGui.annotation
       ~FunctionGui.call_count
+      ~FunctionGui.called
+      ~FunctionGui.changed
       ~FunctionGui.enabled
       ~FunctionGui.height
       ~FunctionGui.label
+      ~FunctionGui.label_changed
       ~FunctionGui.labels
       ~FunctionGui.layout
       ~FunctionGui.margins
@@ -97,6 +100,7 @@
       ~FunctionGui.orientation
       ~FunctionGui.param_kind
       ~FunctionGui.parent
+      ~FunctionGui.parent_changed
       ~FunctionGui.result_name
       ~FunctionGui.return_annotation
       ~FunctionGui.tooltip

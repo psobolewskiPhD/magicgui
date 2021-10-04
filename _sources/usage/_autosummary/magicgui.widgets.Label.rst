@@ -47,9 +47,11 @@
    .. autosummary::
    
       ~Label.annotation
+      ~Label.changed
       ~Label.enabled
       ~Label.height
       ~Label.label
+      ~Label.label_changed
       ~Label.max_height
       ~Label.max_width
       ~Label.min_height
@@ -59,6 +61,7 @@
       ~Label.options
       ~Label.param_kind
       ~Label.parent
+      ~Label.parent_changed
       ~Label.tooltip
       ~Label.value
       ~Label.visible

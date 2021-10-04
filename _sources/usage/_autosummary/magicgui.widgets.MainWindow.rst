@@ -78,9 +78,11 @@
    
       ~MainWindow.NO_VALUE
       ~MainWindow.annotation
+      ~MainWindow.changed
       ~MainWindow.enabled
       ~MainWindow.height
       ~MainWindow.label
+      ~MainWindow.label_changed
       ~MainWindow.labels
       ~MainWindow.layout
       ~MainWindow.margins
@@ -93,6 +95,7 @@
       ~MainWindow.orientation
       ~MainWindow.param_kind
       ~MainWindow.parent
+      ~MainWindow.parent_changed
       ~MainWindow.tooltip
       ~MainWindow.visible
       ~MainWindow.widget_type

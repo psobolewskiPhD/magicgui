@@ -47,9 +47,11 @@
    .. autosummary::
    
       ~ValueWidget.annotation
+      ~ValueWidget.changed
       ~ValueWidget.enabled
       ~ValueWidget.height
       ~ValueWidget.label
+      ~ValueWidget.label_changed
       ~ValueWidget.max_height
       ~ValueWidget.max_width
       ~ValueWidget.min_height
@@ -59,6 +61,7 @@
       ~ValueWidget.options
       ~ValueWidget.param_kind
       ~ValueWidget.parent
+      ~ValueWidget.parent_changed
       ~ValueWidget.tooltip
       ~ValueWidget.value
       ~ValueWidget.visible

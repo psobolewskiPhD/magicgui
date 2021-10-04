@@ -47,10 +47,12 @@
    .. autosummary::
    
       ~RadioButton.annotation
+      ~RadioButton.changed
       ~RadioButton.clicked
       ~RadioButton.enabled
       ~RadioButton.height
       ~RadioButton.label
+      ~RadioButton.label_changed
       ~RadioButton.max_height
       ~RadioButton.max_width
       ~RadioButton.min_height
@@ -60,6 +62,7 @@
       ~RadioButton.options
       ~RadioButton.param_kind
       ~RadioButton.parent
+      ~RadioButton.parent_changed
       ~RadioButton.text
       ~RadioButton.tooltip
       ~RadioButton.value

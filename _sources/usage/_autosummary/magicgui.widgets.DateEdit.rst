@@ -47,9 +47,11 @@
    .. autosummary::
    
       ~DateEdit.annotation
+      ~DateEdit.changed
       ~DateEdit.enabled
       ~DateEdit.height
       ~DateEdit.label
+      ~DateEdit.label_changed
       ~DateEdit.max_height
       ~DateEdit.max_width
       ~DateEdit.min_height
@@ -59,6 +61,7 @@
       ~DateEdit.options
       ~DateEdit.param_kind
       ~DateEdit.parent
+      ~DateEdit.parent_changed
       ~DateEdit.tooltip
       ~DateEdit.value
       ~DateEdit.visible

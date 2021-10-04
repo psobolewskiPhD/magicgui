@@ -47,9 +47,11 @@
    .. autosummary::
    
       ~TimeEdit.annotation
+      ~TimeEdit.changed
       ~TimeEdit.enabled
       ~TimeEdit.height
       ~TimeEdit.label
+      ~TimeEdit.label_changed
       ~TimeEdit.max_height
       ~TimeEdit.max_width
       ~TimeEdit.min_height
@@ -59,6 +61,7 @@
       ~TimeEdit.options
       ~TimeEdit.param_kind
       ~TimeEdit.parent
+      ~TimeEdit.parent_changed
       ~TimeEdit.tooltip
       ~TimeEdit.value
       ~TimeEdit.visible

@@ -55,7 +55,7 @@
         <span class=n >d</span><span class=o >.</span><span class=n >update</span><span class=p >({</span><span class=s2 >"choices"</span><span class=p >:</span> <span class=bp >self</span><span class=o >.</span><span class=n >_default_choices</span><span class=p >})</span>
         <span class=k >return</span> <span class=n >d</span>
 
-    <span class=k >def</span> <span class=nf >reset_choices</span><span class=p >(</span><span class=bp >self</span><span class=p >,</span> <span class=n >event</span><span class=o >=</span><span class=kc >None</span><span class=p >):</span>
+    <span class=k >def</span> <span class=nf >reset_choices</span><span class=p >(</span><span class=bp >self</span><span class=p >,</span> <span class=o >*</span><span class=n >_</span><span class=p >:</span> <span class=n >Any</span><span class=p >):</span>
         <span class=sd >"""Reset choices to the default state.</span>
 
 <span class=sd >        If self._default_choices is a callable, this may NOT be the exact same set of</span>
@@ -82,7 +82,7 @@
         <span class=n >data</span> <span class=o >=</span> <span class=n >data</span> <span class=k >if</span> <span class=n >data</span> <span class=ow >is</span> <span class=ow >not</span> <span class=kc >None</span> <span class=k >else</span> <span class=n >choice_name</span>
         <span class=bp >self</span><span class=o >.</span><span class=n >_widget</span><span class=o >.</span><span class=n >_mgui_set_choice</span><span class=p >(</span><span class=n >choice_name</span><span class=p >,</span> <span class=n >data</span><span class=p >)</span>
         <span class=k >if</span> <span class=n >choice_name</span> <span class=o >==</span> <span class=bp >self</span><span class=o >.</span><span class=n >current_choice</span><span class=p >:</span>
-            <span class=bp >self</span><span class=o >.</span><span class=n >changed</span><span class=p >(</span><span class=n >value</span><span class=o >=</span><span class=bp >self</span><span class=o >.</span><span class=n >value</span><span class=p >)</span>
+            <span class=bp >self</span><span class=o >.</span><span class=n >changed</span><span class=o >.</span><span class=n >emit</span><span class=p >(</span><span class=bp >self</span><span class=o >.</span><span class=n >value</span><span class=p >)</span>
 
     <span class=k >def</span> <span class=nf >del_choice</span><span class=p >(</span><span class=bp >self</span><span class=p >,</span> <span class=n >choice_name</span><span class=p >:</span> <span class=nb >str</span><span class=p >):</span>
         <span class=sd >"""Delete the provided ``choice_name`` and associated data."""</span>

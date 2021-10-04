@@ -75,9 +75,11 @@
    
       ~SliceEdit.NO_VALUE
       ~SliceEdit.annotation
+      ~SliceEdit.changed
       ~SliceEdit.enabled
       ~SliceEdit.height
       ~SliceEdit.label
+      ~SliceEdit.label_changed
       ~SliceEdit.labels
       ~SliceEdit.layout
       ~SliceEdit.margins
@@ -90,6 +92,7 @@
       ~SliceEdit.orientation
       ~SliceEdit.param_kind
       ~SliceEdit.parent
+      ~SliceEdit.parent_changed
       ~SliceEdit.tooltip
       ~SliceEdit.value
       ~SliceEdit.visible

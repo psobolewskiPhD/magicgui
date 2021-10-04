@@ -47,9 +47,11 @@
    .. autosummary::
    
       ~RangedWidget.annotation
+      ~RangedWidget.changed
       ~RangedWidget.enabled
       ~RangedWidget.height
       ~RangedWidget.label
+      ~RangedWidget.label_changed
       ~RangedWidget.max
       ~RangedWidget.max_height
       ~RangedWidget.max_width
@@ -61,6 +63,7 @@
       ~RangedWidget.options
       ~RangedWidget.param_kind
       ~RangedWidget.parent
+      ~RangedWidget.parent_changed
       ~RangedWidget.range
       ~RangedWidget.step
       ~RangedWidget.tooltip

@@ -47,10 +47,12 @@
    .. autosummary::
    
       ~CheckBox.annotation
+      ~CheckBox.changed
       ~CheckBox.clicked
       ~CheckBox.enabled
       ~CheckBox.height
       ~CheckBox.label
+      ~CheckBox.label_changed
       ~CheckBox.max_height
       ~CheckBox.max_width
       ~CheckBox.min_height
@@ -60,6 +62,7 @@
       ~CheckBox.options
       ~CheckBox.param_kind
       ~CheckBox.parent
+      ~CheckBox.parent_changed
       ~CheckBox.text
       ~CheckBox.tooltip
       ~CheckBox.value

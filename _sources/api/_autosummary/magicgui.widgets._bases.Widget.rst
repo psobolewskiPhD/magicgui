@@ -41,6 +41,7 @@
       ~Widget.enabled
       ~Widget.height
       ~Widget.label
+      ~Widget.label_changed
       ~Widget.max_height
       ~Widget.max_width
       ~Widget.min_height
@@ -49,6 +50,7 @@
       ~Widget.options
       ~Widget.param_kind
       ~Widget.parent
+      ~Widget.parent_changed
       ~Widget.tooltip
       ~Widget.visible
       ~Widget.widget_type

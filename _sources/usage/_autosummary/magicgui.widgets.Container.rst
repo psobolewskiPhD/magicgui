@@ -75,9 +75,11 @@
    
       ~Container.NO_VALUE
       ~Container.annotation
+      ~Container.changed
       ~Container.enabled
       ~Container.height
       ~Container.label
+      ~Container.label_changed
       ~Container.labels
       ~Container.layout
       ~Container.margins
@@ -90,6 +92,7 @@
       ~Container.orientation
       ~Container.param_kind
       ~Container.parent
+      ~Container.parent_changed
       ~Container.tooltip
       ~Container.visible
       ~Container.widget_type

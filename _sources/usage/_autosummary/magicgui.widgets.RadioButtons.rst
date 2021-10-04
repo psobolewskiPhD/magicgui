@@ -59,11 +59,13 @@
    .. autosummary::
    
       ~RadioButtons.annotation
+      ~RadioButtons.changed
       ~RadioButtons.choices
       ~RadioButtons.current_choice
       ~RadioButtons.enabled
       ~RadioButtons.height
       ~RadioButtons.label
+      ~RadioButtons.label_changed
       ~RadioButtons.max_height
       ~RadioButtons.max_width
       ~RadioButtons.min_height
@@ -75,6 +77,7 @@
       ~RadioButtons.orientation
       ~RadioButtons.param_kind
       ~RadioButtons.parent
+      ~RadioButtons.parent_changed
       ~RadioButtons.tooltip
       ~RadioButtons.value
       ~RadioButtons.visible

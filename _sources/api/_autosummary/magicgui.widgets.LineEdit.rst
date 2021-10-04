@@ -47,9 +47,11 @@
    .. autosummary::
    
       ~LineEdit.annotation
+      ~LineEdit.changed
       ~LineEdit.enabled
       ~LineEdit.height
       ~LineEdit.label
+      ~LineEdit.label_changed
       ~LineEdit.max_height
       ~LineEdit.max_width
       ~LineEdit.min_height
@@ -59,6 +61,7 @@
       ~LineEdit.options
       ~LineEdit.param_kind
       ~LineEdit.parent
+      ~LineEdit.parent_changed
       ~LineEdit.tooltip
       ~LineEdit.value
       ~LineEdit.visible

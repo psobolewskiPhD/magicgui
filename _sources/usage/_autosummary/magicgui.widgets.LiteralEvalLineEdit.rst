@@ -47,9 +47,11 @@
    .. autosummary::
    
       ~LiteralEvalLineEdit.annotation
+      ~LiteralEvalLineEdit.changed
       ~LiteralEvalLineEdit.enabled
       ~LiteralEvalLineEdit.height
       ~LiteralEvalLineEdit.label
+      ~LiteralEvalLineEdit.label_changed
       ~LiteralEvalLineEdit.max_height
       ~LiteralEvalLineEdit.max_width
       ~LiteralEvalLineEdit.min_height
@@ -59,6 +61,7 @@
       ~LiteralEvalLineEdit.options
       ~LiteralEvalLineEdit.param_kind
       ~LiteralEvalLineEdit.parent
+      ~LiteralEvalLineEdit.parent_changed
       ~LiteralEvalLineEdit.tooltip
       ~LiteralEvalLineEdit.value
       ~LiteralEvalLineEdit.visible

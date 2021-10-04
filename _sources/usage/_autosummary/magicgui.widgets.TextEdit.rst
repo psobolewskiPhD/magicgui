@@ -47,9 +47,11 @@
    .. autosummary::
    
       ~TextEdit.annotation
+      ~TextEdit.changed
       ~TextEdit.enabled
       ~TextEdit.height
       ~TextEdit.label
+      ~TextEdit.label_changed
       ~TextEdit.max_height
       ~TextEdit.max_width
       ~TextEdit.min_height
@@ -59,6 +61,7 @@
       ~TextEdit.options
       ~TextEdit.param_kind
       ~TextEdit.parent
+      ~TextEdit.parent_changed
       ~TextEdit.read_only
       ~TextEdit.tooltip
       ~TextEdit.value

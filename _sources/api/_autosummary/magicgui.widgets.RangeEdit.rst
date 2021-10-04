@@ -75,9 +75,11 @@
    
       ~RangeEdit.NO_VALUE
       ~RangeEdit.annotation
+      ~RangeEdit.changed
       ~RangeEdit.enabled
       ~RangeEdit.height
       ~RangeEdit.label
+      ~RangeEdit.label_changed
       ~RangeEdit.labels
       ~RangeEdit.layout
       ~RangeEdit.margins
@@ -90,6 +92,7 @@
       ~RangeEdit.orientation
       ~RangeEdit.param_kind
       ~RangeEdit.parent
+      ~RangeEdit.parent_changed
       ~RangeEdit.tooltip
       ~RangeEdit.value
       ~RangeEdit.visible

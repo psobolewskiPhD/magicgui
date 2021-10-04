@@ -47,9 +47,11 @@
    .. autosummary::
    
       ~FloatSlider.annotation
+      ~FloatSlider.changed
       ~FloatSlider.enabled
       ~FloatSlider.height
       ~FloatSlider.label
+      ~FloatSlider.label_changed
       ~FloatSlider.max
       ~FloatSlider.max_height
       ~FloatSlider.max_width
@@ -62,6 +64,7 @@
       ~FloatSlider.orientation
       ~FloatSlider.param_kind
       ~FloatSlider.parent
+      ~FloatSlider.parent_changed
       ~FloatSlider.range
       ~FloatSlider.readout
       ~FloatSlider.step

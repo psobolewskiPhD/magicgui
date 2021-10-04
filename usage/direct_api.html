@@ -8,10 +8,10 @@
 <span class=n >label</span> <span class=o >=</span> <span class=n >Label</span><span class=p >(</span><span class=n >value</span><span class=o >=</span><span class=n >slider</span><span class=o >.</span><span class=n >value</span><span class=p >)</span>
 
 <span class=c1 ># set up callbacks</span>
-<span class=k >def</span> <span class=nf >set_label</span><span class=p >(</span><span class=n >event</span><span class=p >):</span>
-    <span class=n >label</span><span class=o >.</span><span class=n >value</span> <span class=o >=</span> <span class=n >event</span><span class=o >.</span><span class=n >value</span>
+<span class=nd >@slider</span><span class=o >.</span><span class=n >changed</span><span class=o >.</span><span class=n >connect</span>
+<span class=k >def</span> <span class=nf >set_label</span><span class=p >(</span><span class=n >value</span><span class=p >:</span> <span class=nb >str</span><span class=p >):</span>
+    <span class=n >label</span><span class=o >.</span><span class=n >value</span> <span class=o >=</span> <span class=n >value</span>
 
-<span class=n >slider</span><span class=o >.</span><span class=n >changed</span><span class=o >.</span><span class=n >connect</span><span class=p >(</span><span class=n >set_label</span><span class=p >)</span>
 
 <span class=c1 ># create a container to hold the widgets:</span>
 <span class=n >container</span> <span class=o >=</span> <span class=n >Container</span><span class=p >(</span><span class=n >widgets</span><span class=o >=</span><span class=p >[</span><span class=n >spin_box</span><span class=p >,</span> <span class=n >file_picker</span><span class=p >,</span> <span class=n >slider</span><span class=p >,</span> <span class=n >label</span><span class=p >])</span>

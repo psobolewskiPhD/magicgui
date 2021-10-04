@@ -59,11 +59,13 @@
    .. autosummary::
    
       ~ComboBox.annotation
+      ~ComboBox.changed
       ~ComboBox.choices
       ~ComboBox.current_choice
       ~ComboBox.enabled
       ~ComboBox.height
       ~ComboBox.label
+      ~ComboBox.label_changed
       ~ComboBox.max_height
       ~ComboBox.max_width
       ~ComboBox.min_height
@@ -74,6 +76,7 @@
       ~ComboBox.options
       ~ComboBox.param_kind
       ~ComboBox.parent
+      ~ComboBox.parent_changed
       ~ComboBox.tooltip
       ~ComboBox.value
       ~ComboBox.visible

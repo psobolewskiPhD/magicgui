@@ -47,10 +47,12 @@
    .. autosummary::
    
       ~ButtonWidget.annotation
+      ~ButtonWidget.changed
       ~ButtonWidget.clicked
       ~ButtonWidget.enabled
       ~ButtonWidget.height
       ~ButtonWidget.label
+      ~ButtonWidget.label_changed
       ~ButtonWidget.max_height
       ~ButtonWidget.max_width
       ~ButtonWidget.min_height
@@ -60,6 +62,7 @@
       ~ButtonWidget.options
       ~ButtonWidget.param_kind
       ~ButtonWidget.parent
+      ~ButtonWidget.parent_changed
       ~ButtonWidget.text
       ~ButtonWidget.tooltip
       ~ButtonWidget.value

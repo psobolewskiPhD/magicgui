@@ -48,9 +48,11 @@
    
       ~LogSlider.annotation
       ~LogSlider.base
+      ~LogSlider.changed
       ~LogSlider.enabled
       ~LogSlider.height
       ~LogSlider.label
+      ~LogSlider.label_changed
       ~LogSlider.max
       ~LogSlider.max_height
       ~LogSlider.max_width
@@ -62,6 +64,7 @@
       ~LogSlider.options
       ~LogSlider.param_kind
       ~LogSlider.parent
+      ~LogSlider.parent_changed
       ~LogSlider.range
       ~LogSlider.step
       ~LogSlider.tooltip
