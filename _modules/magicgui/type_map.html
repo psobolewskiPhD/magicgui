@@ -200,7 +200,8 @@
                 <span class=n >widget_type</span> <span class=o >=</span> <span class=s2 >"RadioButtons"</span>
                 <span class=n >warnings</span><span class=o >.</span><span class=n >warn</span><span class=p >(</span>
                     <span class=sa >f</span><span class=s2 >"widget_type of 'RadioButton' (with dtype </span><span class=si >{</span><span class=n >dtype</span><span class=si >}</span><span class=s2 >) is being "</span>
-                    <span class=s2 >"coerced to 'RadioButtons' due to choices or Enum type."</span>
+                    <span class=s2 >"coerced to 'RadioButtons' due to choices or Enum type."</span><span class=p >,</span>
+                    <span class=n >stacklevel</span><span class=o >=</span><span class=mi >2</span><span class=p >,</span>
                 <span class=p >)</span>
             <span class=n >options</span><span class=o >.</span><span class=n >setdefault</span><span class=p >(</span><span class=s2 >"choices"</span><span class=p >,</span> <span class=n >choices</span><span class=p >)</span>
         <span class=k >return</span> <span class=n >widget_type</span><span class=p >,</span> <span class=n >options</span>
@@ -366,7 +367,8 @@
             <span class=k >if</span> <span class=n >widget_type</span> <span class=ow >is</span> <span class=ow >not</span> <span class=kc >None</span><span class=p >:</span>
                 <span class=n >warnings</span><span class=o >.</span><span class=n >warn</span><span class=p >(</span>
                     <span class=s2 >"Providing `choices` overrides `widget_type`. Categorical widget "</span>
-                    <span class=sa >f</span><span class=s2 >"will be used for type </span><span class=si >{</span><span class=n >_type_</span><span class=si >}</span><span class=s2 >"</span>
+                    <span class=sa >f</span><span class=s2 >"will be used for type </span><span class=si >{</span><span class=n >_type_</span><span class=si >}</span><span class=s2 >"</span><span class=p >,</span>
+                    <span class=n >stacklevel</span><span class=o >=</span><span class=mi >2</span><span class=p >,</span>
                 <span class=p >)</span>
         <span class=k >elif</span> <span class=n >widget_type</span> <span class=ow >is</span> <span class=ow >not</span> <span class=kc >None</span><span class=p >:</span>
 
