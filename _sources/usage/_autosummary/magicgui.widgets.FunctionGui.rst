@@ -17,6 +17,9 @@
       ~FunctionGui.append
       
       
+      ~FunctionGui.asdict
+      
+      
       ~FunctionGui.clear
       
       
@@ -69,6 +72,9 @@
       
       
       ~FunctionGui.shown
+      
+      
+      ~FunctionGui.update
       
    
    
