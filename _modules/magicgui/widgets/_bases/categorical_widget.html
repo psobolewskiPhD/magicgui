@@ -19,9 +19,11 @@
 
     <span class=n >_widget</span><span class=p >:</span> <span class=n >_protocols</span><span class=o >.</span><span class=n >CategoricalWidgetProtocol</span>
     <span class=n >null_string</span><span class=p >:</span> <span class=nb >str</span> <span class=o >=</span> <span class=s2 >"-----"</span>
+    <span class=n >_allow_multiple</span> <span class=o >=</span> <span class=kc >False</span>
 
-    <span class=k >def</span> <span class=fm >__init__</span><span class=p >(</span><span class=bp >self</span><span class=p >,</span> <span class=n >choices</span><span class=p >:</span> <span class=n >ChoicesType</span> <span class=o >=</span> <span class=p >(),</span> <span class=n >allow_multiple</span><span class=o >=</span><span class=kc >False</span><span class=p >,</span> <span class=o >**</span><span class=n >kwargs</span><span class=p >):</span>
-        <span class=bp >self</span><span class=o >.</span><span class=n >_allow_multiple</span> <span class=o >=</span> <span class=n >allow_multiple</span>
+    <span class=k >def</span> <span class=fm >__init__</span><span class=p >(</span><span class=bp >self</span><span class=p >,</span> <span class=n >choices</span><span class=p >:</span> <span class=n >ChoicesType</span> <span class=o >=</span> <span class=p >(),</span> <span class=n >allow_multiple</span><span class=o >=</span><span class=kc >None</span><span class=p >,</span> <span class=o >**</span><span class=n >kwargs</span><span class=p >):</span>
+        <span class=k >if</span> <span class=n >allow_multiple</span> <span class=ow >is</span> <span class=ow >not</span> <span class=kc >None</span><span class=p >:</span>
+            <span class=bp >self</span><span class=o >.</span><span class=n >_allow_multiple</span> <span class=o >=</span> <span class=n >allow_multiple</span>
         <span class=bp >self</span><span class=o >.</span><span class=n >_default_choices</span> <span class=o >=</span> <span class=n >choices</span>
         <span class=nb >super</span><span class=p >()</span><span class=o >.</span><span class=fm >__init__</span><span class=p >(</span><span class=o >**</span><span class=n >kwargs</span><span class=p >)</span>
 
