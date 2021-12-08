@@ -12,16 +12,27 @@
 <span class=sd >    ----------</span>
 <span class=sd >    orientation : str, {'horizontal', 'vertical'}</span>
 <span class=sd >        The orientation for the slider, by default "horizontal"</span>
+<span class=sd >    readout : bool, optional</span>
+<span class=sd >        Whether to show the editable spinbox next to the slider</span>
+<span class=sd >    tracking : bool, optional</span>
+<span class=sd >        If tracking is enabled (the default), the slider emits the `changed`</span>
+<span class=sd >        signal while the slider is being dragged. If tracking is disabled,</span>
+<span class=sd >        the slider emits the `changed` signal only after the user releases</span>
+<span class=sd >        the slider.</span>
 <span class=sd >    """</span>
 
     <span class=n >_widget</span><span class=p >:</span> <span class=n >_protocols</span><span class=o >.</span><span class=n >SliderWidgetProtocol</span>
 
     <span class=k >def</span> <span class=fm >__init__</span><span class=p >(</span>
-        <span class=bp >self</span><span class=p >,</span> <span class=n >orientation</span><span class=p >:</span> <span class=nb >str</span> <span class=o >=</span> <span class=s2 >"horizontal"</span><span class=p >,</span> <span class=n >readout</span><span class=o >=</span><span class=kc >True</span><span class=p >,</span> <span class=n >tracking</span><span class=o >=</span><span class=kc >True</span><span class=p >,</span> <span class=o >**</span><span class=n >kwargs</span>
+        <span class=bp >self</span><span class=p >,</span>
+        <span class=n >orientation</span><span class=p >:</span> <span class=nb >str</span> <span class=o >=</span> <span class=s2 >"horizontal"</span><span class=p >,</span>
+        <span class=n >readout</span><span class=p >:</span> <span class=nb >bool</span> <span class=o >=</span> <span class=kc >True</span><span class=p >,</span>
+        <span class=n >tracking</span><span class=p >:</span> <span class=nb >bool</span> <span class=o >=</span> <span class=kc >True</span><span class=p >,</span>
+        <span class=o >**</span><span class=n >kwargs</span>
     <span class=p >):</span>
         <span class=n >kwargs</span><span class=p >[</span><span class=s2 >"backend_kwargs"</span><span class=p >]</span> <span class=o >=</span> <span class=p >{</span><span class=s2 >"readout"</span><span class=p >:</span> <span class=n >readout</span><span class=p >,</span> <span class=s2 >"orientation"</span><span class=p >:</span> <span class=n >orientation</span><span class=p >}</span>
-        <span class=bp >self</span><span class=o >.</span><span class=n >_readout</span> <span class=o >=</span> <span class=n >readout</span>
         <span class=nb >super</span><span class=p >()</span><span class=o >.</span><span class=fm >__init__</span><span class=p >(</span><span class=o >**</span><span class=n >kwargs</span><span class=p >)</span>
+        <span class=bp >self</span><span class=o >.</span><span class=n >readout</span> <span class=o >=</span> <span class=n >readout</span>
         <span class=bp >self</span><span class=o >.</span><span class=n >tracking</span> <span class=o >=</span> <span class=n >tracking</span>
 
     <span class=nd >@property</span>
