@@ -162,7 +162,7 @@
 
     <span class=k >def</span> <span class=nf >insert</span><span class=p >(</span><span class=bp >self</span><span class=p >,</span> <span class=n >key</span><span class=p >:</span> <span class=nb >int</span><span class=p >,</span> <span class=n >widget</span><span class=p >:</span> <span class=n >Widget</span><span class=p >):</span>
         <span class=sd >"""Insert widget at ``key``."""</span>
-        <span class=k >if</span> <span class=nb >isinstance</span><span class=p >(</span><span class=n >widget</span><span class=p >,</span> <span class=n >ValueWidget</span><span class=p >):</span>
+        <span class=k >if</span> <span class=nb >isinstance</span><span class=p >(</span><span class=n >widget</span><span class=p >,</span> <span class=p >(</span><span class=n >ValueWidget</span><span class=p >,</span> <span class=n >ContainerWidget</span><span class=p >)):</span>
             <span class=n >widget</span><span class=o >.</span><span class=n >changed</span><span class=o >.</span><span class=n >connect</span><span class=p >(</span><span class=k >lambda</span><span class=p >:</span> <span class=bp >self</span><span class=o >.</span><span class=n >changed</span><span class=o >.</span><span class=n >emit</span><span class=p >(</span><span class=bp >self</span><span class=p >))</span>
         <span class=n >_widget</span> <span class=o >=</span> <span class=n >widget</span>
 
