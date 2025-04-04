@@ -349,11 +349,12 @@ def test_check_new_headers():
 def test_copy(qapp):
     from qtpy.QtWidgets import QTableWidgetSelectionRange
 
-    table = Table(value=_TABLE_DATA["data"])
+    table = Table(value=_TABLE_DATA["dict"])
+    assert table.column_headers == ("col_1", "col_2", "col_3")
     selrange = QTableWidgetSelectionRange(1, 1, 0, 0)
     table.native.setRangeSelected(selrange, True)
     table.native._copy_to_clipboard()
-    assert qapp.clipboard().text() == "1\t2\n4\t5"
+    assert qapp.clipboard().text() == "col_1\tcol_2\n1\t2\n4\t5"
 
 
 def test_paste(qapp):
