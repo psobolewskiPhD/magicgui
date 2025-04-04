@@ -1395,6 +1395,14 @@ class _QTableExtended(QtW.QTableWidget):
         # copy first selection range
         sel = selranges[0]
         lines = []
+
+        # Add headers for the selected columns
+        headers = [
+            self.horizontalHeaderItem(c).text()
+            for c in range(sel.leftColumn(), sel.rightColumn() + 1)
+        ]
+        lines.append("\t".join(headers))
+
         for r in range(sel.topRow(), sel.bottomRow() + 1):
             cells = []
             for c in range(sel.leftColumn(), sel.rightColumn() + 1):
